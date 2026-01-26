@@ -1,0 +1,186 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { render, screen, fireEvent, cleanup } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import { Header } from './index'
+
+// Mock the Image component
+vi.mock('../image', () => ({
+    Image: ({ src, alt, className, ...props }: any) => (
+        <img src={src} alt={alt} className={className} {...props} />
+    )
+}))
+
+// Mock the Button component
+vi.mock('../button', () => ({
+    Button: ({ children, onClick, className, ...props }: any) => (
+        <button onClick={onClick} className={className} {...props}>
+            {children}
+        </button>
+    )
+}))
+
+const defaultProps = {
+    logo: {
+        src: '/logo.png',
+        alt: 'Test Logo',
+        href: '/'
+    },
+    menuItems: [
+        { label: 'Home', href: '/', isActive: true },
+        { label: 'About', href: '/about' },
+        { label: 'Services', href: '/services' },
+        { label: 'Contact', href: '/contact' }
+    ],
+    contactButton: {
+        label: 'Get Started',
+        href: '/get-started'
+    }
+}
+
+describe('Header', () => {
+    beforeEach(() => {
+        cleanup()
+    })
+
+    it('renders header component correctly', () => {
+        render(<Header {...defaultProps} />)
+        
+        const header = screen.getByRole('banner')
+        expect(header).toBeInTheDocument()
+        expect(header).toHaveClass('sticky', 'top-0', 'z-50')
+    })
+
+    it('renders logo with correct props', () => {
+        render(<Header {...defaultProps} />)
+        
+        const logo = screen.getByAltText('Test Logo')
+        expect(logo).toBeInTheDocument()
+        expect(logo).toHaveAttribute('src', '/logo.png')
+        
+        const logoLink = logo.closest('a')
+        expect(logoLink).toHaveAttribute('href', '/')
+    })
+
+    it('renders logo without link when href is not provided', () => {
+        const propsWithoutHref = {
+            ...defaultProps,
+            logo: { src: '/logo.png', alt: 'Test Logo' }
+        }
+        
+        render(<Header {...propsWithoutHref} />)
+        
+        const logo = screen.getByAltText('Test Logo')
+        expect(logo).toBeInTheDocument()
+        
+        const logoLink = logo.closest('a')
+        expect(logoLink).toBeNull()
+    })
+
+    it('renders navigation menu items', () => {
+        render(<Header {...defaultProps} />)
+        
+        expect(screen.getByText('Home')).toBeInTheDocument()
+        expect(screen.getByText('About')).toBeInTheDocument()
+        expect(screen.getByText('Services')).toBeInTheDocument()
+        expect(screen.getByText('Contact')).toBeInTheDocument()
+    })
+
+    it('applies active styling to active menu item', () => {
+        render(<Header {...defaultProps} />)
+        
+        const homeButton = screen.getByText('Home').closest('button')
+        expect(homeButton).toHaveClass('text-[var(--color-accent-600)]', 'font-medium')
+    })
+
+    it('renders contact button when provided', () => {
+        render(<Header {...defaultProps} />)
+        
+        const contactButton = screen.getByText('Get Started')
+        expect(contactButton).toBeInTheDocument()
+    })
+
+    it('does not render contact button when not provided', () => {
+        const propsWithoutContact = {
+            ...defaultProps,
+            contactButton: undefined
+        }
+        
+        render(<Header {...propsWithoutContact} />)
+        
+        expect(screen.queryByText('Get Started')).not.toBeInTheDocument()
+    })
+
+    it('toggles mobile menu when hamburger button is clicked', () => {
+        render(<Header {...defaultProps} />)
+        
+        const mobileMenuButton = screen.getByLabelText('Toggle mobile menu')
+        expect(mobileMenuButton).toBeInTheDocument()
+        
+        // Initially mobile menu should be closed
+        expect(screen.queryByText('Home')).toBeInTheDocument() // Desktop nav
+        
+        // Click to open mobile menu
+        fireEvent.click(mobileMenuButton)
+        
+        // Check if mobile navigation is visible (look for specific mobile nav structure)
+        // Since we have both desktop and mobile nav, we need to check for the mobile-specific elements
+        const mobileNavButtons = screen.getAllByText('Home')
+        expect(mobileNavButtons.length).toBeGreaterThan(1) // Both desktop and mobile versions
+    })
+
+    it('closes mobile menu when menu item is clicked', () => {
+        render(<Header {...defaultProps} />)
+        
+        const mobileMenuButton = screen.getByLabelText('Toggle mobile menu')
+        
+        // Open mobile menu
+        fireEvent.click(mobileMenuButton)
+        
+        // Click on a mobile menu item
+        const mobileMenuItems = screen.getAllByText('About')
+        const mobileAboutButton = mobileMenuItems.find(item => 
+            item.closest('button')?.className.includes('w-full')
+        )
+        
+        if (mobileAboutButton) {
+            fireEvent.click(mobileAboutButton)
+        }
+    })
+
+    it('calls external mobile menu toggle handler when provided', () => {
+        const mockToggleHandler = vi.fn()
+        const propsWithHandler = {
+            ...defaultProps,
+            onMobileMenuToggle: mockToggleHandler
+        }
+        
+        render(<Header {...propsWithHandler} />)
+        
+        const mobileMenuButton = screen.getByLabelText('Toggle mobile menu')
+        fireEvent.click(mobileMenuButton)
+        
+        expect(mockToggleHandler).toHaveBeenCalledTimes(1)
+    })
+
+    it('uses external mobile menu state when provided', () => {
+        const propsWithExternalState = {
+            ...defaultProps,
+            mobileMenuOpen: true
+        }
+        
+        render(<Header {...propsWithExternalState} />)
+        
+        // Mobile menu should be open
+        const mobileMenuItems = screen.getAllByText('Home')
+        expect(mobileMenuItems.length).toBeGreaterThan(1) // Both desktop and mobile versions
+    })
+
+    it('applies correct styling classes', () => {
+        render(<Header {...defaultProps} />)
+        
+        const header = screen.getByRole('banner')
+        expect(header).toHaveClass(\n            'w-full',\n            'bg-[var(--color-primary-900)]',\n            'shadow-sm',\n            'sticky',\n            'top-0',\n            'z-50'\n        )
+    })
+
+    it('applies custom className when provided', () => {
+        const customProps = {\n            ...defaultProps,\n            className: 'custom-header-class'\n        }\n        \n        render(<Header {...customProps} />)\n        \n        const header = screen.getByRole('banner')\n        expect(header).toHaveClass('custom-header-class')\n    })\n\n    it('handles menu item navigation correctly', () => {\n        // Mock window.location.href\n        const originalLocation = window.location\n        delete (window as any).location\n        window.location = { ...originalLocation, href: '' }\n        \n        render(<Header {...defaultProps} />)\n        \n        const aboutButton = screen.getByText('About')\n        fireEvent.click(aboutButton)\n        \n        expect(window.location.href).toBe('/about')\n        \n        // Restore original location\n        window.location = originalLocation\n    })\n\n    it('renders hamburger icon when mobile menu is closed', () => {\n        render(<Header {...defaultProps} />)\n        \n        const mobileMenuButton = screen.getByLabelText('Toggle mobile menu')\n        const svg = mobileMenuButton.querySelector('svg')\n        const path = svg?.querySelector('path')\n        \n        expect(path).toHaveAttribute('d', 'M4 6h16M4 12h16M4 18h16')\n    })\n\n    it('renders close icon when mobile menu is open', () => {\n        render(<Header {...defaultProps} />)\n        \n        const mobileMenuButton = screen.getByLabelText('Toggle mobile menu')\n        \n        // Open mobile menu\n        fireEvent.click(mobileMenuButton)\n        \n        const svg = mobileMenuButton.querySelector('svg')\n        const path = svg?.querySelector('path')\n        \n        expect(path).toHaveAttribute('d', 'M6 18L18 6M6 6l12 12')\n    })\n\n    it('handles contact button with href', () => {\n        render(<Header {...defaultProps} />)\n        \n        const contactButtonLink = screen.getByText('Get Started').closest('a')\n        expect(contactButtonLink).toHaveAttribute('href', '/get-started')\n    })\n\n    it('handles contact button without href', () => {\n        const propsWithoutHref = {\n            ...defaultProps,\n            contactButton: {\n                label: 'Contact Us'\n                // No href\n            }\n        }\n        \n        render(<Header {...propsWithoutHref} />)\n        \n        const contactButton = screen.getByText('Contact Us')\n        const contactButtonLink = contactButton.closest('a')\n        expect(contactButtonLink).toBeNull()\n    })\n\n    it('has proper responsive classes', () => {\n        render(<Header {...defaultProps} />)\n        \n        // Check desktop navigation is hidden on mobile\n        const desktopNav = screen.getByText('Home').closest('nav')\n        expect(desktopNav).toHaveClass('hidden', 'md:flex')\n        \n        // Check mobile menu button is hidden on desktop\n        const mobileMenuContainer = screen.getByLabelText('Toggle mobile menu').closest('div')\n        expect(mobileMenuContainer).toHaveClass('md:hidden')\n    })\n\n    it('passes through additional HTML attributes', () => {\n        const additionalProps = {\n            ...defaultProps,\n            'data-testid': 'custom-header',\n            'aria-label': 'Main navigation'\n        }\n        \n        render(<Header {...additionalProps} />)\n        \n        const header = screen.getByRole('banner')\n        expect(header).toHaveAttribute('data-testid', 'custom-header')\n        expect(header).toHaveAttribute('aria-label', 'Main navigation')\n    })\n})

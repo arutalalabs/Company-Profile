@@ -1,0 +1,16 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /dashboard
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Host
+Host: https://yourwebsite.com
+
+# Sitemaps
+Sitemap: https://yourwebsite.com/sitemap.xml

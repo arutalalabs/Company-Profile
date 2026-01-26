@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+@source "../**/*.{ts,tsx}";
+
+@layer base {
+    body {
+        @apply bg-white;
+    }
+}
+
+/* Hero Section Animations */
+.diamond-top-right {
+    background: radial-gradient(ellipse at center, rgba(255, 167, 38, 0.3) 0%, transparent 70%);
+    animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.diamond-bottom-left {
+    background: radial-gradient(ellipse at center, rgba(36, 57, 146, 0.4) 0%, transparent 70%);
+    animation: pulse-glow 4s ease-in-out infinite 2s;
+}
+
+.center-radial {
+    background: radial-gradient(ellipse at center, rgba(255, 167, 38, 0.15) 0%, rgba(36, 57, 146, 0.1) 40%, transparent 70%);
+    animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes breathe {
+    0%, 100% {
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+@layer theme {
+    :root {
+        --color-red-base: #c62828;
+        --color-red-hover: #b71c1c;
+        --color-blue-base: #1976d2;
+        --color-blue-hover: #1565c0;
+        --color-green-base: #2e7d32;
+        --color-green-hover: #1b5e20;
+        --color-yellow-base: #f9a825;
+        --color-yellow-hover: #f57f17;
+        --color-gray-base: #616161;
+        --color-gray-hover: #424242;
+
+        --color-primary-50: #fafeff;
+        --color-primary-100: #f6fbff;
+        --color-primary-200: #f0f7ff;
+        --color-primary-300: #e5f1ff;
+        --color-primary-400: #d7e6ff;
+        --color-primary-500: #c2d7ff;
+        --color-primary-600: #a2beff;
+        --color-primary-700: #83a3ff;
+        --color-primary-800: #617bc6;
+        --color-primary-900: #243992;
+
+        --color-accent-50: #fffcf2;
+        --color-accent-100: #fff9ed;
+        --color-accent-200: #fff4e6;
+        --color-accent-300: #ffeccd;
+        --color-accent-400: #ffdfaf;
+        --color-accent-500: #ffcc8b;
+        --color-accent-600: #ffa726;
+        --color-accent-700: #e69412;
+        --color-accent-800: #b06e00;
+        --color-accent-900: #683800;
+
+        --color-neutral-50: #fafafa;
+        --color-neutral-100: #f5f5f5;
+        --color-neutral-200: #e5e5e5;
+        --color-neutral-300: #d4d4d4;
+        --color-neutral-400: #a3a3a3;
+        --color-neutral-500: #737373;
+        --color-neutral-600: #525252;
+        --color-neutral-700: #404040;
+        --color-neutral-800: #262626;
+        --color-neutral-900: #171717;
+        --color-neutral-950: #0a0a0a;
+    }
+}
