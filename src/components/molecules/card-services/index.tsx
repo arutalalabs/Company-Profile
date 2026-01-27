@@ -34,9 +34,9 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     ) => {
         // Responsive size variants
         const sizeStyles = {
-            sm: 'w-full sm:max-w-[280px] lg:max-w-[300px] min-h-[320px] sm:min-h-[340px] lg:min-h-[350px]',
-            md: 'w-full sm:max-w-[320px] lg:max-w-[340px] min-h-[360px] sm:min-h-[380px] lg:min-h-[400px]',
-            lg: 'w-full sm:max-w-[360px] lg:max-w-[403px] min-h-[400px] sm:min-h-[425px] lg:min-h-[450px]'
+            sm: 'w-full sm:max-w-[280px] lg:max-w-[300px] min-h-[320px] sm:min-h-[340px] 2xl:min-h-[350px]',
+            md: 'w-full sm:max-w-[320px] lg:max-w-[340px] min-h-[360px] sm:min-h-[380px] 2xl:min-h-[400px]',
+            lg: 'w-full sm:max-w-[360px] lg:max-w-[403px] min-h-[400px] sm:min-h-[425px] 2xl:min-h-[450px]'
         }
 
         // Base card styles
@@ -82,7 +82,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
                         weight="semibold"
                         color="neutral-950"
                         align="center"
-                        className="text-lg sm:text-lg lg:text-xl"
+                        className="text-lg sm:text-lg 2xl:text-xl"
                     >
                         {title}
                     </Typography>
@@ -95,7 +95,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
                         color="neutral-950"
                         align="center"
                         leading="normal"
-                        className="mb-8 sm:mb-10 sm:text-sm lg:mb-8 lg:flex-1 lg:text-base"
+                        className="mb-8 sm:mb-10 sm:text-sm 2xl:mb-8 2xl:flex-1 2xl:text-base"
                     >
                         {description}
                     </Typography>

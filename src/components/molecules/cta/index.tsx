@@ -3,7 +3,7 @@ import { Typography, Button, Image } from '../../index'
 export function CTA() {
     return (
         <section className="w-full px-4 py-12 md:py-30">
-            <div className="max-w-[1440px] mx-auto flex justify-center">
+            <div className="max-w-xs sm:max-w-md md:max-w-5xl 2xl:max-w-[1440px] mx-auto flex justify-center">
                 {/* Container utama dengan max-width 940px */}
                 <div className="relative w-full max-w-[940px] bg-[var(--color-primary-900)] rounded-xl md:rounded-3xl overflow-visible">
                     {/* Flex container untuk layout 60-40 */}
@@ -12,10 +12,10 @@ export function CTA() {
                         <div className="w-full md:w-[55%] p-8 md:p-8 md:pl-12 lg:p-16 flex flex-col justify-center z-10">
                             <Typography
                                 as="h2"
-                                size="xl"
+                                size="lg"
                                 weight="semibold"
                                 color="neutral-50"
-                                className="mb-4 text-2xl md:text-2xl lg:text-4xl"
+                                className="mb-4 text-2xl md:text-3xl lg:text-3xl"
                             >
                                 Siap Akselerasi?
                             </Typography>
@@ -25,7 +25,7 @@ export function CTA() {
                                 size="base"
                                 weight="normal"
                                 color="neutral-50"
-                                className="mb-6 md:mb-8 opacity-90 text-sm md:text-sm leading-relaxed"
+                                className="mb-6 md:mb-8 opacity-90 text-sm md:text-base leading-relaxed"
                             >
                                 Temukan solusi pengembangan skill, penyediaan talenta, dan software services bersama ArutalaLab. Hubungi kami untuk informasi selanjutnya.
                             </Typography>

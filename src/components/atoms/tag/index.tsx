@@ -94,7 +94,7 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(
 
         // Size styles for responsive design
         const sizeStyles = {
-            sm: 'px-2 py-1.5 text-xs rounded-sm sm:text-sm sm:px-4 sm:py-2 sm:rounded-md lg:px-6 lg:py-2.5 lg:text-base lg:rounded-lg',
+            sm: 'px-2 py-1.5 text-xs rounded-sm sm:text-sm sm:px-4 sm:py-2 sm:rounded-md 2xl:px-6 2xl:py-2.5 2xl:text-base 2xl:rounded-lg',
             md: 'px-4 py-1.5 text-sm min-h-[2rem] rounded-lg gap-1.5',
             lg: 'px-6 py-2 text-base min-h-[2.5rem] rounded-xl gap-2'
         }

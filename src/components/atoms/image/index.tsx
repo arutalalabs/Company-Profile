@@ -15,7 +15,7 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
         | 'landscape'
         | 'wide'
         | 'auto'
-    fit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
+    fit?: 'cover' | 'contain' | 'fill' | 'none' | 'top' | 'scale-down'
     fullWidth?: boolean
     placeholder?: string
     fallback?: React.ReactNode
@@ -88,6 +88,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
             contain: 'object-contain',
             fill: 'object-fill',
             none: 'object-none',
+            top: 'object-top',
             'scale-down': 'object-scale-down'
         }
 

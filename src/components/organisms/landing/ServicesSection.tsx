@@ -11,7 +11,7 @@ export default function ServicesSection() {
 
     return (
         <section className="bg-[#ffffff] w-full py-18 px-4 sm:px-6 lg:px-8 lg:py-32">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-xs md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="text-center mb-12">
                     <Typography
@@ -20,7 +20,7 @@ export default function ServicesSection() {
                         weight="semibold"
                         color="neutral-950"
                         align="center"
-                        className="mb-4 lg:text-3xl sm:text-2xl"
+                        className="mb-4 sm:text-2xl 2xl:text-3xl"
                     >
                         Layanan Kami
                     </Typography>

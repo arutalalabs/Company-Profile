@@ -1,4 +1,4 @@
-import { ITEducationHero } from '@/components/organisms/iteducation'
+import { ITEducationHero } from '@/components/organisms/it-education'
 
 export default function ITEducationPage() {
     return (
