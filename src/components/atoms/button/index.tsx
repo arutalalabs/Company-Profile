@@ -4,7 +4,7 @@ import { forwardRef } from 'react'
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode
-    size?: 'sm' | 'md' | 'lg'
+    size?: 'xs' | 'sm' | 'md' | 'lg'
     shape?: 'solid' | 'outline' | 'link'
     color?:
         | 'primary-900'
@@ -62,7 +62,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 link: 'bg-transparent text-[var(--color-accent-600)] border-transparent hover:text-[var(--color-accent-700)] hover:underline active:underline-[var(--color-accent-600)] active:decoration-[var(--color-accent-600)] focus:underline focus:decoration-[var(--color-accent-600)] cursor-pointer'
             },
             'neutral-50': {
-                solid: 'font-medium bg-transparent text-[var(--color-neutral-50)] border-[var(--color-neutral-50)] hover:bg-[var(--color-accent-700)] hover:text-[var(--color-neutral-950)] focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-accent-600)] cursor-pointer',
+                solid: 'font-medium cursor-pointer',
                 outline:
                     'border bg-transparent text-[var(--color-neutral-50)] border-[var(--color-neutral-50)] hover:bg-[var(--color-neutral-50)] hover:text-[var(--color-neutral-900)] focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-accent-600)] cursor-pointer',
                 link: 'font-light bg-transparent text-[var(--color-neutral-50)] border-transparent hover:text-[var(--color-neutral-200)] hover:underline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-accent-600)] cursor-pointer'
@@ -89,6 +89,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
         // Size styles for responsive design
         const sizeStyles = {
+            xs:
+                shape === 'link'
+                    ? ''
+                    : 'text-xs px-1 py-1 rounded-[16px]',
             sm:
                 shape === 'link'
                     ? ''

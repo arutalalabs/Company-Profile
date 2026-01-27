@@ -4,7 +4,7 @@ import { Typography, Image, Icon } from '@/components'
 export default function WhyArutalaLabSection() {
     return (
         <section className="bg-[#ffffff] w-full pb-16 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-xs md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="text-center mb-12">
                     <Typography
@@ -13,7 +13,7 @@ export default function WhyArutalaLabSection() {
                         weight="semibold"
                         color="neutral-950"
                         align="center"
-                        className="mb-0 text-xl md:text-2xl lg:mb-4 lg:text-start lg:text-3xl"
+                        className="mb-0 text-xl md:text-2xl lg:mb-4 lg:text-start 2xl:text-3xl"
                     >
                         Mengapa Layanan ArutalaLab Terbaik
                     </Typography>
@@ -53,13 +53,13 @@ export default function WhyArutalaLabSection() {
                                     size="lg"
                                     weight="semibold"
                                     color="neutral-950"
-                                    className="mb-2 sm:text-xl"
+                                    className="mb-2 sm:text-lg"
                                 >
                                     Inovasi yang Menginspirasi
                                 </Typography>
                                 <Typography
                                     as="p"
-                                    size="base"
+                                    size="sm"
                                     weight="normal"
                                     color="neutral-600"
                                     leading="normal"
@@ -89,13 +89,13 @@ export default function WhyArutalaLabSection() {
                                     size="lg"
                                     weight="semibold"
                                     color="neutral-950"
-                                    className="mb-2 sm:text-xl"
+                                    className="mb-2 sm:text-lg"
                                 >
                                     Membuka Pintu Peluang
                                 </Typography>
                                 <Typography
                                     as="p"
-                                    size="base"
+                                    size="sm"
                                     weight="normal"
                                     color="neutral-600"
                                     leading="normal"
@@ -124,13 +124,13 @@ export default function WhyArutalaLabSection() {
                                     size="lg"
                                     weight="semibold"
                                     color="neutral-950"
-                                    className="mb-2 sm:text-xl"
+                                    className="mb-2 sm:text-lg"
                                 >
                                     Pengalaman yang Mendalam
                                 </Typography>
                                 <Typography
                                     as="p"
-                                    size="base"
+                                    size="sm"
                                     weight="normal"
                                     color="neutral-600"
                                     leading="normal"
@@ -160,7 +160,7 @@ export default function WhyArutalaLabSection() {
                                     size="lg"
                                     weight="semibold"
                                     color="neutral-950"
-                                    className="mb-2 sm:text-xl"
+                                    className="mb-2 sm:text-lg"
                                 >
                                     Kemitraan yang Kuat
                                 </Typography>

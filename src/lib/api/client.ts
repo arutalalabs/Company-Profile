@@ -110,25 +110,3 @@ export async function apiPost<T>(
         body: JSON.stringify(data)
     })
 }
-
-/**
- * Helper untuk PUT request
- */
-export async function apiPut<T>(
-    endpoint: string,
-    data: unknown,
-    options?: FetchOptions
-): Promise<T> {
-    return apiFetch<T>(endpoint, {
-        ...options,
-        method: 'PUT',
-        body: JSON.stringify(data)
-    })
-}
-
-/**
- * Helper untuk DELETE request
- */
-export async function apiDelete<T>(endpoint: string, options?: FetchOptions): Promise<T> {
-    return apiFetch<T>(endpoint, { ...options, method: 'DELETE' })
-}
