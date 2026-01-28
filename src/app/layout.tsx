@@ -10,9 +10,9 @@ const montserrat = Montserrat({
 })
 
 const menuItems = [
-    { label: 'IT Education', href: '/iteducation' },
+    { label: 'IT Education', href: '/it-education' },
     { label: 'Resource', href: '/resource' },
-    { label: 'Software Services', href: '/softwareservices' },
+    { label: 'Software Services', href: '/software-services' },
     { label: 'Profile', href: '/profile' },
     { label: 'Mitra', href: '/mitra' },
     { label: 'Article', href: '/article' }

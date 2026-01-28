@@ -2,17 +2,17 @@ import { Typography, Tag, Button, Image } from '@/components'
 
 export default function ITEducationHero() {
     return (
-        <section className="container mx-auto px-15 py-16 lg:py-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <section className="container mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-5xl 2xl:max-w-7xl py-16">
+            <div className="grid grid-cols-1 lg:flex flex-col-2 gap-10 lg:gap-18 items-center">
                 {/* Text Content - Left Side */}
-                <div className="flex flex-col space-y-1 order-2 lg:order-1">
+                <div className="flex flex-col gap-2 lg:gap-0 order-2 lg:order-1">
                     {/* Title */}
                     <Typography 
                         as="h1" 
                         size="xl" 
                         weight="bold" 
                         color="neutral-950"
-                        className="lg:text-3xl"
+                        className="text-2xl sm:text-xl md:text-2xl 2xl:text-3xl"
                     >
                         Wujudkan Karir Digital Impianmu dengan Program Edukasi Kami
                     </Typography>
@@ -20,19 +20,20 @@ export default function ITEducationHero() {
                     {/* Description */}
                     <Typography 
                         as="p" 
-                        size="lg" 
+                        size="sm" 
                         weight="normal" 
                         color="neutral-600" 
                         leading="relaxed"
+                        className="text-sm sm:text-sm md:text-sm lg:text-sm 2xl:text-lg"
                     >
-                        ArutalaLab tempat dimana Arutalians bisa berkembang menjadi IT talent yang handal dan siap kerja. Kami menyediakan pelatihan berkualitas, mengasah keterampilan, dan membuka jalan karir baru di dunia teknologi. Gabung dan wujudkan aspirasi Arutalians bersama kami! 
+                        <b>ArutalaLab</b> tempat dimana Arutalians bisa berkembang menjadi IT talent yang handal dan siap kerja. Kami menyediakan pelatihan berkualitas, mengasah keterampilan, dan membuka jalan karir baru di dunia teknologi. Gabung dan wujudkan aspirasi Arutalians bersama kami! 
                     </Typography>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-4 py-6">
+                    <div className="hidden lg:block lg:flex lg:flex-wrap lg:gap-4 lg:py-6">
                         <Tag 
                             variant="outline" 
-                            size="md"
+                            size="sm"
                             color='accent-600'
                             className='text-black rounded-xl'
                         >
@@ -40,7 +41,7 @@ export default function ITEducationHero() {
                         </Tag>
                         <Tag 
                             variant="outline" 
-                            size="md"
+                            size="sm"
                             color='accent-600'
                             className='text-black rounded-xl'
                         >
@@ -48,7 +49,7 @@ export default function ITEducationHero() {
                         </Tag>
                         <Tag 
                             variant="outline" 
-                            size="md"
+                            size="sm"
                             color='accent-600'
                             className='text-black rounded-xl'
                         >
@@ -56,7 +57,7 @@ export default function ITEducationHero() {
                         </Tag>
                         <Tag 
                             variant="outline" 
-                            size="md"
+                            size="sm"
                             color='accent-600'
                             className='text-black rounded-xl'
                         >
@@ -64,7 +65,7 @@ export default function ITEducationHero() {
                         </Tag>
                         <Tag 
                             variant="outline" 
-                            size="md"
+                            size="sm"
                             color='accent-600'
                             className='text-black rounded-xl'
                         >
@@ -72,7 +73,7 @@ export default function ITEducationHero() {
                         </Tag>
                         <Tag 
                             variant="outline" 
-                            size="md"
+                            size="sm"
                             color='accent-600'
                             className='text-black rounded-xl'
                         >
@@ -80,7 +81,7 @@ export default function ITEducationHero() {
                         </Tag>
                         <Tag 
                             variant="outline" 
-                            size="md"
+                            size="sm"
                             color='accent-600'
                             className='text-black rounded-xl'
                         >
@@ -88,7 +89,7 @@ export default function ITEducationHero() {
                         </Tag>
                         <Tag 
                             variant="outline" 
-                            size="md"
+                            size="sm"
                             color='accent-600'
                             className='text-black rounded-xl'
                         >
@@ -96,7 +97,7 @@ export default function ITEducationHero() {
                         </Tag>
                         <Tag 
                             variant="outline" 
-                            size="md"
+                            size="sm"
                             color='accent-600'
                             className='text-black rounded-xl'
                         >
@@ -105,12 +106,12 @@ export default function ITEducationHero() {
                     </div>
                     
                     {/* Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="mt-4 lg:mt-0">
                         <Button 
                             shape="solid"
                             color="accent-600" 
                             size="lg"
-                            className="w-full sm:w-auto"
+                            className="w-auto"
                         >
                             Konsultasi
                         </Button>
@@ -118,16 +119,16 @@ export default function ITEducationHero() {
                 </div>
 
                 {/* Image - Right Side */}
-                <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-center">
-                    <div className="relative w-full max-w-[480px] h-[300px] sm:h-[400px] lg:h-[500px]">
+                <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end">
+                    <div className="relative w-full max-w-[200px] max-h-[200px] sm:max-w-[300px] sm:max-h-[280px] md:w-[400px] md:h-[400px]">
                         <Image
                             src="/src/edu-hero.webp"
                             alt="IT Education Hero"
                             fullWidth
-                            fit='cover'
+                            fit='fill'
                             shape='rounded'
                             loading='eager'
-                            className='h-full w-full object-center'
+                            className='h-auto w-auto object-center'
                         />
                     </div>
                 </div>

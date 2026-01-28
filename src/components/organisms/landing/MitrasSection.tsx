@@ -1,28 +1,32 @@
 'use client'
 import { Typography, Image } from '@/components'
-
-interface Partner {
-    id: number
-    name: string
-    logo: string
-}
+import { useState, useEffect } from 'react'
+import { mitrasApi, type Mitra } from '@/lib/api/mitras'
 
 export default function PartnersSection() {
-    // Data mitra/partners
-    const partners: Partner[] = [
-        { id: 1, name: "Partner 1", logo: "/src/logo/arkamaya.png" },
-        { id: 2, name: "Partner 2", logo: "/src/logo/tujuhsembilan.png" },
-        { id: 3, name: "Partner 3", logo: "/src/logo/axiata.png" },
-        { id: 4, name: "Partner 4", logo: "/src/logo/ganesha.png" },
-        { id: 5, name: "Partner 5", logo: "/src/logo/k.png" },
-        { id: 6, name: "Partner 6", logo: "/src/logo/garuda.png" },
-        { id: 7, name: "Partner 7", logo: "/src/logo/jayandra.png" },
-        { id: 8, name: "Partner 8", logo: "/src/logo/banda.png" }
-    ]
+    const [mitras, setMitras] = useState<Mitra[]>([])
+    const [loading, setLoading] = useState(true)
+
+    // Fetch data mitra dari API
+    useEffect(() => {
+        const fetchMitras = async () => {
+            try {
+                setLoading(true)
+                const data = await mitrasApi.getAll()
+                setMitras(data)
+            } catch (error) {
+                console.error('Error loading mitras:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchMitras()
+    }, [])
 
     return (
         <section className="bg-[#ffffff] w-full py-12 px-4 sm:px-6 lg:px-8 lg:py-20">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-xs md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="mb-12">
                     <Typography
@@ -42,44 +46,87 @@ export default function PartnersSection() {
                     <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white z-10 pointer-events-none"></div>
                     <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-white z-10 pointer-events-none"></div>
                     
-                    {/* Scrolling Container */}
-                    <div className="flex flex-row justify-start animate-scroll">
-                        {/* First Set of Logos */}
-                        <div className="flex items-center space-x-8 sm:space-x-12 lg:space-x-16 whitespace-nowrap min-w-full">
-                            {partners.map((partner) => (
-                                <div
-                                    key={`first-${partner.id}`}
-                                    className="flex-shrink-0 flex items-center justify-center w-32 sm:w-40 lg:w-48"
-                                >
-                                    <Image
-                                        src={partner.logo}
-                                        alt={partner.name}
-                                        shape="square"
-                                        fit="contain"
-                                        className="h-[60px] w-auto object-contain filter transition-all duration-300 hover:opacity-100"
-                                    />
-                                </div>
-                            ))}
+                    {/* Loading State */}
+                    {loading ? (
+                        <div className="flex items-center justify-center py-12">
+                            <Typography
+                                as="p"
+                                size="base"
+                                weight="normal"
+                                color="neutral-600"
+                            >
+                                Memuat mitra...
+                            </Typography>
                         </div>
-                        
-                        {/* Duplicate Set untuk Seamless Loop */}
-                        <div className="flex items-center space-x-8 sm:space-x-12 lg:space-x-16 whitespace-nowrap min-w-full ml-8 sm:ml-12 lg:ml-190">
-                            {partners.map((partner) => (
-                                <div
-                                    key={`second-${partner.id}`}
-                                    className="flex-shrink-0 flex items-center justify-center w-32 sm:w-40 lg:w-48"
-                                >
-                                    <Image
-                                        src={partner.logo}
-                                        alt={partner.name}
-                                        shape="square"
-                                        fit="contain"
-                                        className="h-[60px] w-auto object-contain filter transition-all duration-300 hover:opacity-100"
-                                    />
-                                </div>
-                            ))}
+                    ) : mitras.length === 0 ? (
+                        <div className="flex items-center justify-center py-12">
+                            <Typography
+                                as="p"
+                                size="base"
+                                weight="normal"
+                                color="neutral-600"
+                            >
+                                Belum ada mitra tersedia
+                            </Typography>
                         </div>
-                    </div>
+                    ) : (
+                        /* Scrolling Container */
+                        <div className="flex animate-scroll">
+                            {/* First Set of Logos */}
+                            <div className="flex items-center gap-8 sm:gap-12 lg:gap-16 pr-8 sm:pr-12 lg:pr-16">
+                                {mitras.map((mitra, index) => (
+                                    <div
+                                        key={`first-${mitra.id || index}`}
+                                        className="flex-shrink-0 flex items-center justify-center w-32 sm:w-40 lg:w-48"
+                                    >
+                                        <Image
+                                            src={mitra.mitra_logo_url}
+                                            alt={mitra.mitra_name}
+                                            shape="square"
+                                            fit="contain"
+                                            className="h-[60px] w-auto object-contain filter transition-all duration-300 hover:opacity-100"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                            
+                            {/* Duplicate Set untuk Seamless Loop */}
+                            <div className="flex items-center gap-8 sm:gap-12 lg:gap-16 pr-8 sm:pr-12 lg:pr-16">
+                                {mitras.map((mitra, index) => (
+                                    <div
+                                        key={`second-${mitra.id || index}`}
+                                        className="flex-shrink-0 flex items-center justify-center w-32 sm:w-40 lg:w-48"
+                                    >
+                                        <Image
+                                            src={mitra.mitra_logo_url}
+                                            alt={mitra.mitra_name}
+                                            shape="square"
+                                            fit="contain"
+                                            className="h-[60px] w-auto object-contain filter transition-all duration-300 hover:opacity-100"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Duplicate Set untuk Seamless Loop */}
+                            <div className="flex items-center gap-8 sm:gap-12 lg:gap-16 pr-8 sm:pr-12 lg:pr-16">
+                                {mitras.map((mitra, index) => (
+                                    <div
+                                        key={`third-${mitra.id || index}`}
+                                        className="flex-shrink-0 flex items-center justify-center w-32 sm:w-40 lg:w-48"
+                                    >
+                                        <Image
+                                            src={mitra.mitra_logo_url}
+                                            alt={mitra.mitra_name}
+                                            shape="square"
+                                            fit="contain"
+                                            className="h-[60px] w-auto object-contain filter transition-all duration-300 hover:opacity-100"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -90,12 +137,12 @@ export default function PartnersSection() {
                         transform: translateX(0);
                     }
                     100% {
-                        transform: translateX(-100%);
+                        transform: translateX(-50%);
                     }
                 }
                 
                 .animate-scroll {
-                    animation: scroll 30s linear infinite;
+                    animation: scroll 20s linear infinite;
                 }
                 
                 .animate-scroll:hover {
@@ -110,7 +157,7 @@ export default function PartnersSection() {
                 
                 @media (min-width: 1024px) {
                     .animate-scroll {
-                        animation: scroll 40s linear infinite;
+                        animation: scroll 20s linear infinite;
                     }
                 }
             `}</style>

@@ -7,42 +7,9 @@
     }
 }
 
-/* Hero Section Animations */
-.diamond-top-right {
-    background: radial-gradient(ellipse at center, rgba(255, 167, 38, 0.3) 0%, transparent 70%);
-    animation: pulse-glow 4s ease-in-out infinite;
-}
-
-.diamond-bottom-left {
-    background: radial-gradient(ellipse at center, rgba(36, 57, 146, 0.4) 0%, transparent 70%);
-    animation: pulse-glow 4s ease-in-out infinite 2s;
-}
-
-.center-radial {
-    background: radial-gradient(ellipse at center, rgba(255, 167, 38, 0.15) 0%, rgba(36, 57, 146, 0.1) 40%, transparent 70%);
-    animation: breathe 6s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-    0%, 100% {
-        opacity: 0.6;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-}
-
-@keyframes breathe {
-    0%, 100% {
-        opacity: 0.4;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-        opacity: 0.7;
-        transform: translate(-50%, -50%) scale(1.05);
-    }
+/* Hero Section - Custom Utilities */
+.bg-gradient-radial {
+    background: radial-gradient(circle at center, var(--tw-gradient-stops));
 }
 
 @layer theme {
