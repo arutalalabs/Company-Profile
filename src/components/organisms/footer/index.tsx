@@ -52,7 +52,7 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                 )}
                 {...props}
             >
-                <div className="max-w-xs sm:max-w-7xl md:max-w-5xl mx-auto px-4 sm:px-6 lg:px-0 py-8">
+                <div className="max-w-xs md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto py-8">
                     {/* Header Section with Logo and Social Icons */}
                     <div className="flex items-center justify-between mb-2 mt-6">
                         {/* Logo */}
@@ -123,10 +123,10 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                         <div>
                             <Typography
                                 as="h3"
-                                size="lg"
+                                size="base"
                                 weight="normal"
                                 color="neutral-50"
-                                className="mb-4"
+                                className="mb-4 md:text-lg"
                             >
                                 Layanan
                             </Typography>
@@ -137,7 +137,7 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                                         shape="link"
                                         color="neutral-50"
                                         size="sm"
-                                        className="justify-start text-left transition-colors duration-200"
+                                        className="justify-start text-left transition-colors duration-200 text-sm md:text-md"
                                         onClick={() =>
                                             item.href &&
                                             (window.location.href = item.href)
@@ -153,10 +153,10 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                         <div>
                             <Typography
                                 as="h3"
-                                size="lg"
+                                size="base"
                                 weight="normal"
                                 color="neutral-50"
-                                className="mb-4"
+                                className="mb-4 md:text-lg"
                             >
                                 Lainnya
                             </Typography>
@@ -167,7 +167,7 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                                         shape="link"
                                         color="neutral-50"
                                         size="sm"
-                                        className="justify-start text-left transition-colors duration-200"
+                                        className="justify-start text-left transition-colors duration-200 text-sm md:text-md"
                                         onClick={() =>
                                             item.href &&
                                             (window.location.href = item.href)
@@ -179,13 +179,14 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                             </div>
                         </div>
                         {/* Copyright Section */}
-                        <div className="flex justify-end items-end">
+                        <div className="flex justify-center md:justify-end items-center md:items-end ">
                             <Typography
                                 as="p"
                                 size="sm"
                                 color="neutral-50"
                                 align="center"
                                 weight="light"
+                                
                             >
                                 © Arutala Mitra Mandiri 2026 | All Rights Reserved
                             </Typography>

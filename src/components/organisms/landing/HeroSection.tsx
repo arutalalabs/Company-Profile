@@ -47,7 +47,7 @@ export default function HeroSection() {
                     <div className="text-center text-white space-y-6">
                         {/* Tag */}
                         <div className="flex justify-center mb-8">
-                            <Tag size="sm" variant="solid">
+                            <Tag size="md" variant="solid">
                                 Belajar atau Temukan Talent untuk Team Anda
                             </Tag>
                         </div>
