@@ -103,8 +103,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                     : 'px-7 py-3 text-sm min-h-[2.5rem] gap-3 rounded-[20px]',
             lg:
                 shape === 'link'
-                    ? 'text-lg'
-                    : 'px-8 py-4 text-lg min-h-[3rem] gap-4 rounded-[30px]'
+                    ? 'text-sm'
+                    : 'px-6 py-2 text-sm min-h-[2rem] gap-4 rounded-[20px]'
         }
 
         // Shape-specific styles

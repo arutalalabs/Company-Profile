@@ -40,12 +40,12 @@ export function MitraSection({ mitras }: MitraSectionProps) {
                 </Typography>
 
                 {/* Grid Container */}
-                <div className="bg-[var(--color-neutral-50)] w-full h-full rounded-2xl">
+                <div className="bg-[var(--color-neutral-50)] w-full h-full rounded-2xl p-6">
                     {Array.isArray(mitras) && mitras.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                            {mitras.map((mitra) => (
+                            {mitras.map((mitra, index) => (
                                 <MitraCard
-                                    key={mitra.id}
+                                    key={mitra.id ?? `mitra-${index}`}
                                     name={mitra.mitra_name}
                                     logoUrl={mitra.mitra_logo_url}
                                 />

@@ -76,7 +76,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                                         size="xs"
                                         shape="square"
                                         fit="cover"
-                                        className="cursor-pointer transition-all duration-300 hover:scale-90 lg:w-12 lg:h-12"
+                                        className="cursor-pointer transition-all duration-300 hover:scale-90 2xl:w-12 2xl:h-12"
                                     />
                                 </a>
                             ) : (
@@ -86,7 +86,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                                     size="xs"
                                     shape="square"
                                     fit="cover"
-                                    className="transition-all duration-300 hover:scale-100 lg:w-12 lg:h-12"
+                                    className="transition-all duration-300 hover:scale-100 2xl:w-12 2xl:h-12"
                                 />
                             )}
                         </div>
@@ -103,7 +103,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                                     shape="solid"
                                     color="neutral-50"
                                     className={clsx(
-                                        'transition-colors duration-200 sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]',
+                                        'transition-colors duration-200 sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:gap-3 2xl:rounded-[20px]',
                                         isMenuActive(item)
                                             ? 'text-[var(--color-neutral-50)] font-medium underline underline-offset-6 decoration-2 decoration-[var(--color-accent-600)]'
                                             : 'text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]' 
@@ -127,7 +127,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                                             size="sm"
                                             shape="solid"
                                             color="accent-600"
-                                            className='sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]'
+                                            className='sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:gap-3 2xl:rounded-[20px]'
                                         >
                                             {contactButton.label}
                                         </Button>
@@ -145,7 +145,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                         </div>
 
                         {/* Mobile Menu Button */}
-                        <div className="md:hidden">
+                        <div className="md:hidden flex items-center">
                             <Button
                                 shape="link"
                                 color="neutral-50"
