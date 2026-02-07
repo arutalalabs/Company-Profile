@@ -1,2 +1,6 @@
 export { default as ITEducationHero } from './ITEducationHero'
 export { default as WhyITEducation } from './WhyITEducation'
+export { default as LearningMethods } from './LearningMethods'
+export { Mentor } from './OurMentors'
+export { default as TestimonialSection } from './TestimonialSection'
+export { default as AvailableCourse } from './AvailableCourse'

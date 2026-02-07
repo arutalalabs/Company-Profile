@@ -2,7 +2,7 @@ import { Typography, Tag, Button, Image } from '@/components'
 
 export default function ITEducationHero() {
     return (
-        <section className="container mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-5xl 2xl:max-w-7xl py-16">
+        <section className="container mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-6xl 2xl:max-w-9/10 lg:py-20">
             <div className="grid grid-cols-1 lg:flex flex-col-2 gap-10 lg:gap-18 items-center">
                 {/* Text Content - Left Side */}
                 <div className="flex flex-col gap-2 lg:gap-0 order-2 lg:order-1">
@@ -12,7 +12,7 @@ export default function ITEducationHero() {
                         size="xl" 
                         weight="bold" 
                         color="neutral-950"
-                        className="text-2xl sm:text-xl md:text-2xl 2xl:text-3xl"
+                        className="text-2xl sm:text-xl md:text-2xl 2xl:text-4xl mb-2"
                     >
                         Wujudkan Karir Digital Impianmu dengan Program Edukasi Kami
                     </Typography>
