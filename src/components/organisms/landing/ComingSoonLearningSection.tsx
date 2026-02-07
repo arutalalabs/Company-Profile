@@ -2,7 +2,7 @@
 import { Typography, Button, Icon, Image } from '@/components'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { getUpcomingCourses, UpcomingCourse } from '@/lib/api/courses'
+import { getUpcomingCourses, UpcomingCourse, generateCourseSlug } from '@/lib/api/courses'
 
 export default function ComingSoonLearningSection() {
     const router = useRouter()
@@ -56,16 +56,17 @@ export default function ComingSoonLearningSection() {
         setShowPosterModal(false)
     }
 
-    // Get unique categories from courses
-    const categories = [...new Set(courses.map(course => course.course_category_name))]
+    // Fixed categories untuk konsistensi UI
+    const categories = ['Bootcamp', 'Offline/Online Class', 'Webinar', 'Workshop']
     
     // Filter courses by selected category
     const selectedCategory = categories[selectedIndex] || categories[0]
     const filteredCourses = courses.filter(course => course.course_category_name === selectedCategory)
-    const currentCourse = filteredCourses[0] || courses[0]
+    const currentCourse = filteredCourses[0]
     
     // Current poster from API
-    const currentPoster = currentCourse?.nearest_batch?.posterUrl || '/src/poster/sqaintensif.png'
+    const currentPoster = currentCourse?.nearest_batch?.posterUrl
+    const hasPoster = currentPoster && currentPoster.length > 0
 
     // Show loading state
     if (loading) {
@@ -192,113 +193,208 @@ export default function ComingSoonLearningSection() {
 
                                 {/* Mobile Poster - Ditampilkan di atas */}
                                 <div className="w-full mt-8 mb-8 lg:hidden sm:px-2 md:px-10">
-                                    <div 
-                                        className="relative cursor-pointer group max-w-md max-h-md mx-auto"
-                                        onClick={handlePosterClick}
-                                    >
-                                        <Image
-                                            src={currentPoster}
-                                            alt={`${currentCourse?.course_title || 'Course'} Poster`}
-                                            fullWidth={true}
-                                            aspectRatio="auto"
-                                            shape="rounded"
-                                            fit="cover"
-                                            className="w-full h-full rounded-2xl transition-all duration-300 object-cover"
-                                        />
-                                        {/* Overlay on hover untuk mobile */}
-                                        <div className="absolute inset-0 bg-black/5 opacity-0 group-active:opacity-100 transition-opacity duration-300 rounded-2xl flex items-center justify-center">
+                                    {currentCourse && hasPoster ? (
+                                        <div 
+                                            className="relative cursor-pointer group max-w-md max-h-md mx-auto"
+                                            onClick={handlePosterClick}
+                                        >
+                                            <Image
+                                                src={currentPoster!}
+                                                alt={`${currentCourse.course_title} Poster`}
+                                                fullWidth={true}
+                                                aspectRatio="auto"
+                                                shape="rounded"
+                                                fit="cover"
+                                                className="w-full h-full rounded-2xl transition-all duration-300 object-cover"
+                                            />
+                                            {/* Overlay on hover untuk mobile */}
+                                            <div className="absolute inset-0 bg-black/5 opacity-0 group-active:opacity-100 transition-opacity duration-300 rounded-2xl flex items-center justify-center">
+                                            </div>
                                         </div>
-                                    </div>
+                                    ) : (
+                                        <div className="max-w-md mx-auto aspect-[3/4] rounded-2xl bg-gradient-to-br from-[var(--color-primary-700)] to-[var(--color-primary-900)] flex flex-col items-center justify-center p-8 space-y-4">
+                                            <div className="w-20 h-20 rounded-full bg-[var(--color-accent-600)]/20 flex items-center justify-center">
+                                                <Typography
+                                                    as="span"
+                                                    size="2xl"
+                                                    weight="bold"
+                                                    color="accent-600"
+                                                    className="text-4xl"
+                                                >
+                                                    📅
+                                                </Typography>
+                                            </div>
+                                            <Typography
+                                                as="h4"
+                                                size="lg"
+                                                weight="semibold"
+                                                color="neutral-50"
+                                                className="text-center"
+                                            >
+                                                {currentCourse?.course_title || selectedCategory}
+                                            </Typography>
+                                            <Typography
+                                                as="p"
+                                                size="sm"
+                                                weight="normal"
+                                                color="neutral-950"
+                                                className="text-center"
+                                            >
+                                                {currentCourse ? 'Poster Segera Hadir' : 'Belum Ada Pelatihan'}
+                                            </Typography>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
                             {/* Training Details */}
                             <div className="space-y-4 lg:space-y-6 lg:mt-10">
+                                {currentCourse ? (
+                                    <>
+                                        <Typography
+                                            as="h3"
+                                            size="lg"
+                                            weight="medium"
+                                            color="neutral-950"
+                                            className="text-md text-medium sm:text-semibold md:text-2xl lg:text-2xl"
+                                        >
+                                            {currentCourse.course_title}
+                                        </Typography>
+                                        <Typography
+                                            as="p"
+                                            size="base"
+                                            weight="normal"
+                                            color="neutral-950"
+                                            className="text-sm md:text-base leading-relaxed line-clamp-3"
+                                        >
+                                            {currentCourse.course_description}
+                                        </Typography>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Typography
+                                            as="h3"
+                                            size="lg"
+                                            weight="medium"
+                                            color="neutral-950"
+                                            className="text-md text-medium sm:text-semibold md:text-2xl lg:text-2xl"
+                                        >
+                                            Belum Ada Pelatihan
+                                        </Typography>
+                                        <Typography
+                                            as="p"
+                                            size="base"
+                                            weight="normal"
+                                            color="neutral-950"
+                                            className="text-sm md:text-base leading-relaxed"
+                                        >
+                                            Saat ini belum ada pelatihan {selectedCategory} yang tersedia. Pantau terus untuk update pelatihan terbaru kami!
+                                        </Typography>
+                                    </>
+                                )}
+                            </div>
+
+                            {/* Training Button */}
+                            {currentCourse && (
+                                <div className="">
+                                    <button 
+                                        className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
+                                        onClick={() => router.push(`/courses/${generateCourseSlug(currentCourse.course_title)}`)}
+                                    >
+                                        <Typography
+                                            as="span"
+                                            size="sm"
+                                            weight="semibold"
+                                            color="accent-600"
+                                            className="text-sm md:text-base group-hover:text-[var(--color-accent-700)]"
+                                        >
+                                            Lihat Detail
+                                        </Typography>
+                                        <Icon
+                                            icon="arrow-right"
+                                            type="image"
+                                            src="/src/rightarrow.svg"
+                                            size="sm"
+                                            color="accent-600"
+                                            alt="Arrow"
+                                            className="transition-transform group-hover:translate-x-1 w-4 h-4 md:w-5 md:h-4 "
+                                        />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Poster Area - Absolute Positioned Full Right */}
+                    <div className="h-full absolute top-0 right-0 bottom-0 w-[30%%] hidden lg:block z-20">
+                        {currentCourse && hasPoster ? (
+                            <div 
+                                className="relative w-full h-full cursor-pointer group"
+                                onClick={handlePosterClick}
+                            >
+                                <Image
+                                    src={currentPoster!}
+                                    alt={`${currentCourse.course_title} Poster`}
+                                    fullWidth={true}
+                                    aspectRatio="auto"
+                                    shape="rounded"
+                                    fit="contain"
+                                    className="w-full h-full rounded-2xl transition-all duration-300 group-hover:scale-95"
+                                />
+                                {/* Overlay on hover */}
+                                <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex items-center justify-center">
+                                    <div className="bg-[var(--color-primary-900)] backdrop-blur-sm rounded-full py-2 px-4">
+                                        <Typography
+                                            as="span"
+                                            size="sm"
+                                            weight="medium"
+                                            color="neutral-50"
+                                            className="text-xs"
+                                        >
+                                            Klik untuk memperbesar
+                                        </Typography>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="w-full lg:w-100 h-full rounded-2xl bg-gradient-to-br from-[var(--color-primary-700)] to-[var(--color-primary-900)] flex flex-col items-center justify-center p-8 space-y-4">
+                                <div className="w-24 h-24 rounded-full bg-[var(--color-accent-600)]/20 flex items-center justify-center">
+                                    <Typography
+                                        as="span"
+                                        size="2xl"
+                                        weight="bold"
+                                        color="accent-600"
+                                        className="text-5xl"
+                                    >
+                                        📅
+                                    </Typography>
+                                </div>
                                 <Typography
-                                    as="h3"
-                                    size="lg"
-                                    weight="medium"
-                                    color="neutral-950"
-                                    className="text-md text-medium sm:text-semibold md:text-2xl lg:text-2xl"
+                                    as="h4"
+                                    size="xl"
+                                    weight="semibold"
+                                    color="neutral-50"
+                                    className="text-center"
                                 >
-                                    {currentCourse?.course_title || 'Loading...'}
+                                    {currentCourse?.course_title || selectedCategory}
                                 </Typography>
                                 <Typography
                                     as="p"
                                     size="base"
                                     weight="normal"
                                     color="neutral-950"
-                                    className="text-sm md:text-base leading-relaxed line-clamp-3"
+                                    className="text-center"
                                 >
-                                    {currentCourse?.course_description || 'Loading...'}
+                                    {currentCourse ? 'Poster Segera Hadir' : 'Belum Ada Pelatihan'}
                                 </Typography>
                             </div>
-
-                            {/* Training Button */}
-                            <div className="">
-                                <button 
-                                    className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
-                                    onClick={() => router.push(`/pelatihan/${currentCourse?.course_id}`)}
-                                >
-                                    <Typography
-                                        as="span"
-                                        size="sm"
-                                        weight="semibold"
-                                        color="accent-600"
-                                        className="text-sm md:text-base group-hover:text-[var(--color-accent-700)]"
-                                    >
-                                        Lihat Detail
-                                    </Typography>
-                                    <Icon
-                                        icon="arrow-right"
-                                        type="image"
-                                        src="/src/rightarrow.svg"
-                                        size="sm"
-                                        color="accent-600"
-                                        alt="Arrow"
-                                        className="transition-transform group-hover:translate-x-1 w-4 h-4 md:w-5 md:h-4 "
-                                    />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Poster Area - Absolute Positioned Full Right */}
-                    <div className="h-full absolute top-0 right-0 bottom-0 w-[30%%] hidden lg:block z-20">
-                        <div 
-                            className="relative w-full h-full cursor-pointer group"
-                            onClick={handlePosterClick}
-                        >
-                            <Image
-                                src={currentPoster}
-                                alt={`${currentCourse?.course_title || 'Course'} Poster`}
-                                fullWidth={true}
-                                aspectRatio="auto"
-                                shape="rounded"
-                                fit="contain"
-                                className="w-full h-full rounded-2xl transition-all duration-300 group-hover:scale-95"
-                            />
-                            {/* Overlay on hover */}
-                            <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex items-center justify-center">
-                                <div className="bg-[var(--color-primary-900)] backdrop-blur-sm rounded-full py-2 px-4">
-                                    <Typography
-                                        as="span"
-                                        size="sm"
-                                        weight="medium"
-                                        color="neutral-50"
-                                        className="text-xs"
-                                    >
-                                        Klik untuk memperbesar
-                                    </Typography>
-                                </div>
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </section>
 
             {/* Poster Modal */}
-            {showPosterModal && (
+            {showPosterModal && currentCourse && hasPoster && (
                 <div 
                     className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
                     onClick={closePosterModal}
@@ -318,8 +414,8 @@ export default function ComingSoonLearningSection() {
                             </Typography>
                         </button>
                         <Image
-                            src={currentPoster}
-                            alt={`${currentCourse?.course_title || 'Course'} Poster`}
+                            src={currentPoster!}
+                            alt={`${currentCourse.course_title} Poster`}
                             fullWidth={true}
                             aspectRatio="auto"
                             shape="rounded"

@@ -77,29 +77,17 @@ export const MentorDetailCard = forwardRef<HTMLDivElement, MentorDetailCardProps
         const isHorizontal = variant === 'horizontal'
 
         return (
+            
             <div
                 ref={ref}
                 className={clsx(
-                    'bg-gradient-to-r from-[#1e3a8a] to-[#172554] rounded-xl overflow-hidden',
+                    'bg-white rounded-xl overflow-hidden border-2 border-[var(--color-primary-900)]',
                     sizeStyles[size].container,
                     isHorizontal ? 'flex items-center gap-4' : 'flex flex-col items-center text-center gap-3',
                     className
                 )}
                 {...props}
             >
-                {/* Mentor Label */}
-                {!isHorizontal && (
-                    <Typography
-                        as="span"
-                        size="sm"
-                        weight="semibold"
-                        color="neutral-50"
-                        className="text-[var(--color-accent-600)] uppercase tracking-wider"
-                    >
-                        Mentor
-                    </Typography>
-                )}
-
                 {/* Profile Image */}
                 <div className={clsx(
                     sizeStyles[size].image,
@@ -125,30 +113,23 @@ export const MentorDetailCard = forwardRef<HTMLDivElement, MentorDetailCardProps
                     'flex flex-col',
                     isHorizontal ? 'items-start' : 'items-center'
                 )}>
+
                     {/* Name */}
                     <Typography
                         as="p"
                         weight="bold"
-                        color="neutral-50"
+                        color="neutral-950"
                         className={sizeStyles[size].name}
                     >
                         {name}
                     </Typography>
 
-                    {/* Role Badge */}
-                    <span className={clsx(
-                        'inline-block bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] font-semibold px-2 py-0.5 rounded mt-1',
-                        sizeStyles[size].role
-                    )}>
-                        {role}
-                    </span>
-
                     {/* Job Title & Company */}
                     {(jobTitle || companyName) && (
                         <Typography
                             as="p"
-                            color="neutral-50"
-                            className={clsx(sizeStyles[size].title, 'opacity-80 mt-1')}
+                            color="neutral-600"
+                            className={clsx(sizeStyles[size].title, 'mt-1')}
                         >
                             {jobTitle}{companyName && ` at ${companyName}`}
                         </Typography>
