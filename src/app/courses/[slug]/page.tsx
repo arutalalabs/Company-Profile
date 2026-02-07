@@ -1,14 +1,15 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Typography, Button, CTA } from '@/components'
+import { Typography, Button } from '@/components'
 import { 
     CourseDetailHero, 
     CourseAbout, 
     CourseLearning, 
     CourseRequirements, 
     CourseSchedule, 
-    CourseFAQ 
+    CourseFAQ,
+    CourseFeatures
 } from '@/components/organisms/course-detail'
 import { getCourseBySlug, type CourseDetail } from '@/lib/api/courses'
 
@@ -145,6 +146,9 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 onDemoClick={handleDemoClick}
             />
 
+            {/* Course Features Section */}
+            <CourseFeatures />
+
             {/* About Section */}
             <CourseAbout description={course.course_description} />
 
@@ -172,9 +176,6 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 courseTitle={course.course_title}
                 categoryName={course.course_category_name}
             />
-
-            {/* CTA Section */}
-            <CTA />
         </main>
     )
 }

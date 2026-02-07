@@ -67,7 +67,7 @@ export function CourseFAQ({ courseTitle, categoryName, customFAQs }: CourseFAQPr
     const faqItems = customFAQs && customFAQs.length > 0 ? customFAQs : defaultFAQs
 
     return (
-        <section className="py-10 lg:py-16 bg-white">
+        <section className="py-10 lg:py-16 bg-gradient-to-b from-[var(--color-primary-100)] to-[var(--color-primary-300)]">
             <div className="mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-5xl 2xl:max-w-7xl px-4">
                 {/* Section Title */}
                 <Typography
@@ -75,7 +75,7 @@ export function CourseFAQ({ courseTitle, categoryName, customFAQs }: CourseFAQPr
                     size="xl"
                     weight="bold"
                     color="neutral-950"
-                    className="text-lg sm:text-xl lg:text-2xl 2xl:text-3xl mb-8"
+                    className="sm:text-xl lg:text-lg 2xl:text-2xl mb-8"
                 >
                     Frequently Asked Questions
                 </Typography>

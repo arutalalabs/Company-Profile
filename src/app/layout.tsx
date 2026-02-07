@@ -15,7 +15,7 @@ const menuItems = [
     { label: 'Software Services', href: '/software-services' },
     { label: 'Profile', href: '/profile' },
     { label: 'Mitra', href: '/mitra' },
-    { label: 'Article', href: '/article' }
+    { label: 'Article', href: '/articles' }
 ]
 
 export default function RootLayout({
@@ -56,7 +56,7 @@ export default function RootLayout({
                     lainnyaItems={[
                         { label: 'Profile', href: '/profile' },
                         { label: 'Mitra', href: '/mitra' },
-                        { label: 'Article', href: '/article' },
+                        { label: 'Article', href: '/articles' },
                         { label: 'Kontak', href: '/kontak' }
                     ]}
                     socialIcons={[

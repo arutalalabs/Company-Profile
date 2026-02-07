@@ -40,13 +40,22 @@ export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps
         }).format(prices.basePrice)
     }
 
+    // Helper to calculate discount percentage
+    const calculateDiscount = (prices: Prices | undefined): number | undefined => {
+        if (!prices || !prices.basePrice || !prices.finalPrice) return undefined
+        if (prices.finalPrice === prices.basePrice) return undefined
+        
+        const discount = ((prices.basePrice - prices.finalPrice) / prices.basePrice) * 100
+        return Math.round(discount)
+    }
+
     // Helper function to format date
     const formatDate = (dateString: string): string => {
         if (!dateString) return ''
         const date = new Date(dateString)
         return date.toLocaleDateString('id-ID', {
             day: 'numeric',
-            month: 'long',
+            month: 'short',
             year: 'numeric'
         })
     }
@@ -58,36 +67,61 @@ export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps
         return `${start} - ${end}`
     }
 
+    // Helper to determine actual batch status based on dates
+    const getBatchStatus = (batch: CourseDetailBatch): 'available' | 'full' | 'coming-soon' => {
+        const now = new Date()
+        now.setHours(0, 0, 0, 0) // Reset time to start of day for accurate comparison
+        
+        // Check if registration period has ended
+        if (batch.registration_end) {
+            const registrationEndDate = new Date(batch.registration_end)
+            registrationEndDate.setHours(23, 59, 59, 999) // End of day
+            
+            if (now > registrationEndDate) {
+                return 'full' // Registration closed
+            }
+        }
+        
+        // Check if registration hasn't started yet
+        if (batch.registration_start) {
+            const registrationStartDate = new Date(batch.registration_start)
+            registrationStartDate.setHours(0, 0, 0, 0)
+            
+            if (now < registrationStartDate) {
+                return 'coming-soon' // Registration not open yet
+            }
+        }
+        
+        // Use database status if within registration period
+        if (batch.status === 'full') return 'full'
+        if (batch.status === 'coming-soon') return 'coming-soon'
+        
+        return 'available'
+    }
+
     // Convert batches to schedule rows
     const scheduleRows: ScheduleRowData[] = batches.map(batch => ({
         batchName: batch.name,
         schedule: formatDateRange(batch.start_date, batch.end_date),
+        registrationRange: batch.registration_start && batch.registration_end 
+            ? formatDateRange(batch.registration_start, batch.registration_end)
+            : undefined,
+        classSchedule: batch.class_schedule || undefined,
         originalPrice: formatOriginalPrice(batch.prices),
         finalPrice: formatPrice(batch.prices),
-        status: batch.status === 'full' ? 'full' : batch.status === 'coming-soon' ? 'coming-soon' : 'available'
+        discountPercent: calculateDiscount(batch.prices),
+        status: getBatchStatus(batch),
+        onRegisterClick: () => onRegisterClick?.(batch.name)
     }))
 
     return (
-        <section className="py-10 lg:py-16 bg-gray-50">
-            <div className="mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-5xl 2xl:max-w-7xl px-4">
+        <section className="py-10 lg:py-16 bg-white">
+            <div className="mx-auto lg:max-w-6xl 2xl:max-w-7xl px-4">
                 <ScheduleTable 
                     title="Jadwal & Biaya"
                     rows={scheduleRows}
                     size="md"
                 />
-
-                {/* Register Button */}
-                <div className="mt-6 flex justify-center">
-                    <Button
-                        size="md"
-                        shape="solid"
-                        color="accent-600"
-                        onClick={() => onRegisterClick?.(batches[0]?.name || '')}
-                        className="text-sm sm:text-base px-8"
-                    >
-                        Daftar Sekarang
-                    </Button>
-                </div>
             </div>
         </section>
     )

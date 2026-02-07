@@ -153,7 +153,6 @@ export interface AvailableCoursesResponse {
 // ============================================
 
 export interface CourseMaterial {
-    title: string
     description: string
 }
 
@@ -179,6 +178,9 @@ export interface CourseDetailBatch {
     instructor: Instructor
     prices: Prices
     sessions: BatchSession[]
+    status?: string
+    class_schedule?: string
+    registration_date?: string
 }
 
 export interface CourseDetail {
