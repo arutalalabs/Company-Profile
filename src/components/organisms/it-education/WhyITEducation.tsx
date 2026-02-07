@@ -41,7 +41,7 @@ export default function WhyITEducation() {
                         weight="semibold" 
                         color="neutral-950"
                         leading='tight'
-                        className="lg:text-3xl  2xl:text-4xl"
+                        className="lg:text-2xl  2xl:text-4xl"
                     >
                         Mengapa ArutalaLab dapat Menjadi Pilihan Tepat
                     </Typography>
@@ -68,7 +68,7 @@ export default function WhyITEducation() {
                                     weight="semibold" 
                                     color="neutral-950" 
                                     leading='tight'
-                                    className="mb-2 lg:text-2xl mx-4 mt-4 2xl:text-3xl"
+                                    className="mb-2 lg:text-[21px] mx-4 mt-4 2xl:text-3xl"
                                 >
                                     {card.title}
                                 </Typography>

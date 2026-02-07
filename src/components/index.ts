@@ -16,6 +16,11 @@ export type { ImageProps } from './atoms/image'
 export { Icon } from './atoms/icon'
 export type { IconProps } from './atoms/icon'
 
+export { Accordion } from './atoms/accordion'
+export type { AccordionProps, AccordionItemProps } from './atoms/accordion'
+
+export { SectionWrapper, SectionTitle } from './atoms/SectionWrapper'
+
 // ============================================
 // MOLECULES - Kombinasi dari beberapa atoms
 // ============================================
@@ -26,6 +31,12 @@ export { CTA } from './molecules/cta'
 
 export { MitraCard } from './molecules/mitra-card'
 export type { MitraCardProps } from './molecules/mitra-card'
+
+export { ScheduleTable } from './molecules/schedule-table'
+export type { ScheduleTableProps, ScheduleRowData } from './molecules/schedule-table'
+
+export { MentorDetailCard } from './molecules/mentor-detail-card'
+export type { MentorDetailCardProps } from './molecules/mentor-detail-card'
 
 // ============================================
 // ORGANISMS - Komponen kompleks (header, footer, sections)
@@ -40,6 +51,19 @@ export { MitraHero } from './organisms/mitra/MitraHero'
 export { MitraSection } from './organisms/mitra/MitraSection'
 export type { MitraSectionProps } from './organisms/mitra/MitraSection'
 
+// Courses Components
+export { CoursesHero, AllCoursesSection } from './organisms/courses'
+
+// Course Detail Components
+export { 
+    CourseDetailHero, 
+    CourseAbout, 
+    CourseLearning, 
+    CourseRequirements, 
+    CourseSchedule, 
+    CourseFAQ 
+} from './organisms/course-detail'
+
 // Page Sections
 export { default as HeroSection } from './organisms/landing/HeroSection'
 export { default as ServicesSection } from './organisms/landing/ServicesSection'
@@ -51,6 +75,10 @@ export { default as ComingSoonLearningSection } from './organisms/landing/Coming
 
 // Kontak Components
 export { ContactInfo, ContactForm } from './organisms/kontak'
+
+// Profile Components
+export { default as HeroProfile } from './organisms/profile/HeroProfile'
+export { default as VisiMision } from './organisms/profile/VisiMision'
 
 // ============================================
 // Re-export common types and utilities
