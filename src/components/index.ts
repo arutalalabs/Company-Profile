@@ -19,6 +19,8 @@ export type { IconProps } from './atoms/icon'
 export { Accordion } from './atoms/accordion'
 export type { AccordionProps, AccordionItemProps } from './atoms/accordion'
 
+export { SectionWrapper, SectionTitle } from './atoms/SectionWrapper'
+
 // ============================================
 // MOLECULES - Kombinasi dari beberapa atoms
 // ============================================
@@ -73,6 +75,10 @@ export { default as ComingSoonLearningSection } from './organisms/landing/Coming
 
 // Kontak Components
 export { ContactInfo, ContactForm } from './organisms/kontak'
+
+// Profile Components
+export { default as HeroProfile } from './organisms/profile/HeroProfile'
+export { default as VisiMision } from './organisms/profile/VisiMision'
 
 // ============================================
 // Re-export common types and utilities
