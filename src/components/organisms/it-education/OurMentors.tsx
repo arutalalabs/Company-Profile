@@ -18,7 +18,7 @@ export function Mentor() {
 
     return (
         <section className="w-full py-16 px-4 overflow-hidden">
-            <div className="max-w-7xl mx-auto">
+            <div className="mx-auto">
                 {/* Section Header */}
                 <div className="text-center mb-12">
                     <Typography
