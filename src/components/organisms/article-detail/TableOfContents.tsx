@@ -106,7 +106,7 @@ export function TableOfContents({ blocks }: TableOfContentsProps) {
                                     {/* Segitiga indikator untuk item aktif h2 - di kiri teks */}
                                     {isActive && !isSubItem && (
                                         <img
-                                            src="/src/segitiga-indikator.svg"
+                                            src="/src/article/segitiga-indikator.svg"
                                             alt=""
                                             className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-auto"
                                         />
@@ -115,7 +115,7 @@ export function TableOfContents({ blocks }: TableOfContentsProps) {
                                     {/* Segitiga indikator untuk item aktif h3 - di border gray
                                     {isActive && isSubItem && (
                                         <img
-                                            src="/src/segitiga-indikator.svg"
+                                            src="/src/article/segitiga-indikator.svg"
                                             alt=""
                                             className="absolute left-0 top-1/2 -translate-y-1/2 w-2.5 h-auto"
                                         />

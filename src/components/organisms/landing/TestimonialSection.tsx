@@ -1,10 +1,13 @@
 'use client'
 import { Typography, Button, Icon, Image } from '@/components'
 import { useState, useEffect } from 'react'
-import { getTestimonies, TestimoniData } from '@/lib/api/testimonies'
+import { getTestimoniesByCategory, TestimoniCategory } from '@/lib/api/testimonies'
 
 export default function TestimonialSection() {
     const [currentTestimonial, setCurrentTestimonial] = useState(0)
+    const [isAnimating, setIsAnimating] = useState(false)
+    const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right')
+    const [animationPhase, setAnimationPhase] = useState<'idle' | 'slide-out' | 'reposition' | 'slide-in'>('idle')
     const [testimonials, setTestimonials] = useState<Array<{
         id: number
         text: string
@@ -16,15 +19,15 @@ export default function TestimonialSection() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
-    // Fetch testimonials from API
+    // Fetch testimonials from API by category
     useEffect(() => {
         async function fetchTestimonials() {
             try {
                 setLoading(true)
-                const response = await getTestimonies()
-                
+                const response = await getTestimoniesByCategory('siswa')
+
                 // Transform API data to component format
-                const transformedData = response.data.map((item: TestimoniData, index: number) => ({
+                const transformedData = response.data.map((item: TestimoniCategory, index: number) => ({
                     id: index + 1,
                     text: item.testimoni_content,
                     name: item.author_name,
@@ -32,13 +35,13 @@ export default function TestimonialSection() {
                     position: item.author_job_title,
                     image: item.author_profile_url
                 }))
-                
+
                 setTestimonials(transformedData)
                 setError(null)
             } catch (err) {
                 console.error('Error fetching testimonials:', err)
                 setError(err instanceof Error ? err.message : 'Gagal memuat testimoni')
-                
+
                 // Fallback data jika API gagal
                 setTestimonials([
                     {
@@ -47,7 +50,7 @@ export default function TestimonialSection() {
                         name: "Sarah Wijaya",
                         company: "TechnoID Solutions",
                         position: "Software Quality Assurance",
-                        image: "/src/mentor/Aldy Akbarrizky Senior Software Developer PT. Padepokan Tujuh Sembilan.webp"
+                        image: "/src/mentor/Aldy-Akbarrizky-Senior-Software-Developer-PT.-Padepokan-Tujuh-Sembilan.webp"
                     }
                 ])
             } finally {
@@ -58,18 +61,48 @@ export default function TestimonialSection() {
         fetchTestimonials()
     }, [])
 
+    // Smooth two-phase slide animation
+    const changeTestimonial = (newIndex: number, direction: 'left' | 'right') => {
+        if (isAnimating) return
+        setIsAnimating(true)
+        setSlideDirection(direction)
+        // Phase 1: slide out current content
+        setAnimationPhase('slide-out')
+        setTimeout(() => {
+            // Swap content while off-screen, reposition to entry side instantly
+            setCurrentTestimonial(newIndex)
+            setAnimationPhase('reposition')
+            // Allow browser to apply the repositioned state before animating in
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    // Phase 2: slide in new content
+                    setAnimationPhase('slide-in')
+                    setTimeout(() => {
+                        setAnimationPhase('idle')
+                        setIsAnimating(false)
+                    }, 500)
+                })
+            })
+        }, 500)
+    }
+
     // Functions untuk testimonial navigation
     const nextTestimonial = () => {
-        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+        changeTestimonial((currentTestimonial + 1) % testimonials.length, 'right')
     }
 
     const prevTestimonial = () => {
-        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+        changeTestimonial((currentTestimonial - 1 + testimonials.length) % testimonials.length, 'left')
     }
 
-    const goToTestimonial = (index: number) => {
-        setCurrentTestimonial(index)
-    }
+    // Auto-slide every 5 seconds
+    useEffect(() => {
+        if (testimonials.length <= 1) return
+        const interval = setInterval(() => {
+            changeTestimonial((currentTestimonial + 1) % testimonials.length, 'right')
+        }, 5000)
+        return () => clearInterval(interval)
+    }, [currentTestimonial, testimonials.length, isAnimating])
 
     // Show loading state
     if (loading) {
@@ -110,7 +143,7 @@ export default function TestimonialSection() {
                             Testimoni Peserta
                         </Typography>
                     </div>
-                    
+
                     {/* Navigation Buttons - Desktop Only */}
                     <div className="hidden lg:flex gap-2 sm:gap-3">
                         <Button
@@ -123,7 +156,7 @@ export default function TestimonialSection() {
                             <Icon
                                 icon="arrow-left"
                                 type="image"
-                                src="/src/leftarrow.svg"
+                                src="/src/common/leftarrow.svg"
                                 size="sm"
                                 color="accent-600"
                                 alt="Previous"
@@ -140,7 +173,7 @@ export default function TestimonialSection() {
                             <Icon
                                 icon="arrow-right"
                                 type="image"
-                                src="/src/rightarrow.svg"
+                                src="/src/common/rightarrow.svg"
                                 size="sm"
                                 color="accent-600"
                                 alt="Next"
@@ -150,10 +183,26 @@ export default function TestimonialSection() {
                     </div>
                 </div>
 
-                {/* Testimonial Card */}
-                <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden transition-all duration-300 hover:shadow-[0_12px_40px_rgb(0,0,0,0.15)]">
-                    <div className="flex flex-col lg:flex-row min-h-[320px] sm:min-h-[350px] lg:min-h-[400px]">
-                        
+                {/* Testimonial Card with Slide Animation */}
+                <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden">
+                    <div
+                        className={`flex flex-col lg:flex-row min-h-[320px] sm:min-h-[350px] lg:min-h-[400px] ${animationPhase === 'reposition'
+                            ? ''
+                            : 'transition-all duration-500 ease-in-out'
+                            } ${animationPhase === 'slide-out'
+                                ? slideDirection === 'right'
+                                    ? 'opacity-0 -translate-x-16'
+                                    : 'opacity-0 translate-x-16'
+                                : animationPhase === 'reposition'
+                                    ? slideDirection === 'right'
+                                        ? 'opacity-0 translate-x-16'
+                                        : 'opacity-0 -translate-x-16'
+                                    : animationPhase === 'slide-in'
+                                        ? 'opacity-100 translate-x-0'
+                                        : 'opacity-100 translate-x-0'
+                            }`}
+                    >
+
                         {/* Mobile: Image First */}
                         <div className="w-full h-100 sm:h-80 lg:hidden overflow-hidden">
                             <Image
@@ -169,7 +218,7 @@ export default function TestimonialSection() {
 
                         {/* Content */}
                         <div className="flex-1 p-6 sm:p-8 lg:p-12 flex flex-col justify-center">
-                            
+
                             {/* Mobile: Author Info First (after image) */}
                             <div className="lg:hidden mb-6">
                                 <div className="space-y-1">
@@ -252,55 +301,36 @@ export default function TestimonialSection() {
                     </div>
                 </div>
 
-                {/* Pagination Dots with Navigation for Mobile */}
-                <div className="flex justify-center items-center mt-8 lg:mt-12">
-                    {/* Left Arrow - Mobile Only */}
+                {/* Navigation Arrows - Mobile */}
+                <div className="flex lg:hidden justify-center items-center gap-6 mt-8">
                     <Button
                         size="sm"
                         shape="outline"
                         color="accent-600"
                         onClick={prevTestimonial}
-                        className="lg:hidden w-10 h-10 p-0 rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200 mr-4"
+                        className="w-10 h-10 p-0 rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
                     >
                         <Icon
                             icon="arrow-left"
                             type="image"
-                            src="/src/leftarrow.svg"
+                            src="/src/common/leftarrow.svg"
                             size="sm"
                             color="accent-600"
                             alt="Previous"
                             className="w-4 h-4"
                         />
                     </Button>
-
-                    {/* Pagination Dots */}
-                    <div className="flex gap-3">
-                        {testimonials.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => goToTestimonial(index)}
-                                className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 ${
-                                    index === currentTestimonial
-                                        ? 'bg-[var(--color-accent-600)] scale-110'
-                                        : 'bg-[var(--color-accent-400)] hover:bg-[var(--color-accent-500)] hover:scale-105'
-                                }`}
-                                aria-label={`Go to testimonial ${index + 1}`}
-                            />
-                        ))}
-                    </div>
-
-                    {/* Right Arrow - Mobile Only */}
                     <Button
                         size="sm"
                         shape="outline"
                         color="accent-600"
                         onClick={nextTestimonial}
-                        className="lg:hidden w-10 h-10 p-0 rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200 ml-4"
+                        className="w-10 h-10 p-0 rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
                     >
                         <Icon
                             icon="arrow-right"
                             type="image"
-                            src="/src/rightarrow.svg"
+                            src="/src/common/rightarrow.svg"
                             size="sm"
                             color="accent-600"
                             alt="Next"

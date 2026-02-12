@@ -22,3 +22,21 @@ export interface VisionMissionProps {
   missions?: MissionItem[];
   imageSrc?: string;
 }
+export interface TalentBuildingProps {
+  title?: string;
+  description?: string;
+  images?: string[];
+}
+
+export interface ServiceTab {
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  imageSrc: string;
+}
+
+export interface IndustrySolutionsProps {
+  mainTitle?: string;
+  tabs?: ServiceTab[];
+}

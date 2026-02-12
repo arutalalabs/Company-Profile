@@ -28,7 +28,7 @@ export default function RootLayout({
             <body className="font-sans">
                 <Header
                     logo={{
-                        src: '/src/logo.png',
+                        src: '/src/common/logo.png',
                         alt: 'Logo Perusahaan',
                         href: '/'
                     }}
@@ -42,7 +42,7 @@ export default function RootLayout({
 
                 <Footer
                     logo={{
-                        src: '/src/logo.png',
+                        src: '/src/common/logo.png',
                         alt: 'Logo Perusahaan'
                     }}
                     layananItems={[
@@ -61,17 +61,17 @@ export default function RootLayout({
                     ]}
                     socialIcons={[
                         {
-                            icon: '/src/instagram.svg',
+                            icon: '/src/common/instagram.svg',
                             href: 'https://instagram.com',
                             alt: 'Instagram'
                         },
                         {
-                            icon: '/src/youtube.svg',
+                            icon: '/src/common/youtube.svg',
                             href: 'https://youtube.com',
                             alt: 'YouTube'
                         },
                         {
-                            icon: '/src/linkedin.svg',
+                            icon: '/src/common/linkedin.svg',
                             href: 'https://linkedin.com',
                             alt: 'LinkedIn'
                         }

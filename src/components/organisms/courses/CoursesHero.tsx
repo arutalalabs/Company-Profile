@@ -79,22 +79,6 @@ export function CoursesHero() {
                     >
                         Jelajahi <span className="text-[var(--color-accent-600)] font-semibold">berbagai pelatihan IT</span> yang dirancang untuk mengembangkan keterampilan dan <span className="text-orange-300 font-semibold">memajukan karir Anda</span> di industri teknologi
                     </Typography>
-
-                    {/* Stats Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto mt-8">
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-white/15 transition-all duration-300">
-                            <div className="text-3xl font-bold text-[var(--color-accent-600)] mb-2">15+</div>
-                            <div className="text-sm font-medium text-white/90">Pelatihan Tersedia</div>
-                        </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-white/15 transition-all duration-300">
-                            <div className="text-3xl font-bold text-orange-300 mb-2">50+</div>
-                            <div className="text-sm font-medium text-white/90">Mentor Expert</div>
-                        </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-white/15 transition-all duration-300">
-                            <div className="text-3xl font-bold text-[var(--color-accent-600)] mb-2">1000+</div>
-                            <div className="text-sm font-medium text-white/90">Alumni Sukses</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>

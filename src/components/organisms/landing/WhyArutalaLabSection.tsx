@@ -24,7 +24,7 @@ export default function WhyArutalaLabSection() {
                     {/* Left Column - Image */}
                     <div className="flex justify-center lg:justify-start">
                         <Image
-                            src="/src/mengapa-arutalalab.webp"
+                            src="/src/landing/mengapa-arutalalab.webp"
                             alt="Mengapa ArutalaLab"
                             size="3xl"
                             shape="rounded"
@@ -41,7 +41,7 @@ export default function WhyArutalaLabSection() {
                                 <Icon
                                     icon="right-arrow"
                                     type="image"
-                                    src="/src/bluearrow.svg"
+                                    src="/src/landing/bluearrow.svg"
                                     size="xl"
                                     color="current"
                                     alt="Right Arrow"
@@ -77,7 +77,7 @@ export default function WhyArutalaLabSection() {
                                 <Icon
                                     icon="right-arrow"
                                     type="image"
-                                    src="/src/bluearrow.svg"
+                                    src="/src/landing/bluearrow.svg"
                                     size="xl"
                                     color="current"
                                     alt="Right Arrow"
@@ -112,7 +112,7 @@ export default function WhyArutalaLabSection() {
                                 <Icon
                                     icon="right-arrow"
                                     type="image"
-                                    src="/src/bluearrow.svg"
+                                    src="/src/landing/bluearrow.svg"
                                     size="xl"
                                     color="current"
                                     alt="Right Arrow"
@@ -148,7 +148,7 @@ export default function WhyArutalaLabSection() {
                                 <Icon
                                     icon="right-arrow"
                                     type="image"
-                                    src="/src/bluearrow.svg"
+                                    src="/src/landing/bluearrow.svg"
                                     size="xl"
                                     color="current"
                                     alt="Right Arrow"

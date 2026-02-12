@@ -32,7 +32,7 @@ export default function ServicesSection() {
                     <Card
                         size="lg"
                         image={{
-                            src: '/src/education.webp',
+                            src: '/src/landing/education.webp',
                             alt: 'IT Education Service'
                         }}
                         title="IT Education"
@@ -46,7 +46,7 @@ export default function ServicesSection() {
                     <Card
                         size="lg"
                         image={{
-                            src: '/src/resource.webp',
+                            src: '/src/landing/resource.webp',
                             alt: 'Resource Service'
                         }}
                         title="Resource"
@@ -60,7 +60,7 @@ export default function ServicesSection() {
                     <Card
                         size="lg"
                         image={{
-                            src: '/src/software.webp',
+                            src: '/src/landing/software.webp',
                             alt: 'Software Services'
                         }}
                         title="Software Services"

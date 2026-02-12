@@ -8,10 +8,25 @@ export interface TestimoniData {
     testimoni_content: string
 }
 
+export interface TestimoniCategory {
+    testimoni_id: string
+    author_name: string
+    author_job_title: string
+    author_company_name: string
+    author_profile_url: string
+    testimoni_content: string
+}
+
 export interface TestimoniResponse {
     success: boolean
     massage: string
     data: TestimoniData[]
+}
+
+export interface TestimoniCategoryResponse {
+    success: boolean
+    massage: string
+    data: TestimoniCategory[]
 }
 
 /**
@@ -25,5 +40,9 @@ export interface TestimoniResponse {
  */
 export async function getTestimonies(): Promise<TestimoniResponse> {
     return apiGet<TestimoniResponse>('/testimonies/')
+}
+
+export async function getTestimoniesByCategory(category: string): Promise<TestimoniCategoryResponse> {
+    return apiGet<TestimoniCategoryResponse>(`/testimonies?category=${category}`)
 }
 

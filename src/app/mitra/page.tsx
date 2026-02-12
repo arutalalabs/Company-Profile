@@ -25,7 +25,10 @@ export default async function MitraPage() {
             <MitraSection mitras={mitras} />
 
             {/* CTA Section */}
-            <CTA />
+            <CTA 
+                title='Diskusikan Kebutuhan Anda'
+                description='Temukan solusi pengembangan skill, penyediaan talenta, dan pengembangan software bersama ArutalaLab. Hubungi kami untuk informasi selanjutnya.'
+            />
         </main>
     )
 }

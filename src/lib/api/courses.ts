@@ -260,23 +260,23 @@ export async function getAllCourse(): Promise<CourseDetailResponse> {
  */
 export async function getAllInstructors(): Promise<Instructor[]> {
     const response = await getAllCourse()
-    
+
     // Extract all instructors from all course batches
     const instructors: Instructor[] = []
     const instructorSet = new Set<string>() // To track unique instructors by name
-    
+
     response.data.forEach(course => {
         // Ensure course_batch is an array
-        const batches = Array.isArray(course.course_batch) 
-            ? course.course_batch 
+        const batches = Array.isArray(course.course_batch)
+            ? course.course_batch
             : [course.course_batch]
-        
+
         batches.forEach(batch => {
             // Skip if batch or instructor is undefined
             if (!batch || !batch.instructor) return
-            
+
             const instructorKey = `${batch.instructor.name}-${batch.instructor.companyName}`
-            
+
             // Only add if not already in set (to avoid duplicates)
             if (!instructorSet.has(instructorKey)) {
                 instructorSet.add(instructorKey)
@@ -284,7 +284,7 @@ export async function getAllInstructors(): Promise<Instructor[]> {
             }
         })
     })
-    
+
     return instructors
 }
 
@@ -317,7 +317,7 @@ export async function getLocalInstructors(): Promise<Instructor[]> {
 export async function getCourseBySlug(slug: string): Promise<CourseDetailResponse> {
     // First get all courses, then filter by slug
     const allCourses = await getAllCourse()
-    
+
     // Find the course that matches the slug
     const matchedCourse = allCourses.data.find(course => {
         const courseSlug = course.course_title
@@ -326,7 +326,7 @@ export async function getCourseBySlug(slug: string): Promise<CourseDetailRespons
             .replace(/\s+/g, '-')
         return courseSlug === slug
     })
-    
+
     if (!matchedCourse) {
         return {
             success: false,
@@ -334,7 +334,7 @@ export async function getCourseBySlug(slug: string): Promise<CourseDetailRespons
             data: []
         }
     }
-    
+
     return {
         success: true,
         message: 'Course found',
