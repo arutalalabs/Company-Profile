@@ -79,6 +79,15 @@ export { ContactInfo, ContactForm } from './organisms/kontak'
 // Profile Components
 export { default as HeroProfile } from './organisms/profile/HeroProfile'
 export { default as VisiMision } from './organisms/profile/VisiMision'
+export { default as TalentBuilding } from './organisms/profile/TalentBuilding'
+export { default as IndustrySolutions } from './organisms/profile/IndustrySolution'
+
+// Resource Components
+export { default as HeroResource } from './organisms/resource/HeroResource'
+export { default as ITField } from './organisms/resource/ITField'
+export { default as ProfitSection } from './organisms/resource/ProfitSection'
+export { default as TerstimonialSection } from './organisms/resource/TerstimonialSection'
+
 
 // ============================================
 // Re-export common types and utilities

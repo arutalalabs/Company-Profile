@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import { Typography } from '@/components/atoms/typography';
+import { Typography, Image } from '@/components';
 import { SectionWrapper } from '@/components/atoms/SectionWrapper';
 
 interface HeroSectionProps {
@@ -13,29 +12,29 @@ export default function HeroSection({
   title = "ArutalaLab",
   subtitle = "Transformasi Karir dan Solusi Digital Berkualitas",
   description = "Menghadirkan revolusi pendidikan dan solusi teknologi, ArutalaLab adalah wujud dari visi kami untuk mengubah wajah industri IT. Dibangun pada tahun 2022, kami berkomitmen untuk mencetak profesional IT masa depan, memberikan layanan Manpower terbaik, dan software services yang berkualitas.",
-  imageSrc = "/src/hero-classroom.png"
+  imageSrc = "/src/profile/hero-classroom.jpg"
 }: HeroSectionProps) {
   return (
     <SectionWrapper background="white" className="py-12 md:py-20">
-      <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
+      <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-4">
         {/* Text Content */}
-        <div className="flex-1 space-y-6">
-          <div className="space-y-4">
+        <div className="flex-1 space-y-8">
+          <div className="">
             <Typography 
               as="h1" 
-              size="5xl" 
+              size="2xl" 
               weight="bold" 
               color="neutral-950"
-              className="text-4xl md:text-5xl lg:text-6xl"
+              className="text-2xl md:text-3xl lg:text-4xl"
             >
               {title}
             </Typography>
             <Typography 
               as="h2" 
-              size="2xl" 
+              size="xl" 
               weight="medium" 
               color="neutral-600"
-              className="text-xl md:text-2xl"
+              className="text-xl md:text-xl"
             >
               {subtitle}
             </Typography>
@@ -43,7 +42,7 @@ export default function HeroSection({
           
           <Typography 
             as="p" 
-            size="lg" 
+            size="base" 
             color="neutral-600" 
             leading="relaxed"
             className="text-base md:text-lg max-w-2xl"
@@ -53,14 +52,12 @@ export default function HeroSection({
         </div>
 
         {/* Image */}
-        <div className="flex-1 w-full max-w-2xl flex justify-end">
-          <div className="relative w-lg aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
+        <div className="flex-1 w-full max-w-2xl flex justify-center lg:justify-end">
+          <div className="relative w-lg aspect-[4/3] rounded-tl-[50px] rounded-br-[50px] overflow-hidden shadow-xl">
             <Image
               src={imageSrc}
               alt="ArutalaLab Team"
-              fill
-              className="object-cover"
-              priority
+              className="object-cover w-full h-full"
             />
           </div>
         </div>

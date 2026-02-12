@@ -96,15 +96,15 @@ export default function ArticlesSection() {
     // Format tanggal untuk display (handle ISO 8601 format)
     const formatDate = (dateString: string) => {
         if (!dateString) return ''
-        
+
         const date = new Date(dateString)
         // Check if date is valid
         if (isNaN(date.getTime())) return ''
-        
-        const options: Intl.DateTimeFormatOptions = { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
+
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         }
         return date.toLocaleDateString('id-ID', options)
     }
@@ -156,97 +156,97 @@ export default function ArticlesSection() {
                     ) : (
                         // Articles list
                         latestArticles.map((article) => (
-                        <div
-                            key={article.id}
-                            className="bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1"
-                        >
-                            <div className="flex flex-col gap-6 lg:gap-8 lg:flex-row h-auto">
-                                {/* Left Content */}
-                                <div className="flex-1 flex flex-col justify-between gap-4">
-                                    {/* Date */}
-                                    <div>
-                                        <Typography
-                                            as="p"
-                                            size="sm"
-                                            weight="medium"
-                                            color="accent-600"
-                                            className="text-xs sm:text-sm"
-                                        >
-                                            {formatDate(article.created_date)}
-                                        </Typography>
-                                    </div>
-
-                                    {/* Title */}
-                                    <div>
-                                        <Typography
-                                            as="h3"
-                                            size="lg"
-                                            weight="semibold"
-                                            color="neutral-950"
-                                            className="text-lg sm:text-xl lg:text-xl line-clamp-2 leading-tight"
-                                        >
-                                            {article.title}
-                                        </Typography>
-                                    </div>
-
-                                    {/* Description */}
-                                    <div className="flex-1">
-                                        <Typography
-                                            as="p"
-                                            size="base"
-                                            weight="normal"
-                                            color="neutral-600"
-                                            className="text-sm sm:text-base line-clamp-3 leading-relaxed"
-                                        >
-                                            {article.description}
-                                        </Typography>
-                                    </div>
-
-                                    {/* Read More Button */}
-                                    <div>
-                                        <button 
-                                            className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
-                                            onClick={() => router.push(`/articles/${article.slug}`)}
-                                        >
+                            <div
+                                key={article.id}
+                                className="bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                            >
+                                <div className="flex flex-col gap-6 lg:gap-8 lg:flex-row h-auto">
+                                    {/* Left Content */}
+                                    <div className="flex-1 flex flex-col justify-between gap-4">
+                                        {/* Date */}
+                                        <div>
                                             <Typography
-                                                as="span"
+                                                as="p"
                                                 size="sm"
-                                                weight="semibold"
+                                                weight="medium"
                                                 color="accent-600"
-                                                className="text-sm sm:text-base group-hover:text-[var(--color-accent-700)]"
+                                                className="text-xs sm:text-sm"
                                             >
-                                                Baca Selengkapnya
+                                                {formatDate(article.created_date)}
                                             </Typography>
-                                            <Icon
-                                                icon="arrow-right"
-                                                type="image"
-                                                src="/src/rightarrow.svg"
-                                                size="sm"
-                                                color="accent-600"
-                                                alt="Arrow Right"
-                                                className="transition-transform group-hover:translate-x-1 w-4 h-4 sm:w-5 sm:h-5"
-                                            />
-                                        </button>
-                                    </div>
-                                </div>
+                                        </div>
 
-                                {/* Right Image */}
-                                <div className="w-full lg:w-[268px] h-48 sm:h-64 lg:h-auto flex-shrink-0">
-                                    <Image
-                                        src={article.image}
-                                        alt={article.title}
-                                        fullWidth={true}
-                                        aspectRatio="auto"
-                                        shape="rounded"
-                                        fit="cover"
-                                        className="w-full h-full lg:h-[195px] rounded-3xl"
-                                        onClick={() => router.push(`/articles/${article.slug}`)}
-                                    />
+                                        {/* Title */}
+                                        <div>
+                                            <Typography
+                                                as="h3"
+                                                size="lg"
+                                                weight="semibold"
+                                                color="neutral-950"
+                                                className="text-lg sm:text-xl lg:text-xl line-clamp-2 leading-tight"
+                                            >
+                                                {article.title}
+                                            </Typography>
+                                        </div>
+
+                                        {/* Description */}
+                                        <div className="flex-1">
+                                            <Typography
+                                                as="p"
+                                                size="base"
+                                                weight="normal"
+                                                color="neutral-600"
+                                                className="text-sm sm:text-base line-clamp-3 leading-relaxed"
+                                            >
+                                                {article.description}
+                                            </Typography>
+                                        </div>
+
+                                        {/* Read More Button */}
+                                        <div>
+                                            <button
+                                                className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
+                                                onClick={() => router.push(`/articles/${article.slug}`)}
+                                            >
+                                                <Typography
+                                                    as="span"
+                                                    size="sm"
+                                                    weight="semibold"
+                                                    color="accent-600"
+                                                    className="text-sm sm:text-base group-hover:text-[var(--color-accent-700)]"
+                                                >
+                                                    Baca Selengkapnya
+                                                </Typography>
+                                                <Icon
+                                                    icon="arrow-right"
+                                                    type="image"
+                                                    src="/src/common/rightarrow.svg"
+                                                    size="sm"
+                                                    color="accent-600"
+                                                    alt="Arrow Right"
+                                                    className="transition-transform group-hover:translate-x-1 w-4 h-4 sm:w-5 sm:h-5"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Right Image */}
+                                    <div className="w-full lg:w-[268px] h-48 sm:h-64 lg:h-auto flex-shrink-0">
+                                        <Image
+                                            src={article.image}
+                                            alt={article.title}
+                                            fullWidth={true}
+                                            aspectRatio="auto"
+                                            shape="rounded"
+                                            fit="cover"
+                                            className="w-full h-full lg:h-[195px] rounded-3xl"
+                                            onClick={() => router.push(`/articles/${article.slug}`)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         ))
-                )}
+                    )}
                 </div>
 
                 {/* View All Articles Button */}

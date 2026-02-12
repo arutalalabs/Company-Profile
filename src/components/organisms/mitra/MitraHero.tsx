@@ -24,7 +24,7 @@ export function MitraHero() {
                     </Typography>
 
                     <Image
-                        src="/src/mitra-hero.webp"
+                        src="/src/mitra/mitra-hero.webp"
                         alt="Mitra Arutalalab"
                         size="2xl"
                         shape="rounded"

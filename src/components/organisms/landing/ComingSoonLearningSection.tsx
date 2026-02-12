@@ -24,7 +24,7 @@ export default function ComingSoonLearningSection() {
             } catch (err) {
                 console.error('Error fetching upcoming courses:', err)
                 setError(err instanceof Error ? err.message : 'Gagal memuat data pelatihan')
-                
+
                 // Fallback data jika API gagal
                 setCourses([
                     {
@@ -58,12 +58,12 @@ export default function ComingSoonLearningSection() {
 
     // Fixed categories untuk konsistensi UI
     const categories = ['Bootcamp', 'Offline/Online Class', 'Webinar', 'Workshop']
-    
+
     // Filter courses by selected category
     const selectedCategory = categories[selectedIndex] || categories[0]
     const filteredCourses = courses.filter(course => course.course_category_name === selectedCategory)
     const currentCourse = filteredCourses[0]
-    
+
     // Current poster from API
     const currentPoster = currentCourse?.nearest_batch?.posterUrl
     const hasPoster = currentPoster && currentPoster.length > 0
@@ -93,7 +93,7 @@ export default function ComingSoonLearningSection() {
 
     return (
         <>
-            <section className="w-full py-12 px-4 sm:px-6 lg:px-8 lg:py-20">
+            <section id="coming-soon-learning" className="w-full py-12 px-4 sm:px-6 lg:px-8 lg:py-20">
                 <div className="max-w-md md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto rounded-2xl bg-gradient-to-b from-[var(--color-primary-100)] to-[var(--color-primary-300)] relative overflow-hidden lg:h-auto">
                     {/* Container untuk layout 60-40 */}
                     <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 relative z-10">
@@ -130,24 +130,24 @@ export default function ComingSoonLearningSection() {
                                         className="w-auto bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] rounded-full px-4 py-2.5 text-sm gap-4 font-medium flex items-center justify-between"
                                     >
                                         <span>{selectedCategory}</span>
-                                        <svg 
+                                        <svg
                                             className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
-                                            fill="none" 
-                                            stroke="currentColor" 
+                                            fill="none"
+                                            stroke="currentColor"
                                             viewBox="0 0 24 24"
                                         >
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                         </svg>
                                     </button>
-                                    
+
                                     {isDropdownOpen && (
                                         <>
                                             {/* Backdrop */}
-                                            <div 
-                                                className="fixed inset-0 z-10" 
+                                            <div
+                                                className="fixed inset-0 z-10"
                                                 onClick={() => setIsDropdownOpen(false)}
                                             />
-                                            
+
                                             {/* Dropdown Menu */}
                                             <div className="absolute top-full left-0 right-0 mt-2 bg-[var(--color-primary-900)] rounded-2xl shadow-lg z-20 overflow-hidden">
                                                 {categories.map((category, index) => (
@@ -157,11 +157,10 @@ export default function ComingSoonLearningSection() {
                                                             setSelectedIndex(index);
                                                             setIsDropdownOpen(false);
                                                         }}
-                                                        className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
-                                                            selectedIndex === index
-                                                                ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)]'
-                                                                : 'text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]'
-                                                        }`}
+                                                        className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${selectedIndex === index
+                                                            ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)]'
+                                                            : 'text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]'
+                                                            }`}
                                                     >
                                                         {category}
                                                     </button>
@@ -179,11 +178,10 @@ export default function ComingSoonLearningSection() {
                                             size="md"
                                             shape="solid"
                                             color="neutral-50"
-                                            className={`flex-auto h-auto text-xs sm:text-sm font-medium transition-all duration-200 border-0 lg:text-medium px-0 py-0 lg:px-1 lg:py-3 ${
-                                                selectedIndex === index 
-                                                ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] hover:bg-[var(--color-accent-700)]' 
+                                            className={`flex-auto h-auto text-xs sm:text-sm font-medium transition-all duration-200 border-0 lg:text-medium px-0 py-0 lg:px-1 lg:py-3 ${selectedIndex === index
+                                                ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] hover:bg-[var(--color-accent-700)]'
                                                 : 'bg-transparent text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]'
-                                            }`}
+                                                }`}
                                             onClick={() => setSelectedIndex(index)}
                                         >
                                             {category}
@@ -194,7 +192,7 @@ export default function ComingSoonLearningSection() {
                                 {/* Mobile Poster - Ditampilkan di atas */}
                                 <div className="w-full mt-8 mb-8 lg:hidden sm:px-2 md:px-10">
                                     {currentCourse && hasPoster ? (
-                                        <div 
+                                        <div
                                             className="relative cursor-pointer group max-w-md max-h-md mx-auto"
                                             onClick={handlePosterClick}
                                         >
@@ -212,36 +210,44 @@ export default function ComingSoonLearningSection() {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="max-w-md mx-auto aspect-[3/4] rounded-2xl bg-gradient-to-br from-[var(--color-primary-700)] to-[var(--color-primary-900)] flex flex-col items-center justify-center p-8 space-y-4">
-                                            <div className="w-20 h-20 rounded-full bg-[var(--color-accent-600)]/20 flex items-center justify-center">
+                                        <div className="max-w-md mx-auto aspect-[3/4] rounded-2xl bg-gradient-to-br from-[var(--color-primary-800)]/50 to-[var(--color-primary-900)]/50 border border-[var(--color-primary-700)]/30 backdrop-blur-sm flex flex-col items-center justify-center p-6 space-y-4 relative overflow-hidden group">
+                                            {/* Decorative Background Elements */}
+                                            <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-accent-600)]/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+
+                                            {/* Icon Container with Pulse Effect */}
+                                            <div className="relative">
+                                                <div className="absolute inset-0 bg-[var(--color-accent-600)]/20 rounded-full blur-xl animate-pulse"></div>
+                                                <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-[var(--color-primary-700)] to-[var(--color-primary-800)] border border-[var(--color-primary-600)] flex items-center justify-center shadow-lg">
+                                                    <svg className="w-8 h-8 text-[var(--color-accent-400)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                </div>
+                                                {/* Floating Badge */}
+                                                <div className="absolute -top-1 -right-1 bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg transform rotate-12">
+                                                    SOON
+                                                </div>
+                                            </div>
+
+                                            <div className="text-center space-y-2 relative z-10">
                                                 <Typography
-                                                    as="span"
-                                                    size="2xl"
+                                                    as="h4"
+                                                    size="lg"
                                                     weight="bold"
-                                                    color="accent-600"
-                                                    className="text-4xl"
+                                                    color="neutral-50"
+                                                    className="text-center tracking-tight"
                                                 >
-                                                    📅
+                                                    {currentCourse?.course_title || selectedCategory}
+                                                </Typography>
+                                                <Typography
+                                                    as="p"
+                                                    size="sm"
+                                                    weight="normal"
+                                                    color="neutral-50"
+                                                    className="text-center max-w-[200px] mx-auto leading-relaxed opacity-70"
+                                                >
+                                                    {currentCourse ? 'Poster sedang dipersiapkan.' : 'Jadwal belum tersedia.'}
                                                 </Typography>
                                             </div>
-                                            <Typography
-                                                as="h4"
-                                                size="lg"
-                                                weight="semibold"
-                                                color="neutral-50"
-                                                className="text-center"
-                                            >
-                                                {currentCourse?.course_title || selectedCategory}
-                                            </Typography>
-                                            <Typography
-                                                as="p"
-                                                size="sm"
-                                                weight="normal"
-                                                color="neutral-950"
-                                                className="text-center"
-                                            >
-                                                {currentCourse ? 'Poster Segera Hadir' : 'Belum Ada Pelatihan'}
-                                            </Typography>
                                         </div>
                                     )}
                                 </div>
@@ -279,16 +285,16 @@ export default function ComingSoonLearningSection() {
                                             color="neutral-950"
                                             className="text-md text-medium sm:text-semibold md:text-2xl lg:text-2xl"
                                         >
-                                            Belum Ada Pelatihan
+                                            Jadwal Segera Hadir
                                         </Typography>
                                         <Typography
                                             as="p"
                                             size="base"
                                             weight="normal"
-                                            color="neutral-950"
-                                            className="text-sm md:text-base leading-relaxed"
+                                            color="neutral-600"
+                                            className="text-sm md:text-base leading-relaxed pl-0"
                                         >
-                                            Saat ini belum ada pelatihan {selectedCategory} yang tersedia. Pantau terus untuk update pelatihan terbaru kami!
+                                            Saat ini kami sedang menyusun program {selectedCategory} terbaik untuk Anda. Nantikan update jadwal selanjutnya!
                                         </Typography>
                                     </>
                                 )}
@@ -297,7 +303,7 @@ export default function ComingSoonLearningSection() {
                             {/* Training Button */}
                             {currentCourse && (
                                 <div className="">
-                                    <button 
+                                    <button
                                         className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
                                         onClick={() => router.push(`/courses/${generateCourseSlug(currentCourse.course_title)}`)}
                                     >
@@ -313,7 +319,7 @@ export default function ComingSoonLearningSection() {
                                         <Icon
                                             icon="arrow-right"
                                             type="image"
-                                            src="/src/rightarrow.svg"
+                                            src="/src/common/rightarrow.svg"
                                             size="sm"
                                             color="accent-600"
                                             alt="Arrow"
@@ -328,7 +334,7 @@ export default function ComingSoonLearningSection() {
                     {/* Poster Area - Absolute Positioned Full Right */}
                     <div className="h-full absolute top-0 right-0 bottom-0 w-[30%%] hidden lg:block z-20">
                         {currentCourse && hasPoster ? (
-                            <div 
+                            <div
                                 className="relative w-full h-full cursor-pointer group"
                                 onClick={handlePosterClick}
                             >
@@ -357,74 +363,83 @@ export default function ComingSoonLearningSection() {
                                 </div>
                             </div>
                         ) : (
-                            <div className="w-full lg:w-100 h-full rounded-2xl bg-gradient-to-br from-[var(--color-primary-700)] to-[var(--color-primary-900)] flex flex-col items-center justify-center p-8 space-y-4">
-                                <div className="w-24 h-24 rounded-full bg-[var(--color-accent-600)]/20 flex items-center justify-center">
+                            <div className="w-full lg:w-100 h-full rounded-2xl bg-gradient-to-br from-[var(--color-primary-900)]/70 to-[var(--color-primary-900)]/90 border border-[var(--color-primary-700)] backdrop-blur-sm flex flex-col items-center justify-center p-8 space-y-6 relative overflow-hidden group">
+                                {/* Icon Container with Pulse Effect */}
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-[var(--color-accent-600)]/20 rounded-full blur-xl animate-pulse"></div>
+                                    <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-[var(--color-primary-700)] to-[var(--color-primary-800)] border border-[var(--color-primary-600)] flex items-center justify-center shadow-xl">
+                                        <svg className="w-10 h-10 text-[var(--color-accent-400)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    {/* Floating Badge */}
+                                    <div className="absolute -top-2 -right-2 bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] text-[10px] font-bold px-2 py-1 rounded-full shadow-lg transform rotate-12">
+                                        SOON
+                                    </div>
+                                </div>
+
+                                <div className="text-center space-y-2 relative z-10">
                                     <Typography
-                                        as="span"
-                                        size="2xl"
+                                        as="h4"
+                                        size="lg"
                                         weight="bold"
-                                        color="accent-600"
-                                        className="text-5xl"
+                                        color="neutral-50"
+                                        align='center'
+                                        className="text-center tracking-tight"
                                     >
-                                        📅
+                                        {currentCourse?.course_title || selectedCategory}
+                                    </Typography>
+                                    <Typography
+                                        as="p"
+                                        size="sm"
+                                        weight="normal"
+                                        color="neutral-50"
+                                        align="center"
+                                        className="max-w-[200px] mx-auto leading-relaxed opacity-60"
+                                    >
+                                        {currentCourse ? 'Poster sedang dipersiapkan tim kami.' : 'Jadwal pelatihan belum tersedia.'}
                                     </Typography>
                                 </div>
-                                <Typography
-                                    as="h4"
-                                    size="xl"
-                                    weight="semibold"
-                                    color="neutral-50"
-                                    className="text-center"
-                                >
-                                    {currentCourse?.course_title || selectedCategory}
-                                </Typography>
-                                <Typography
-                                    as="p"
-                                    size="base"
-                                    weight="normal"
-                                    color="neutral-950"
-                                    className="text-center"
-                                >
-                                    {currentCourse ? 'Poster Segera Hadir' : 'Belum Ada Pelatihan'}
-                                </Typography>
                             </div>
                         )}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Poster Modal */}
-            {showPosterModal && currentCourse && hasPoster && (
-                <div 
-                    className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-                    onClick={closePosterModal}
-                >
-                    <div className="relative lg:max-w-lg lg:max-h-[79vh] w-full">
-                        <button
-                            onClick={closePosterModal}
-                            className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
-                        >
-                            <Typography
-                                as="span"
-                                size="lg"
-                                weight="normal"
-                                color="neutral-50"
+            {
+                showPosterModal && currentCourse && hasPoster && (
+                    <div
+                        className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+                        onClick={closePosterModal}
+                    >
+                        <div className="relative lg:max-w-lg lg:max-h-[79vh] w-full">
+                            <button
+                                onClick={closePosterModal}
+                                className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
                             >
-                                ✕ Tutup
-                            </Typography>
-                        </button>
-                        <Image
-                            src={currentPoster!}
-                            alt={`${currentCourse.course_title} Poster`}
-                            fullWidth={true}
-                            aspectRatio="auto"
-                            shape="rounded"
-                            fit="contain"
-                            className="w-full h-full rounded-2xl"
-                        />
+                                <Typography
+                                    as="span"
+                                    size="lg"
+                                    weight="normal"
+                                    color="neutral-50"
+                                >
+                                    ✕ Tutup
+                                </Typography>
+                            </button>
+                            <Image
+                                src={currentPoster!}
+                                alt={`${currentCourse.course_title} Poster`}
+                                fullWidth={true}
+                                aspectRatio="auto"
+                                shape="rounded"
+                                fit="contain"
+                                className="w-full h-full rounded-2xl"
+                            />
+                        </div>
                     </div>
-                </div>
-            )}
+                )
+            }
         </>
     )
 }

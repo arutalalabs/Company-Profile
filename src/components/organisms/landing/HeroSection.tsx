@@ -1,7 +1,21 @@
 'use client'
 import { Tag, Typography, Button } from '@/components'
+import { useRouter } from 'next/navigation'
 
 export default function HeroSection() {
+    const router = useRouter()
+
+    const handleContactClick = () => {
+        router.push('/kontak')
+    }
+
+    const handleScrollToLearning = () => {
+        const element = document.getElementById('coming-soon-learning')
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    }
+
     return (
         <section className="bg-[#ffffff] w-full sm:px-4 sm:pt-2 lg:pt-6 lg:px-8 ">
             <div className="relative bg-[var(--color-neutral-950)] w-full min-h-[614px] flex justify-center items-center overflow-hidden sm:rounded-2xl sm:min-h-[520px] md:min-h-[580px] lg:min-h-[480px] 2xl:min-h-[614px] lg:rounded-3xl">
@@ -90,6 +104,7 @@ export default function HeroSection() {
                                 shape="solid"
                                 color="accent-600"
                                 className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
+                                onClick={handleContactClick}
                             >
                                 Contact Us
                             </Button>
@@ -98,6 +113,7 @@ export default function HeroSection() {
                                 shape="outline"
                                 color="accent-600"
                                 className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
+                                onClick={handleScrollToLearning}
                             >
                                 Pelatihan Mendatang
                             </Button>

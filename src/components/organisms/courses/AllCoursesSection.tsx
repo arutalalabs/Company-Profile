@@ -23,9 +23,32 @@ export default function AllCoursesSection() {
                 setLoading(true);
                 const response = await getAllCourse();
                 if (response.success) {
-                    setCourses(response.data);
+                    // Sort courses: Active first (by registration_end asc), then closed (by registration_end desc)
+                    const sortedCourses = response.data.sort((a, b) => {
+                        const batchA = Array.isArray(a.course_batch) ? a.course_batch[0] : a.course_batch;
+                        const batchB = Array.isArray(b.course_batch) ? b.course_batch[0] : b.course_batch;
+                        
+                        const regEndA = batchA?.registration_end ? new Date(batchA.registration_end).getTime() : Infinity;
+                        const regEndB = batchB?.registration_end ? new Date(batchB.registration_end).getTime() : Infinity;
+                        
+                        const now = Date.now();
+                        const isActiveA = regEndA > now;
+                        const isActiveB = regEndB > now;
+                        
+                        // Active courses first
+                        if (isActiveA && !isActiveB) return -1;
+                        if (!isActiveA && isActiveB) return 1;
+                        
+                        // Both active: nearest deadline first
+                        if (isActiveA && isActiveB) return regEndA - regEndB;
+                        
+                        // Both closed: recently closed first
+                        return regEndB - regEndA;
+                    });
+                    
+                    setCourses(sortedCourses);
                     // Extract unique categories
-                    const uniqueCategories = [...new Set(response.data.map(c => c.course_category_name))];
+                    const uniqueCategories = [...new Set(sortedCourses.map(c => c.course_category_name))];
                     setCategories(uniqueCategories);
                 } else {
                     setError(response.message || 'Failed to fetch courses');
@@ -194,9 +217,20 @@ export default function AllCoursesSection() {
                             const batchData = course.course_batch as any;
                             const batch = Array.isArray(batchData) ? batchData[0] : batchData;
                             const instructor = batch?.instructor;
+                            
+                            // Check if registration is closed
+                            const registrationEnd = batch?.registration_end ? new Date(batch.registration_end).getTime() : null;
+                            const isRegistrationClosed = registrationEnd ? registrationEnd < Date.now() : false;
 
                             return (
-                            <div key={course.course_id} className="bg-white rounded-3xl border border-[var(--color-primary-900)] overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+                            <div 
+                                key={course.course_id} 
+                                className={`bg-white rounded-3xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full ${
+                                    isRegistrationClosed 
+                                        ? 'border-2 border-gray-300 opacity-75' 
+                                        : 'border border-[var(--color-primary-900)]'
+                                }`}
+                            >
                                 {/* Course Image Header */}
                                 <div className="h-24 bg-gradient-to-r from-cyan-500 to-blue-600 relative overflow-hidden">
                                     {batch?.posterUrl ? (
@@ -249,8 +283,15 @@ export default function AllCoursesSection() {
                                     {/* Deadline Badge */}
                                     {batch?.registration_end && (
                                         <div className="mb-4 sm:mb-5 lg:mb-6">
-                                            <span className="bg-[var(--color-primary-900)] text-white text-[8px] sm:text-[10px] px-2 sm:px-3 py-1 sm:py-1 rounded-lg inline-block">
-                                                Batas Pendaftaran: {formatDate(batch.registration_end)}
+                                            <span className={`text-white text-[8px] sm:text-[10px] px-2 sm:px-3 py-1 sm:py-1 rounded-lg inline-block ${
+                                                isRegistrationClosed 
+                                                    ? 'bg-red-600' 
+                                                    : 'bg-[var(--color-primary-900)]'
+                                            }`}>
+                                                {isRegistrationClosed 
+                                                    ? '🔒 Pendaftaran Ditutup' 
+                                                    : `Batas Pendaftaran: ${formatDate(batch.registration_end)}`
+                                                }
                                             </span>
                                         </div>
                                     )}
@@ -303,7 +344,7 @@ export default function AllCoursesSection() {
                                         className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:rounded-[20px]"
                                         onClick={() => router.push(`/courses/${generateCourseSlug(course.course_title)}`)}
                                     >
-                                        Pelajari Selengkapnya
+                                        {isRegistrationClosed ? 'Lihat Detail' : 'Pelajari Selengkapnya'}
                                     </Button>
                                 </div>
                             </div>

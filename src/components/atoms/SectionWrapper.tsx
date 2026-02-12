@@ -14,9 +14,9 @@ export const SectionWrapper: React.FC<SectionWrapperProps> = ({
     background = 'white',
 }) => {
     const backgrounds = {
-        white: 'bg-white',
+        white: 'bg-[#FFFFFF]',
         gray: 'bg-gray-50',
-        gradient: 'bg-gradient-to-br from-navy-900 via-navy-800 to-primary-900',
+        gradient: 'bg-gradient-to-b from-[var(--color-primary-400)] to-[var(--color-primary-100)]',
     };
 
     return (
@@ -24,7 +24,7 @@ export const SectionWrapper: React.FC<SectionWrapperProps> = ({
             id={id}
             className={`py-16 md:py-24 ${backgrounds[background]} ${className}`}
         >
-            <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+            <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-md md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl">
                 {children}
             </div>
         </section>
@@ -56,7 +56,7 @@ export const SectionTitle: React.FC<SectionTitleProps> = ({
                 {title}
             </h2>
             {subtitle && (
-                <p className={`text-lg ${subtitleColor} max-w-2xl ${centered ? 'mx-auto' : ''}`}>
+                <p className={`text-lg ${subtitleColor} max-w-5xl ${centered ? 'mx-auto' : ''}`}>
                     {subtitle}
                 </p>
             )}
