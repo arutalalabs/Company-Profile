@@ -15,13 +15,14 @@ export interface TypographyProps {
     weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'extrabold'
     /** Text color theme */
     color?:
-        | 'neutral-950'
-        | 'neutral-600'
-        | 'neutral-50'
-        | 'primary-600'
-        | 'accent-600'
-        | 'red-base'
-        | 'green-base'
+    | 'neutral-950'
+    | 'neutral-600'
+    | 'neutral-50'
+    | 'primary-600'
+    | 'primary-900'
+    | 'accent-600'
+    | 'red-base'
+    | 'green-base'
     /** Line height for better readability */
     leading?: 'tight' | 'snug' | 'normal' | 'relaxed' | 'loose'
     /** Letter spacing */
@@ -30,16 +31,16 @@ export interface TypographyProps {
     align?: 'left' | 'center' | 'right' | 'justify'
     /** HTML element to render as */
     as?:
-        | 'h1'
-        | 'h2'
-        | 'h3'
-        | 'h4'
-        | 'h5'
-        | 'h6'
-        | 'p'
-        | 'span'
-        | 'div'
-        | 'label'
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'p'
+    | 'span'
+    | 'div'
+    | 'label'
     /** Additional CSS classes */
     className?: string
 }
@@ -101,6 +102,7 @@ export function Typography({
         'neutral-600': 'text-[var(--color-neutral-600)]',
         'neutral-50': 'text-[var(--color-neutral-50)]',
         'primary-600': 'text-[var(--color-primary-600)]',
+        'primary-900': 'text-[var(--color-primary-900)]',
         'accent-600': 'text-[var(--color-accent-600)]',
         'red-base': 'text-[var(--color-red-base)]',
         'green-base': 'text-[var(--color-green-base)]'

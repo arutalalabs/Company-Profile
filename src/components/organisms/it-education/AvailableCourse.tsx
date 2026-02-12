@@ -42,7 +42,20 @@ export default function AvailableCourseSection() {
                 setLoading(true);
                 const response = await getAvailableCourses();
                 if (response.success) {
-                    setCourses(response.data);
+                    // Sort courses by registration end date (ascending - most urgent first)
+                    const sortedCourses = response.data.sort((a, b) => {
+                        const batchA = Array.isArray(a.course_batch) ? a.course_batch[0] : a.course_batch;
+                        const batchB = Array.isArray(b.course_batch) ? b.course_batch[0] : b.course_batch;
+                        
+                        const dateA = batchA?.registration_end ? new Date(batchA.registration_end).getTime() : 
+                                     batchA?.start_date ? new Date(batchA.start_date).getTime() : Infinity;
+                        const dateB = batchB?.registration_end ? new Date(batchB.registration_end).getTime() : 
+                                     batchB?.start_date ? new Date(batchB.start_date).getTime() : Infinity;
+                        
+                        return dateA - dateB; // Ascending: nearest deadline first
+                    });
+                    
+                    setCourses(sortedCourses);
                 } else {
                     setError(response.message || 'Failed to fetch courses');
                 }

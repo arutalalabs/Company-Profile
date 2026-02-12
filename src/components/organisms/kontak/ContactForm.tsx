@@ -194,6 +194,9 @@ export function ContactForm() {
                         }`}
                         placeholder="08123456789"
                     />
+                    <Typography size="xs" color="neutral-600" className="mt-2 text-gray-900 italic block">
+                        *Pastikan nomor WhatsApp aktif untuk memudahkan komunikasi dengan tim kami.
+                    </Typography>
                     {fieldErrors.senderPhone && (
                         <Typography size="sm" color="red-base" className="mt-1">
                             {fieldErrors.senderPhone}

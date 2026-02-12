@@ -23,60 +23,60 @@ interface CategoryData {
 const categoryData: CategoryData[] = [
     {
         name: 'Bootcamp',
-        image: '/src/learning-illustration.png',
+        image: '/src/it-education/learning-illustration.png',
         fieldInfo: {
             duration: '1-3 Bulan',
             schedule: ['Weekdays', 'Weekend'],
             level: 'Beginner Friendly'
         },
         learningMethods: [
-            { type: 'Online Class', icon: '/src/checklist.svg' },
-            { type: 'Offline - Live Interactive', icon: '/src/checklist.svg' },
-            { type: 'Project for Portfolio', icon: '/src/checklist.svg' },
-            { type: 'Mentoring', icon: '/src/checklist.svg' }
+            { type: 'Online Class', icon: '/src/common/checklist.svg' },
+            { type: 'Offline - Live Interactive', icon: '/src/common/checklist.svg' },
+            { type: 'Project for Portfolio', icon: '/src/common/checklist.svg' },
+            { type: 'Mentoring', icon: '/src/common/checklist.svg' }
         ]
     },
     {
         name: 'Online/Offline Course',
-        image: '/src/learning-illustration.png',
+        image: '/src/it-education/learning-illustration.png',
         fieldInfo: {
             duration: '2-4 Minggu',
             schedule: ['Flexible'],
             level: 'All Levels'
         },
         learningMethods: [
-            { type: 'Self Learning', icon: '/src/checklist.svg' },
-            { type: 'Online Class', icon: '/src/checklist.svg' },
-            { type: 'Offline Class', icon: '/src/checklist.svg' },
-            { type: 'Project Based', icon: '/src/checklist.svg' }
+            { type: 'Self Learning', icon: '/src/common/checklist.svg' },
+            { type: 'Online Class', icon: '/src/common/checklist.svg' },
+            { type: 'Offline Class', icon: '/src/common/checklist.svg' },
+            { type: 'Project Based', icon: '/src/common/checklist.svg' }
         ]
     },
     {
         name: 'Workshop',
-        image: '/src/learning-illustration.png',
+        image: '/src/it-education/learning-illustration.png',
         fieldInfo: {
             duration: '1-7 Hari',
             schedule: ['Weekend'],
             level: 'Intermediate'
         },
         learningMethods: [
-            { type: 'Offline - Live Interactive', icon: '/src/checklist.svg' },
-            { type: 'Hands-on Practice', icon: '/src/checklist.svg' },
-            { type: 'Group Discussion', icon: '/src/checklist.svg' }
+            { type: 'Offline - Live Interactive', icon: '/src/common/checklist.svg' },
+            { type: 'Hands-on Practice', icon: '/src/common/checklist.svg' },
+            { type: 'Group Discussion', icon: '/src/common/checklist.svg' }
         ]
     },
     {
         name: 'Webinar',
-        image: '/src/learning-illustration.png',
+        image: '/src/it-education/learning-illustration.png',
         fieldInfo: {
             duration: '1-3 Jam',
             schedule: ['Weekdays', 'Weekend'],
             level: 'All Levels'
         },
         learningMethods: [
-            { type: 'Online Live Session', icon: '/src/checklist.svg' },
-            { type: 'Q&A Session', icon: '/src/checklist.svg' },
-            { type: 'Recording Available', icon: '/src/checklist.svg' }
+            { type: 'Online Live Session', icon: '/src/common/checklist.svg' },
+            { type: 'Q&A Session', icon: '/src/common/checklist.svg' },
+            { type: 'Recording Available', icon: '/src/common/checklist.svg' }
         ]
     }
 ]
@@ -112,24 +112,24 @@ export default function LearningMethods() {
                             className="w-full bg-[var(--color-primary-900)] text-[var(--color-neutral-50)] rounded-full px-4 py-2.5 text-sm gap-4 font-medium flex items-center justify-between"
                         >
                             <span>{currentCategory.name}</span>
-                            <svg 
+                            <svg
                                 className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
-                                fill="none" 
-                                stroke="currentColor" 
+                                fill="none"
+                                stroke="currentColor"
                                 viewBox="0 0 24 24"
                             >
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        
+
                         {isDropdownOpen && (
                             <>
                                 {/* Backdrop */}
-                                <div 
-                                    className="fixed inset-0 z-10" 
+                                <div
+                                    className="fixed inset-0 z-10"
                                     onClick={() => setIsDropdownOpen(false)}
                                 />
-                                
+
                                 {/* Dropdown Menu */}
                                 <div className="absolute top-full left-0 right-0 mt-2 bg-[var(--color-primary-900)] rounded-2xl shadow-lg z-20 overflow-hidden">
                                     {categories.map((category, index) => (
@@ -139,11 +139,10 @@ export default function LearningMethods() {
                                                 setSelectedIndex(index);
                                                 setIsDropdownOpen(false);
                                             }}
-                                            className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
-                                                selectedIndex === index
+                                            className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${selectedIndex === index
                                                     ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)]'
                                                     : 'text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]'
-                                            }`}
+                                                }`}
                                         >
                                             {category}
                                         </button>
@@ -161,11 +160,10 @@ export default function LearningMethods() {
                                 size="md"
                                 shape="solid"
                                 color="neutral-50"
-                                className={`flex-auto h-auto font-medium transition-all duration-200 border-0 sm:px-4 sm:py-1 sm:min-h-[1rem] lg:text-sm lg:px-6 lg:py-2 lg:min-h-[1rem] 2xl:text-sm 2xl:px-6 2xl:py-3 ${
-                                    selectedIndex === index 
-                                    ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] hover:bg-[var(--color-accent-700)]' 
-                                    : 'bg-transparent text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]'
-                                }`}
+                                className={`flex-auto h-auto font-medium transition-all duration-200 border-0 sm:px-4 sm:py-1 sm:min-h-[1rem] lg:text-sm lg:px-6 lg:py-2 lg:min-h-[1rem] 2xl:text-sm 2xl:px-6 2xl:py-3 ${selectedIndex === index
+                                        ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] hover:bg-[var(--color-accent-700)]'
+                                        : 'bg-transparent text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]'
+                                    }`}
                                 onClick={() => setSelectedIndex(index)}
                             >
                                 {category}
@@ -201,7 +199,7 @@ export default function LearningMethods() {
                             >
                                 Informasi {currentCategory.name}
                             </Typography>
-                            
+
                             {/* Duration */}
                             <div className="flex items-center justify-between pb-2 sm:pb-2.5 lg:pb-2 2xl:pb-3 border-b border-[var(--color-primary-900)]">
                                 <Typography
@@ -280,10 +278,10 @@ export default function LearningMethods() {
                             >
                                 Metode Pembelajaran
                             </Typography>
-                            
+
                             <div className="grid grid-cols-1 gap-1 sm:gap-1.5">
                                 {currentCategory.learningMethods.map((method, index) => (
-                                    <div 
+                                    <div
                                         key={index}
                                         className="flex items-center gap-2 sm:gap-3 pb-2 sm:pb-2 lg:pb-2 2xl:pb-3"
                                     >

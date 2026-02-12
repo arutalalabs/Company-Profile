@@ -28,54 +28,39 @@ export default function VisionMission({
     { text: "Menjadi pilihan utama dalam penyediaan IT resource melalui layanan head hunting dan outsource." },
     { text: "Menjadi mitra tepercaya dalam mendukung penyediaan software bagi industri dan" }
   ],
-  imageSrc = "/src/vision-mission.png"
+  imageSrc = "/src/profile/vision-mission.jpg"
 }: VisionMissionProps) {
-  const checkIcon = (
-    <svg 
-      className="w-6 h-6" 
-      fill="none" 
-      stroke="currentColor" 
-      viewBox="0 0 24 24"
-    >
-      <path 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        strokeWidth={2} 
-        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" 
-      />
-    </svg>
-  );
 
   return (
-    <SectionWrapper background="gray" className="py-12 md:py-20">
+    <SectionWrapper background="gray" className="py-12 md:py-20 md:pb-40">
       <div className="flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-12">
         {/* Text Content */}
-        <div className="flex-1 space-y-8">
+        <div className="flex-1">
           <Typography 
             as="h2" 
-            size="5xl" 
+            size="2xl" 
             weight="bold" 
             color="neutral-950"
-            className="text-3xl md:text-4xl lg:text-5xl"
+            className="text-2xl md:text-3xl lg:text-4xl"
           >
             {title}
           </Typography>
           
           {/* Vision */}
-          <div className="space-y-4">
+          <div className="mb-8">
             <Typography 
               as="h3" 
-              size="2xl" 
-              weight="semibold" 
+              size="lg" 
+              weight="medium" 
               color="neutral-950"
-              className="text-xl md:text-2xl"
+              className="text-lg md:text-xl"
             >
               {vision.title}
             </Typography>
             {vision.description && (
               <Typography 
                 as="p" 
-                size="lg" 
+                size="base" 
                 color="neutral-600" 
                 leading="relaxed"
                 className="text-base md:text-lg"
@@ -86,19 +71,12 @@ export default function VisionMission({
           </div>
 
           {/* Missions */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             {missions.map((mission, index) => (
               <div key={index} className="flex gap-3 items-start">
-                <div className="flex-shrink-0 w-6 h-6 mt-1">
-                  <Icon 
-                    icon={checkIcon} 
-                    size="md" 
-                    color="primary-600"
-                  />
-                </div>
                 <Typography 
                   as="p" 
-                  size="lg" 
+                  size="base" 
                   color="neutral-600" 
                   leading="relaxed"
                   className="text-base md:text-lg flex-1"
@@ -112,7 +90,7 @@ export default function VisionMission({
 
         {/* Image */}
         <div className="flex-1 w-full max-w-2xl">
-          <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
+          <div className="relative w-full h-[420px] aspect-[4/3] rounded-br-[50px] overflow-hidden shadow-xl">
             <Image
               src={imageSrc}
               alt="Vision and Mission"
