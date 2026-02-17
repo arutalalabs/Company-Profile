@@ -49,7 +49,7 @@ export function ContactForm() {
         }))
     }
 
-    // Handle perubahan subject (checkbox - hanya bisa pilih satu)
+    // Handle perubahan subject (checkbox - multiple choice)
     const handleSubjectCheckboxChange = (value: string) => {
         setFormData((prev) => {
             const currentSubjects = prev.subject
@@ -59,13 +59,13 @@ export function ContactForm() {
                 // Jika sudah dipilih, remove dari array (uncheck)
                 return {
                     ...prev,
-                    subject: []
+                    subject: currentSubjects.filter(item => item !== value)
                 }
             } else {
-                // Jika belum dipilih, replace array dengan value baru (hanya satu yang dipilih)
+                // Jika belum dipilih, tambahkan ke array (multiple selection allowed)
                 return {
                     ...prev,
-                    subject: [value]
+                    subject: [...currentSubjects, value]
                 }
             }
         })
@@ -125,7 +125,7 @@ export function ContactForm() {
                 <div>
                     <label htmlFor="organizationName" className="block mb-2">
                         <Typography weight="medium" color="neutral-950">
-                            Institusi/Organisasi
+                            Institusi/Organisasi <span className="text-red-500">*</span>
                         </Typography>
                     </label>
                     <input
@@ -204,14 +204,11 @@ export function ContactForm() {
                     )}
                 </div>
 
-                {/* Subject - Checkbox Version */}
+                {/* Subject - Checkbox Version (Multiple Choice) */}
                 <div>
                     <label className="block mb-3">
                         <Typography weight="medium" color="neutral-950">
                             Subject <span className="text-red-500">*</span>
-                        </Typography>
-                        <Typography size="sm" color="neutral-600" className="mt-1">
-                            Pilih satu topik
                         </Typography>
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
@@ -289,16 +286,28 @@ export function ContactForm() {
                                 : 'bg-red-50 border border-red-200'
                         }`}
                     >
-                        <Typography
-                            color={
-                                submitStatus.type === 'success'
-                                    ? 'green-base'
-                                    : 'red-base'
-                            }
-                            size="sm"
-                        >
-                            {submitStatus.message}
-                        </Typography>
+                        <div className="flex items-start gap-2">
+                            {submitStatus.type === 'success' ? (
+                                <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            ) : (
+                                <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            )}
+                            <Typography
+                                color={
+                                    submitStatus.type === 'success'
+                                        ? 'green-base'
+                                        : 'red-base'
+                                }
+                                size="sm"
+                                className="flex-1"
+                            >
+                                {submitStatus.message}
+                            </Typography>
+                        </div>
                     </div>
                 )}
 
