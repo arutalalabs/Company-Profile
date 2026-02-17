@@ -26,8 +26,6 @@
 #### Performance Optimization
 - [ ] Dynamic routes menggunakan `generateStaticParams` (SSG)
 - [ ] ISR configured dengan `revalidate` time
-- [ ] Images menggunakan Next.js `<Image>` component
-- [ ] Fonts dioptimasi dengan `next/font`
 - [ ] Large dependencies di-analyze (optional: run `bun run analyze`)
 
 #### SEO Requirements

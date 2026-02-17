@@ -171,7 +171,7 @@ export default function ComingSoonLearningSection() {
                                 </div>
 
                                 {/* Desktop: Button Group */}
-                                <div className="bg-[var(--color-primary-900)] rounded-full p-1 hidden sm:flex">
+                                <div className="bg-[var(--color-primary-900)] rounded-full p-1 hidden sm:flex gap-2">
                                     {categories.map((category, index) => (
                                         <Button
                                             key={category}

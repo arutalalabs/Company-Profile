@@ -13,7 +13,7 @@ export default function WhyArutalaLabSection() {
                         weight="semibold"
                         color="neutral-950"
                         align="center"
-                        className="mb-0 text-xl md:text-2xl lg:mb-4 lg:text-start 2xl:text-3xl"
+                        className="mb-0 text-xl md:text-2xl 2xl:text-3xl lg:mb-4 lg:text-start "
                     >
                         Mengapa Layanan ArutalaLab Terbaik
                     </Typography>
@@ -63,6 +63,7 @@ export default function WhyArutalaLabSection() {
                                     weight="normal"
                                     color="neutral-600"
                                     leading="normal"
+                                    className='2xl:text-base'
                                 >
                                     Mendorong kreativitas dan pemikiran
                                     teknologi yang relevan dengan kebutuhan
@@ -99,6 +100,7 @@ export default function WhyArutalaLabSection() {
                                     weight="normal"
                                     color="neutral-600"
                                     leading="normal"
+                                    className='2xl:text-base'
                                 >
                                     Membekali talenta dengan skill dan
                                     kesiapan menghadapi dunia industri.
@@ -134,6 +136,7 @@ export default function WhyArutalaLabSection() {
                                     weight="normal"
                                     color="neutral-600"
                                     leading="normal"
+                                    className='2xl:text-base'
                                 >
                                     Didukung tim profesional dengan keahlian
                                     luas dalam pengembangan talenta dan
@@ -166,10 +169,11 @@ export default function WhyArutalaLabSection() {
                                 </Typography>
                                 <Typography
                                     as="p"
-                                    size="base"
+                                    size="sm"
                                     weight="normal"
                                     color="neutral-600"
                                     leading="normal"
+                                    className='2xl:text-base'
                                 >
                                     Memiliki kolaborasi yang saling
                                     menguatkan untuk mencapai tujuan bisnis.

@@ -51,6 +51,11 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
 
     const course = response.data[0]
 
+    // Safety check for course_batch
+    if (!course?.course_batch) {
+        course.course_batch = []
+    }
+
     // Get first batch data for hero section
     const batches = Array.isArray(course.course_batch) 
         ? course.course_batch 
