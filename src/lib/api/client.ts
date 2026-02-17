@@ -3,13 +3,18 @@
  * Centralized fetch wrapper dengan timeout, caching, dan error handling
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
-
-if (!API_BASE_URL) {
-    throw new Error(
-        'NEXT_PUBLIC_API_URL environment variable is not set. ' +
-        'Please set it in your .env.local file.'
-    )
+/**
+ * Get API base URL (lazy evaluation to avoid build-time errors)
+ */
+function getApiBaseUrl(): string {
+    const url = process.env.NEXT_PUBLIC_API_URL
+    if (!url) {
+        throw new Error(
+            'NEXT_PUBLIC_API_URL environment variable is not set. ' +
+            'Please set it in your .env.local file.'
+        )
+    }
+    return url
 }
 
 /**
@@ -83,7 +88,7 @@ export async function apiFetch<T>(
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        const response = await fetch(`${getApiBaseUrl()}${endpoint}`, {
             ...fetchOptions,
             signal: controller.signal,
             headers: {
