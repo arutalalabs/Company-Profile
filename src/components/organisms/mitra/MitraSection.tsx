@@ -148,14 +148,17 @@ export function MitraSection({ mitras }: MitraSectionProps) {
                                     style={{
                                         scrollbarWidth: 'none',
                                         msOverflowStyle: 'none',
-                                        WebkitOverflowScrolling: 'touch'
+                                        WebkitOverflowScrolling: 'touch',
+                                        scrollSnapType: 'x mandatory',
+                                        scrollSnapStop: 'always'
                                     }}
                                 >
                                     <div className="flex gap-4 sm:gap-6 pb-2">
                                         {mitras.map((mitra, index) => (
                                             <div
                                                 key={mitra.id ?? `mitra-${index}`}
-                                                className="flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] snap-start"
+                                                className="flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)]"
+                                                style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
                                             >
                                                 <MitraCard
                                                     name={mitra.mitra_name}
