@@ -30,7 +30,7 @@ export class ApiError extends Error {
 /**
  * Extended Fetch Options dengan timeout dan caching
  */
-interface FetchOptions extends RequestInit {
+export interface FetchOptions extends RequestInit {
     timeout?: number
     /** ISR revalidation time in seconds. Default: 3600 (1 hour). Use 0 for no cache. */
     revalidate?: number | false
