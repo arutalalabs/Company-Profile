@@ -17,14 +17,6 @@ export default function HeroResource() {
         }
     return (
         <section className="relative container mx-auto max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-6xl 2xl:max-w-[90rem] lg:py-20 2x:py-24 py-8">
-            {/* Background Gradient */}
-            <div 
-                className="absolute inset-0 opacity-20 pointer-events-none"
-                style={{
-                    background: 'linear-gradient(to bottom, transparent 0%, var(--color-primary-600) 50%, transparent 100%)'
-                }}
-            />
-            
             {/* Content */}
             <div className="relative grid grid-cols-1 lg:grid-cols-[7fr_3fr] gap-2 lg:gap-18 items-center">
                 {/* Text Content - Left Side */}
