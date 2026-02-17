@@ -17,7 +17,10 @@ export default function CoursesPage() {
             <AllCoursesSection />
 
             {/* CTA Section */}
-            <CTA />
+            <CTA 
+                title='Mulai Perjalanan Anda!'
+                description='Pelajari skill IT yang relevan dan aplikatif untuk mendukung kesiapan karier di dunia profesional.'
+            />
         </main>
     )
 }

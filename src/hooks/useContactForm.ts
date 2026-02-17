@@ -204,11 +204,19 @@ export function useContactForm(): UseContactFormReturn {
             const response = await messagesApi.send(data)
 
             if (response.success) {
+                // Improve message if API returns generic message
+                let successMessage = response.message || ''
+                
+                // Replace generic API messages with more user-friendly ones
+                if (successMessage.includes('Membuat pesan berhasil') || 
+                    successMessage.includes('berhasil dibuat') ||
+                    successMessage.length < 30) {
+                    successMessage = 'Pesan berhasil dikirim! Tim kami akan segera menghubungi Anda.'
+                }
+                
                 setSubmitStatus({
                     type: 'success',
-                    message:
-                        response.message ||
-                        'Pesan Anda berhasil terkirim! Kami akan segera merespon.'
+                    message: successMessage
                 })
                 setFieldErrors({})
                 return true

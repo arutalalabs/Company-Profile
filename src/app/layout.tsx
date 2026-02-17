@@ -78,17 +78,17 @@ export default function RootLayout({
                     socialIcons={[
                         {
                             icon: '/src/common/instagram.svg',
-                            href: 'https://instagram.com',
+                            href: 'https://https://www.instagram.com/arutalalab/.com',
                             alt: 'Instagram'
                         },
                         {
                             icon: '/src/common/youtube.svg',
-                            href: 'https://youtube.com',
+                            href: 'https://www.youtube.com/@ArutalaLab',
                             alt: 'YouTube'
                         },
                         {
                             icon: '/src/common/linkedin.svg',
-                            href: 'https://linkedin.com',
+                            href: 'https://id.linkedin.com/company/pt-arutala-mitra-mandiri',
                             alt: 'LinkedIn'
                         }
                     ]}
