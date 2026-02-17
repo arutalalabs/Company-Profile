@@ -88,10 +88,8 @@ export default function ComingSoonLearningSection() {
         console.warn('Upcoming Courses API Error:', error)
     }
 
-    // Don't render if no courses
-    if (courses.length === 0) {
-        return null
-    }
+    // Tetap render komponen meskipun tidak ada data
+    // UI sudah di-handle untuk kondisi courses kosong dengan placeholder
 
     return (
         <>
