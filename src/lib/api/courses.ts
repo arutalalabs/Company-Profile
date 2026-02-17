@@ -86,10 +86,11 @@ export interface CourseBenefit {
 }
 
 export interface BatchSession {
+    course_session_id: string
     topic: string
     date: string
-    startTime: string
-    endTime: string
+    start_time: string
+    end_time: string
 }
 
 export interface CourseDetailBatch {
@@ -122,6 +123,42 @@ export interface CourseDetailResponse {
     success: boolean
     message: string
     data: CourseDetail[]
+}
+
+// API Response types (as returned from backend)
+export interface ApiCourseBatchResponse {
+    course_batch_id: string
+    name: string
+    poster_url: string | null
+    registration_start: string
+    registration_end: string
+    start_date: string
+    end_date: string
+    batch_status: string
+    instructor_name: string
+    instructor_job_title: string
+    instructor_company_name: string
+    instructor_profile_url: string
+    base_price: number
+    discount_type: string | null
+    discount_value: number | null
+    final_price: number | null
+    sessions: BatchSession[]
+}
+
+export interface ApiCourseDetailResponse {
+    success: boolean
+    message: string
+    data: {
+        course_id: string
+        course_title: string
+        course_description: string
+        course_category_name: string
+        course_field_name: string
+        courseBenefit: Array<{ title: string; description: string }>
+        courseMaterial: Array<{ title: string; description: string }>
+        courseBatch: ApiCourseBatchResponse[]
+    }
 }
 
 // ============================================
@@ -165,7 +202,52 @@ export async function getAvailableCourses(): Promise<AvailableCoursesResponse> {
  * ```
  */
 export async function getCourseById(courseId: string): Promise<CourseDetailResponse> {
-    return apiGet<CourseDetailResponse>(`/courses/${courseId}`)
+    // Fetch from API - structure is different for by ID endpoint
+    const apiResponse = await apiGet<ApiCourseDetailResponse>(`/courses/${courseId}`)
+    
+    // Transform API response to match CourseDetailResponse format
+    const transformedData: CourseDetail = {
+        course_id: apiResponse.data.course_id,
+        course_title: apiResponse.data.course_title,
+        course_description: apiResponse.data.course_description,
+        course_category_name: apiResponse.data.course_category_name,
+        course_field_name: apiResponse.data.course_field_name,
+        course_material: apiResponse.data.courseMaterial?.map(m => ({
+            description: m.description
+        })) || [],
+        course_benefit: apiResponse.data.courseBenefit?.map(b => ({
+            title: b.title,
+            description: b.description
+        })) || [],
+        course_batch: apiResponse.data.courseBatch?.map(batch => ({
+            name: batch.name,
+            posterUrl: batch.poster_url || '',
+            registration_start: batch.registration_start,
+            registration_end: batch.registration_end,
+            start_date: batch.start_date,
+            end_date: batch.end_date,
+            status: batch.batch_status,
+            instructor: {
+                name: batch.instructor_name,
+                jobTitle: batch.instructor_job_title,
+                companyName: batch.instructor_company_name,
+                profileUrl: batch.instructor_profile_url
+            },
+            prices: {
+                basePrice: batch.base_price,
+                discountType: batch.discount_type,
+                discountValue: batch.discount_value,
+                finalPrice: batch.final_price || batch.base_price
+            },
+            sessions: batch.sessions || []
+        })) || []
+    }
+    
+    return {
+        success: apiResponse.success,
+        message: apiResponse.message,
+        data: [transformedData]
+    }
 }
 
 export async function getAllCourse(): Promise<CourseDetailResponse> {
@@ -224,30 +306,46 @@ export async function getAllInstructors(): Promise<Instructor[]> {
  * ```
  */
 export async function getCourseBySlug(slug: string): Promise<CourseDetailResponse> {
-    // First get all courses, then filter by slug
-    const allCourses = await getAllCourse()
+    try {
+        // First get all courses to find the matching course_id
+        const allCourses = await getAllCourse()
 
-    // Find the course that matches the slug
-    const matchedCourse = allCourses.data.find(course => {
-        const courseSlug = course.course_title
-            .toLowerCase()
-            .replace(/[^a-z0-9\s]/g, '')
-            .replace(/\s+/g, '-')
-        return courseSlug === slug
-    })
+        // Find the course that matches the slug
+        const matchedCourse = allCourses.data.find(course => {
+            const courseSlug = course.course_title
+                .toLowerCase()
+                .replace(/[^a-z0-9\s]/g, '')
+                .replace(/\s+/g, '-')
+            return courseSlug === slug
+        })
 
-    if (!matchedCourse) {
+        if (!matchedCourse) {
+            return {
+                success: false,
+                message: 'Course not found',
+                data: []
+            }
+        }
+        
+        // Fetch full course detail by ID to get complete data including sessions
+        const fullCourseDetail = await getCourseById(matchedCourse.course_id)
+        
+        if (!fullCourseDetail.success || !fullCourseDetail.data || fullCourseDetail.data.length === 0) {
+            return {
+                success: true,
+                message: 'Course found (from all courses)',
+                data: [matchedCourse]
+            }
+        }
+
+        return fullCourseDetail
+    } catch (error) {
+        console.error('❌ Error in getCourseBySlug:', error)
         return {
             success: false,
-            message: 'Course not found',
+            message: error instanceof Error ? error.message : 'Unknown error',
             data: []
         }
-    }
-
-    return {
-        success: true,
-        message: 'Course found',
-        data: [matchedCourse]
     }
 }
 
