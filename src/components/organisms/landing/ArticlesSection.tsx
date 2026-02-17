@@ -119,7 +119,7 @@ export default function ArticlesSection() {
                         size="xl"
                         weight="semibold"
                         color="neutral-950"
-                        className="text-2xl md:text-3xl lg:text-3xl text-center sm:text-left"
+                        className="text-xl md:text-2xl lg:text-2xl 2xl:text-3xl text-center sm:text-left"
                     >
                         Article ArutalaLab
                     </Typography>
@@ -220,7 +220,7 @@ export default function ArticlesSection() {
                                                 <Icon
                                                     icon="arrow-right"
                                                     type="image"
-                                                    src="/src/common/rightarrow.svg"
+                                                    src="/src/article/rightarrow.svg"
                                                     size="sm"
                                                     color="accent-600"
                                                     alt="Arrow Right"
@@ -255,7 +255,7 @@ export default function ArticlesSection() {
                         size="sm"
                         shape="outline"
                         color="accent-600"
-                        className="px-6 py-3 sm:px-8 sm:py-3 lg:px-10 lg:py-4 text-black text-sm sm:text-base font-medium rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
+                        className="px-6 py-3 sm:px-8 sm:py-3 !lg:px-7 !lg:py-3 !2xl:px-10 !2xl:py-4 text-black text-sm sm:text-base font-medium rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
                         onClick={() => router.push('/articles')}
                     >
                         Lihat Semua Artikel

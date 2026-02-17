@@ -244,7 +244,8 @@ export function CourseDetailHero({
                                                 size="lg"
                                                 weight="bold"
                                                 color="neutral-50"
-                                                className="text-sm sm:text-base"
+                                                align='center'
+                                                className="text-sm sm:text-base px-2"
                                             >
                                                 {title}
                                             </Typography>

@@ -1,3 +1,4 @@
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { Card } from './index'
 
@@ -14,7 +15,7 @@ describe('Card', () => {
 
     // Button tests
     it('renders button with default text when onButtonClick is provided', () => {
-        const mockClick = jest.fn()
+        const mockClick = vi.fn()
         render(
             <Card
                 title="Service Card"
@@ -31,7 +32,7 @@ describe('Card', () => {
     })
 
     it('renders button with custom text', () => {
-        const mockClick = jest.fn()
+        const mockClick = vi.fn()
         render(
             <Card
                 title="Service Card"
@@ -147,7 +148,7 @@ describe('Card', () => {
             <Card
                 title="Card with Button"
                 description="Description"
-                onButtonClick={jest.fn()}
+                onButtonClick={vi.fn()}
             />
         )
 

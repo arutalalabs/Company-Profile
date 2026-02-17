@@ -24,8 +24,6 @@
     "react-dom": "19.2.3",
     "next-seo": "^7.0.1",
     "next-sitemap": "^4.2.3",
-    "@next/font": "^14.2.15",
-    "@supabase/supabase-js": "^2.89.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1"
   },
@@ -82,5 +80,8 @@
   "trustedDependencies": [
     "sharp",
     "unrs-resolver"
-  ]
+  ],
+  "optionalDependencies": {
+    "sharp": "^0.33.0"
+  }
 }

@@ -1,5 +1,5 @@
 'use client'
-import { getAllInstructors, getLocalInstructors } from '@/lib/api/courses'
+import { getAllInstructors } from '@/lib/api/courses'
 import { Typography } from '@/components/atoms/typography'
 import { MentorCard } from '@/components/molecules/mentor-card'
 import { useEffect, useState } from 'react'
@@ -37,8 +37,8 @@ export function Mentor() {
                 <div className="relative w-full">
                     <div className="flex gap-6 animate-slide-infinite hover:pause-animation">
                         {duplicatedInstructors.map((instructor, index) => (
-                            <div 
-                                key={index} 
+                            <div
+                                key={index}
                                 className="flex-shrink-0 w-[300px]"
                             >
                                 <MentorCard instructor={instructor} />
