@@ -204,7 +204,7 @@ export default function TestimonialSection() {
                     >
 
                         {/* Mobile: Image First */}
-                        <div className="w-full h-100 sm:h-80 lg:hidden overflow-hidden">
+                        <div className="w-full h-64 sm:h-80 lg:hidden overflow-hidden">
                             <Image
                                 src={testimonials[currentTestimonial].image}
                                 alt={testimonials[currentTestimonial].name}

@@ -34,7 +34,7 @@ export default function PartnersSection() {
                         size="xl"
                         weight="semibold"
                         color="neutral-950"
-                        className="text-2xl md:text-3xl lg:text-3xl text-center sm:text-left"
+                        className="text-xl md:text-2xl lg:text-2xl 2xl:text-3xl text-center sm:text-left"
                     >
                         Mitra ArutalaLab
                     </Typography>

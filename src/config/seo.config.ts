@@ -1,4 +1,5 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourwebsite.com'
+const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
 
 interface SEOConfig {
     titleTemplate?: string
@@ -36,40 +37,35 @@ interface SEOConfig {
 }
 
 export const defaultSEO: SEOConfig = {
-    // Title template untuk semua page
-    titleTemplate: '%s | Nama Perusahaan',
-    defaultTitle: 'Landing Page Perusahaan - CMS & SEO Analytics',
+    titleTemplate: '%s | ArutalaLab',
+    defaultTitle: 'ArutalaLab - IT Education, Resource & Software Services',
     description:
-        'Platform landing page modern dengan CMS dan SEO Analytics. Kelola konten dengan mudah dan pantau performa SEO Anda.',
+        'ArutalaLab menghadirkan pendidikan IT berkualitas, penyediaan resource IT profesional, dan layanan software services untuk mendukung transformasi digital Indonesia.',
 
-    // Canonical URL
     canonical: SITE_URL,
 
-    // Open Graph (Facebook, LinkedIn, WhatsApp)
     openGraph: {
         type: 'website',
         locale: 'id_ID',
         url: SITE_URL,
-        siteName: 'Nama Perusahaan',
+        siteName: 'ArutalaLab',
         images: [
             {
                 url: `${SITE_URL}/og-image.jpg`,
                 width: 1200,
                 height: 630,
-                alt: 'Nama Perusahaan - Landing Page',
+                alt: 'ArutalaLab - IT Education, Resource & Software Services',
                 type: 'image/jpeg'
             }
         ]
     },
 
-    // Twitter Card
     twitter: {
-        handle: '@yourcompany',
-        site: '@yourcompany',
+        handle: '@arutalalab',
+        site: '@arutalalab',
         cardType: 'summary_large_image'
     },
 
-    // Additional Meta Tags
     additionalMetaTags: [
         {
             name: 'viewport',
@@ -77,27 +73,27 @@ export const defaultSEO: SEOConfig = {
         },
         {
             name: 'keywords',
-            content: 'landing page, cms, seo, analytics, supabase, next.js, bun'
+            content:
+                'IT education, pelatihan IT, bootcamp, software services, resource IT, outsource, headhunting, ArutalaLab'
         },
         {
             name: 'author',
-            content: 'Tim Anda'
+            content: 'ArutalaLab'
         },
         {
             property: 'dc:creator',
-            content: 'Tim Anda'
+            content: 'ArutalaLab'
         },
         {
             name: 'application-name',
-            content: 'Nama Perusahaan'
+            content: 'ArutalaLab'
         }
     ],
 
-    // Additional Link Tags
     additionalLinkTags: [
         {
             rel: 'icon',
-            href: '/favicon. ico'
+            href: '/favicon.ico'
         },
         {
             rel: 'apple-touch-icon',

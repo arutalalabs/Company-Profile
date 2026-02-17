@@ -128,7 +128,7 @@ export default function TestimonialSection() {
     }
 
     return (
-        <section className="bg-[#ffffff] w-full py-12 px-4 sm:px-6 lg:px-8 lg:py-20">
+        <section className="bg-[#ffffff] w-full py-12 px-4 sm:px-6 lg:px-8 lg:py-12">
             <div className="max-w-xs md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
@@ -138,7 +138,7 @@ export default function TestimonialSection() {
                             size="xl"
                             weight="semibold"
                             color="neutral-950"
-                            className="text-2xl md:text-3xl lg:text-3xl"
+                            className="text-xl md:text-2xl 2xl:text-3xl"
                         >
                             Testimoni Peserta
                         </Typography>
@@ -151,7 +151,7 @@ export default function TestimonialSection() {
                             shape="outline"
                             color="accent-600"
                             onClick={prevTestimonial}
-                            className="w-10 h-10 sm:w-12 sm:h-12 p-0 rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
+                            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-10 lg:h-10 2xl:w-12 2xl:h-12 p-0 rounded-full border-2 transition-all duration-200"
                         >
                             <Icon
                                 icon="arrow-left"
@@ -168,7 +168,7 @@ export default function TestimonialSection() {
                             shape="outline"
                             color="accent-600"
                             onClick={nextTestimonial}
-                            className="w-10 h-10 sm:w-12 sm:h-12 p-0 rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
+                            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-10 lg:h-10 2xl:w-12 2xl:h-12 p-0 rounded-full border-2 transition-all duration-200"
                         >
                             <Icon
                                 icon="arrow-right"
@@ -177,7 +177,7 @@ export default function TestimonialSection() {
                                 size="sm"
                                 color="accent-600"
                                 alt="Next"
-                                className="w-4 h-4 sm:w-5 sm:h-5"
+                                className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 2xl:w-5 2xl:h-5"
                             />
                         </Button>
                     </div>
@@ -186,7 +186,7 @@ export default function TestimonialSection() {
                 {/* Testimonial Card with Slide Animation */}
                 <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden">
                     <div
-                        className={`flex flex-col lg:flex-row min-h-[320px] sm:min-h-[350px] lg:min-h-[400px] ${animationPhase === 'reposition'
+                        className={`flex flex-col lg:flex-row min-h-[320px] sm:min-h-[350px] lg:min-h-[300px] ${animationPhase === 'reposition'
                             ? ''
                             : 'transition-all duration-500 ease-in-out'
                             } ${animationPhase === 'slide-out'
@@ -211,13 +211,13 @@ export default function TestimonialSection() {
                                 fullWidth={true}
                                 aspectRatio="auto"
                                 shape="square"
-                                fit="cover"
-                                className="w-full h-full object-cover object-center"
+                                fit="contain"
+                                className="w-full h-full object-center"
                             />
                         </div>
 
                         {/* Content */}
-                        <div className="flex-1 p-6 sm:p-8 lg:p-12 flex flex-col justify-center">
+                        <div className="flex-1 px-6 py-6 sm:px-8 sm:py-8 lg:px-8 lg:py-6 2xl:px-12 2xl:py-12 flex flex-col justify-center">
 
                             {/* Mobile: Author Info First (after image) */}
                             <div className="lg:hidden mb-6">
@@ -295,7 +295,7 @@ export default function TestimonialSection() {
                                 aspectRatio="square"
                                 shape="square"
                                 fit="cover"
-                                className="w-full h-full object-cover object-center"
+                                className="w-full h-full object-center"
                             />
                         </div>
                     </div>

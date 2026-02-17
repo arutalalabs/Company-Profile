@@ -8,10 +8,96 @@ interface CourseScheduleProps {
     onRegisterClick?: (batchName: string) => void
 }
 
+// Helper to get Indonesian day name
+const getDayName = (dateString: string): string => {
+    const date = new Date(dateString)
+    const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+    return days[date.getDay()]
+}
+
+// Helper to get day order for sorting (Senin=1, ..., Minggu=7)
+const getDayOrder = (dayName: string): number => {
+    const dayOrder: Record<string, number> = {
+        'Senin': 1,
+        'Selasa': 2,
+        'Rabu': 3,
+        'Kamis': 4,
+        'Jumat': 5,
+        'Sabtu': 6,
+        'Minggu': 7
+    }
+    return dayOrder[dayName] || 0
+}
+
+// Helper to format time with WIB timezone
+const formatTime = (timeString: string): string => {
+    const [hours, minutes] = timeString.split(':')
+    return `${hours}:${minutes}`
+}
+
 /**
  * CourseSchedule - Section showing available batches with schedule and pricing
  */
 export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps) {
+    // Helper function to extract batch number from batch name
+    const extractBatchNumber = (batchName: string): number => {
+        const match = batchName.match(/\d+/)
+        return match ? parseInt(match[0]) : 0
+    }
+    
+    // Helper to determine actual batch status based on dates
+    const getBatchStatus = (batch: CourseDetailBatch): 'available' | 'full' | 'coming-soon' => {
+        const now = new Date()
+        now.setHours(0, 0, 0, 0)
+        
+        if (batch.registration_end) {
+            const registrationEndDate = new Date(batch.registration_end)
+            registrationEndDate.setHours(23, 59, 59, 999)
+            if (now > registrationEndDate) return 'full'
+        }
+        
+        if (batch.registration_start) {
+            const registrationStartDate = new Date(batch.registration_start)
+            registrationStartDate.setHours(0, 0, 0, 0)
+            if (now < registrationStartDate) return 'coming-soon'
+        }
+        
+        if (batch.status === 'full') return 'full'
+        if (batch.status === 'coming-soon') return 'coming-soon'
+        
+        return 'available'
+    }
+    
+    // Sort batches: 1. By status (available first), 2. By batch number (ascending)
+    const sortedBatches = [...batches].sort((a, b) => {
+        const statusA = getBatchStatus(a)
+        const statusB = getBatchStatus(b)
+        
+        // Priority order: available > coming-soon > full
+        const statusPriority: Record<string, number> = {
+            'available': 1,
+            'coming-soon': 2,
+            'full': 3
+        }
+        
+        const priorityA = statusPriority[statusA]
+        const priorityB = statusPriority[statusB]
+        
+        // Sort by status first
+        if (priorityA !== priorityB) {
+            return priorityA - priorityB
+        }
+        
+        // If same status, sort by batch number
+        const numA = extractBatchNumber(a.name)
+        const numB = extractBatchNumber(b.name)
+        return numA - numB
+    })
+    
+    // Limit to 3 most relevant batches
+    // Priority: available batches > coming-soon > full
+    const limitedBatches = sortedBatches.slice(0, 3)
+    
     // Helper function to format price
     const formatPrice = (prices: Prices | undefined): string => {
         if (!prices) return 'Gratis'
@@ -67,52 +153,60 @@ export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps
         return `${start} - ${end}`
     }
 
-    // Helper to determine actual batch status based on dates
-    const getBatchStatus = (batch: CourseDetailBatch): 'available' | 'full' | 'coming-soon' => {
-        const now = new Date()
-        now.setHours(0, 0, 0, 0) // Reset time to start of day for accurate comparison
+    // Helper to format session schedule
+    const formatSessionSchedule = (sessions: typeof batches[0]['sessions']): string | undefined => {
+        if (!sessions || sessions.length === 0) return undefined
         
-        // Check if registration period has ended
-        if (batch.registration_end) {
-            const registrationEndDate = new Date(batch.registration_end)
-            registrationEndDate.setHours(23, 59, 59, 999) // End of day
+        // Collect all unique schedules with day info
+        const scheduleList: Array<{ day: string, dayOrder: number, start: string, end: string }> = []
+        const seen = new Set<string>()
+        
+        sessions.forEach(session => {
+            const day = getDayName(session.date)
+            const start = formatTime(session.start_time)
+            const end = formatTime(session.end_time)
+            const key = `${day}-${start}-${end}`
             
-            if (now > registrationEndDate) {
-                return 'full' // Registration closed
+            if (!seen.has(key)) {
+                seen.add(key)
+                scheduleList.push({
+                    day,
+                    dayOrder: getDayOrder(day),
+                    start,
+                    end
+                })
             }
-        }
+        })
         
-        // Check if registration hasn't started yet
-        if (batch.registration_start) {
-            const registrationStartDate = new Date(batch.registration_start)
-            registrationStartDate.setHours(0, 0, 0, 0)
-            
-            if (now < registrationStartDate) {
-                return 'coming-soon' // Registration not open yet
-            }
-        }
+        // Sort by day order (Senin to Minggu)
+        scheduleList.sort((a, b) => a.dayOrder - b.dayOrder)
         
-        // Use database status if within registration period
-        if (batch.status === 'full') return 'full'
-        if (batch.status === 'coming-soon') return 'coming-soon'
+        // Format as "Day : HH:MM - HH:MM WIB" separated by newline
+        const schedules = scheduleList.map(s => `${s.day} : ${s.start} - ${s.end} WIB`)
         
-        return 'available'
+        // Use '|' as separator to be split later in the component
+        return schedules.join('|')
     }
 
-    // Convert batches to schedule rows
-    const scheduleRows: ScheduleRowData[] = batches.map(batch => ({
-        batchName: batch.name,
-        schedule: formatDateRange(batch.start_date, batch.end_date),
-        registrationRange: batch.registration_start && batch.registration_end 
-            ? formatDateRange(batch.registration_start, batch.registration_end)
-            : undefined,
-        classSchedule: batch.class_schedule || undefined,
-        originalPrice: formatOriginalPrice(batch.prices),
-        finalPrice: formatPrice(batch.prices),
-        discountPercent: calculateDiscount(batch.prices),
-        status: getBatchStatus(batch),
-        onRegisterClick: () => onRegisterClick?.(batch.name)
-    }))
+    // Convert limited batches (max 3) to schedule rows
+    const scheduleRows: ScheduleRowData[] = limitedBatches.map(batch => {
+        const formattedSchedule = formatSessionSchedule(batch.sessions)
+        const finalClassSchedule = formattedSchedule || batch.class_schedule || undefined
+        
+        return {
+            batchName: batch.name,
+            schedule: formatDateRange(batch.start_date, batch.end_date),
+            registrationRange: batch.registration_start && batch.registration_end 
+                ? formatDateRange(batch.registration_start, batch.registration_end)
+                : undefined,
+            classSchedule: finalClassSchedule,
+            originalPrice: formatOriginalPrice(batch.prices),
+            finalPrice: formatPrice(batch.prices),
+            discountPercent: calculateDiscount(batch.prices),
+            status: getBatchStatus(batch),
+            onRegisterClick: () => onRegisterClick?.(batch.name)
+        }
+    })
 
     return (
         <section className="py-10 lg:py-16 bg-white">

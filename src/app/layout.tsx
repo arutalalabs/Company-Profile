@@ -25,6 +25,22 @@ export default function RootLayout({
 }) {
     return (
         <html lang="id" className={montserrat.variable}>
+            <head>
+                <link
+                    rel="preconnect"
+                    href={
+                        process.env.NEXT_PUBLIC_API_URL ||
+                        'https://backend-cms-arutala.vercel.app'
+                    }
+                />
+                <link
+                    rel="dns-prefetch"
+                    href={
+                        process.env.NEXT_PUBLIC_API_URL ||
+                        'https://backend-cms-arutala.vercel.app'
+                    }
+                />
+            </head>
             <body className="font-sans">
                 <Header
                     logo={{
