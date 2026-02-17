@@ -59,9 +59,11 @@ export default function ComingSoonLearningSection() {
     // Fixed categories untuk konsistensi UI
     const categories = ['Bootcamp', 'Offline/Online Class', 'Webinar', 'Workshop']
 
-    // Filter courses by selected category
+    // Filter courses by selected category (case-insensitive)
     const selectedCategory = categories[selectedIndex] || categories[0]
-    const filteredCourses = courses.filter(course => course.course_category_name === selectedCategory)
+    const filteredCourses = courses.filter(course => 
+        course.course_category_name?.toLowerCase() === selectedCategory.toLowerCase()
+    )
     const currentCourse = filteredCourses[0]
 
     // Current poster from API
