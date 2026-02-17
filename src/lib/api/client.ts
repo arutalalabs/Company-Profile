@@ -5,16 +5,10 @@
 
 /**
  * Get API base URL (lazy evaluation to avoid build-time errors)
+ * Returns undefined if not set, allowing graceful fallback
  */
-function getApiBaseUrl(): string {
-    const url = process.env.NEXT_PUBLIC_API_URL
-    if (!url) {
-        throw new Error(
-            'NEXT_PUBLIC_API_URL environment variable is not set. ' +
-            'Please set it in your .env.local file.'
-        )
-    }
-    return url
+function getApiBaseUrl(): string | undefined {
+    return process.env.NEXT_PUBLIC_API_URL
 }
 
 /**
@@ -67,6 +61,14 @@ export async function apiFetch<T>(
     endpoint: string,
     options: FetchOptions = {}
 ): Promise<T> {
+    const apiBaseUrl = getApiBaseUrl()
+    if (!apiBaseUrl) {
+        throw new Error(
+            'NEXT_PUBLIC_API_URL environment variable is not set. ' +
+            'Please set it in your .env.local file or Vercel environment variables.'
+        )
+    }
+
     const {
         timeout = 10000,
         revalidate = 3600,
@@ -88,7 +90,7 @@ export async function apiFetch<T>(
     }
 
     try {
-        const response = await fetch(`${getApiBaseUrl()}${endpoint}`, {
+        const response = await fetch(`${apiBaseUrl}${endpoint}`, {
             ...fetchOptions,
             signal: controller.signal,
             headers: {
