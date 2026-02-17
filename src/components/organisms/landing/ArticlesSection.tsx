@@ -220,7 +220,7 @@ export default function ArticlesSection() {
                                                 <Icon
                                                     icon="arrow-right"
                                                     type="image"
-                                                    src="/src/common/rightarrow.svg"
+                                                    src="/src/article/rightarrow.svg"
                                                     size="sm"
                                                     color="accent-600"
                                                     alt="Arrow Right"

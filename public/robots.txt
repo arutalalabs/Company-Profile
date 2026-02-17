@@ -10,7 +10,7 @@ User-agent: Googlebot
 Allow: /
 
 # Host
-Host: https://yourwebsite.com
+Host: https://arutalalab.vercel.app
 
 # Sitemaps
-Sitemap: https://yourwebsite.com/sitemap.xml
+Sitemap: https://arutalalab.vercel.app/sitemap.xml

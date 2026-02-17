@@ -33,11 +33,11 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
     // Format date (handle ISO 8601 format)
     const formatDate = (dateString: string) => {
         if (!dateString) return ''
-        
+
         const date = new Date(dateString)
         // Check if date is valid
         if (isNaN(date.getTime())) return ''
-        
+
         const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
             month: 'long',
@@ -162,7 +162,7 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                                         <Icon
                                             icon="arrow-right"
                                             type="image"
-                                            src="/src/rightarrow.svg"
+                                            src="/src/article/rightarrow.svg"
                                             size="sm"
                                             color="accent-600"
                                             alt="Arrow Right"
@@ -183,8 +183,8 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                             onClick={goToPrevPage}
                             disabled={currentPage === 1}
                             className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-sm sm:text-base font-medium transition-all ${currentPage === 1
-                                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                    : 'bg-[var(--color-accent-600)] text-gray-900 hover:bg-[var(--color-accent-700)] shadow-md hover:shadow-lg'
+                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                : 'bg-[var(--color-accent-600)] text-gray-900 hover:bg-[var(--color-accent-700)] shadow-md hover:shadow-lg'
                                 }`}
                         >
                             Prev
@@ -197,8 +197,8 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                                     key={pageNum}
                                     onClick={() => goToPage(pageNum)}
                                     className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg text-sm sm:text-base font-medium transition-all ${currentPage === pageNum
-                                            ? 'bg-[var(--color-accent-600)] text-gray-900 shadow-lg scale-110'
-                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                        ? 'bg-[var(--color-accent-600)] text-gray-900 shadow-lg scale-110'
+                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                         }`}
                                 >
                                     {pageNum}
@@ -211,8 +211,8 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                             onClick={goToNextPage}
                             disabled={currentPage === totalPages}
                             className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-sm sm:text-base font-medium transition-all ${currentPage === totalPages
-                                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                    : 'bg-[var(--color-accent-600)] text-gray-900 hover:bg-[var(--color-accent-700)] shadow-md hover:shadow-lg'
+                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                : 'bg-[var(--color-accent-600)] text-gray-900 hover:bg-[var(--color-accent-700)] shadow-md hover:shadow-lg'
                                 }`}
                         >
                             Next
