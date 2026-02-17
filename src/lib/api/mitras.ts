@@ -3,7 +3,7 @@
  * Handle operasi terkait mitra/partners
  */
 
-import { apiGet } from './client'
+import { apiGet, type FetchOptions } from './client'
 
 /**
  * Interface untuk data mitra
@@ -40,7 +40,7 @@ export const mitrasApi = {
      * const mitras = await mitrasApi.getAll()
      * ```
      */
-    getAll: async (options?: RequestInit): Promise<Mitra[]> => {
+    getAll: async (options?: FetchOptions): Promise<Mitra[]> => {
         try {
             const response = await apiGet<MitrasResponse>('/mitras/', options)
             
