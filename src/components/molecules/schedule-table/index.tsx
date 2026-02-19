@@ -13,8 +13,8 @@ export interface ScheduleRowData {
     originalPrice?: string
     /** Final price after discount */
     finalPrice: string
-    /** Status of the batch */
-    status?: 'available' | 'full' | 'coming-soon'
+    /** Status of the batch: available | coming-soon | on-going | completed | full */
+    status?: 'available' | 'full' | 'coming-soon' | 'on-going' | 'completed'
     /** Registration date (single date - deprecated, use registrationRange) */
     registrationDate?: string
     /** Registration date range */
@@ -23,6 +23,8 @@ export interface ScheduleRowData {
     classSchedule?: string
     /** Discount percentage */
     discountPercent?: number
+    /** Registration URL from API */
+    registrationUrl?: string
     /** Action button handler */
     onRegisterClick?: () => void
 }
@@ -107,6 +109,16 @@ export const ScheduleTable = forwardRef<HTMLDivElement, ScheduleTableProps>(
                                 {row.status === 'coming-soon' && (
                                     <span className="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
                                         Segera
+                                    </span>
+                                )}
+                                {row.status === 'on-going' && (
+                                    <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">
+                                        Sedang Berjalan
+                                    </span>
+                                )}
+                                {row.status === 'completed' && (
+                                    <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">
+                                        Selesai
                                     </span>
                                 )}
                             </div>
@@ -240,10 +252,13 @@ export const ScheduleTable = forwardRef<HTMLDivElement, ScheduleTableProps>(
                                 <Button
                                     size="md"
                                     onClick={row.onRegisterClick}
-                                    className="w-full bg-[#FFA500] hover:bg-[#FF8C00] text-white font-semibold rounded-lg"
-                                    disabled={row.status === 'full'}
+                                    className="w-full bg-[#FFA500] hover:bg-[#FF8C00] text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled={row.status === 'full' || row.status === 'on-going' || row.status === 'completed'}
                                 >
-                                    {row.status === 'full' ? 'Penuh' : 'Daftar Sekarang'}
+                                    {row.status === 'full' ? 'Penuh'
+                                        : row.status === 'on-going' ? 'Pendaftaran Ditutup'
+                                        : row.status === 'completed' ? 'Selesai'
+                                        : 'Daftar Sekarang'}
                                 </Button>
                             </div>
                         </div>

@@ -58,7 +58,8 @@ export default function HeroResource() {
                         >
                             Konsultasi
                         </Button>
-                        <Button
+                        {/* Hide terlebih dahulu karena image belum tersedia */}
+                        {/* <Button
                             shape="outline"
                             color="accent-600"
                             size="md"
@@ -66,7 +67,7 @@ export default function HeroResource() {
                             onClick={handleScrollToTestimonial}
                         >
                             Alasan Partner Memilih Kami
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
 

@@ -93,7 +93,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
 
                         {/* Desktop Navigation */}
                         <nav
-                            className="hidden sm:flex items-center lg:flex items-center "
+                            className="hidden lg:flex items-center "
                             style={{ gap: '1px' }}
                         >
                             {menuItems.map((item, index) => (
@@ -119,7 +119,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                         </nav>
 
                         {/* Desktop Contact Button */}
-                        <div className="hidden md:flex items-center">
+                        <div className="hidden lg:flex items-center">
                             {contactButton &&
                                 (contactButton.href ? (
                                     <a href={contactButton.href}>
@@ -144,88 +144,126 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                                 ))}
                         </div>
 
-                        {/* Mobile Menu Button */}
-                        <div className="md:hidden flex items-center">
-                            <Button
-                                shape="link"
-                                color="neutral-50"
-                                size="sm"
+                        {/* Mobile Menu Button - Hamburger with Animation */}
+                        <div className="lg:hidden flex items-center">
+                            <button
                                 onClick={handleMobileMenuToggle}
+                                className="relative w-8 h-8 flex items-center justify-center text-white focus:outline-none"
                                 aria-label="Toggle mobile menu"
-                                className=""
                             >
-                                <svg
-                                    className="w-6 h-6"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    {isMobileMenuOpen ? (
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    ) : (
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M4 6h16M4 12h16M4 18h16"
-                                        />
-                                    )}
-                                </svg>
-                            </Button>
+                                <span className={clsx(
+                                    "absolute block w-6 h-0.5 bg-current transform transition duration-300 ease-in-out",
+                                    isMobileMenuOpen ? "rotate-45" : "-translate-y-1.5"
+                                )}></span>
+                                <span className={clsx(
+                                    "absolute block w-6 h-0.5 bg-current transform transition duration-300 ease-in-out",
+                                    isMobileMenuOpen ? "opacity-0" : ""
+                                )}></span>
+                                <span className={clsx(
+                                    "absolute block w-6 h-0.5 bg-current transform transition duration-300 ease-in-out",
+                                    isMobileMenuOpen ? "-rotate-45" : "translate-y-1.5"
+                                )}></span>
+                            </button>
                         </div>
                     </div>
 
-                    {/* Mobile Navigation */}
-                    {isMobileMenuOpen && (
-                        <div className="md:hidden border-t border-[var(--color-neutral-200)] py-4">
-                            <nav className="space-y-2">
-                                {menuItems.map((item, index) => (
-                                    <Button
-                                        key={index}
-                                        size="sm"
-                                        shape="link"
-                                        color="neutral-50"
-                                        className={clsx(
-                                            'block w-full text-left px-3 py-2 transition-colors duration-200',
-                                            isMenuActive(item)
-                                                ? 'text-[var(--color-accent-600)] font-medium'
-                                                : 'text-[var(--color-neutral-50)] hover:text-[var(--color-accent-600)]'
-                                        )}
-                                        onClick={() => {
-                                            if (item.href)
-                                                window.location.href = item.href
-                                            setInternalMobileMenu(false)
-                                        }}
-                                    >
-                                        {item.label}
-                                    </Button>
-                                ))}
-                            </nav>
+                    {/* Mobile Navigation - Animated Drawer */}
+                    <div 
+                        className={clsx(
+                            "fixed inset-0 z-[100] lg:hidden transition-opacity duration-300",
+                            isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                        )}
+                    >
+                        {/* Backdrop */}
+                        <div 
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                            onClick={handleMobileMenuToggle} 
+                        />
 
-                            {contactButton && (
-                                <div className="pt-4">
-                                    {contactButton.href ? (
-                                        <a href={contactButton.href}>
+                        {/* Drawer Panel */}
+                        <div 
+                            className={clsx(
+                                "absolute top-0 right-0 bottom-0 w-[80%] max-w-sm bg-[var(--color-primary-900)] shadow-2xl flex flex-col transition-transform duration-300 ease-out",
+                                isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+                            )}
+                        >
+                            {/* Drawer Header */}
+                            <div className="flex items-center justify-between px-6 h-20 border-b border-white/10">
+                                <span className="text-white font-bold text-lg">Menu</span>
+                                <button 
+                                    onClick={handleMobileMenuToggle}
+                                    className="p-2 text-white/70 hover:text-white transition-colors"
+                                >
+                                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            {/* Menu Items */}
+                            <div className="flex-1 overflow-y-auto py-6 px-4">
+                                <nav className="space-y-1">
+                                    {menuItems.map((item, index) => (
+                                        <div key={index}>
                                             <Button
-                                                size="sm"
+                                                size="lg"
                                                 shape="link"
                                                 color="neutral-50"
-                                                className="w-full"
+                                                className={clsx(
+                                                    'w-full justify-start px-4 py-3 text-base rounded-xl transition-all duration-200',
+                                                    isMenuActive(item)
+                                                        ? 'bg-white/10 text-[var(--color-accent-600)] font-semibold'
+                                                        : 'text-gray-100 hover:bg-white/5 hover:text-white hover:translate-x-1'
+                                                )}
+                                                onClick={() => {
+                                                    if (item.href)
+                                                        window.location.href = item.href
+                                                    setInternalMobileMenu(false)
+                                                }}
+                                            >
+                                                {item.label}
+                                            </Button>
+
+                                            {/* Mobile Submenu */}
+                                            {item.children && (
+                                                <div className="ml-4 pl-4 border-l border-white/10 space-y-1 mt-1 mb-2">
+                                                    {item.children.map((child, childIndex) => (
+                                                        <a
+                                                            key={childIndex}
+                                                            href={child.href}
+                                                            className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-[var(--color-accent-600)] hover:translate-x-1 transition-all rounded-lg"
+                                                            onClick={() => setInternalMobileMenu(false)}
+                                                        >
+                                                            {child.label}
+                                                        </a>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </nav>
+                            </div>
+
+                            {/* Drawer Footer / Contact Button */}
+                            {contactButton && (
+                                <div className="p-6 border-t border-white/10 bg-black/10">
+                                    {contactButton.href ? (
+                                        <a href={contactButton.href} className="block w-full">
+                                            <Button
+                                                size="lg"
+                                                shape="solid"
+                                                color="accent-600"
+                                                className="w-full justify-center py-3 rounded-xl shadow-lg font-bold tracking-wide"
                                             >
                                                 {contactButton.label}
                                             </Button>
                                         </a>
                                     ) : (
                                         <Button
-                                            size="sm"
-                                            shape="link"
-                                            color="neutral-50"
-                                            className="w-full"
+                                            size="lg"
+                                            shape="solid"
+                                            color="accent-600"
+                                            className="w-full justify-center py-3 rounded-xl shadow-lg font-bold tracking-wide"
                                         >
                                             {contactButton.label}
                                         </Button>
@@ -233,7 +271,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                                 </div>
                             )}
                         </div>
-                    )}
+                    </div>
                 </div>
             </header>
         )

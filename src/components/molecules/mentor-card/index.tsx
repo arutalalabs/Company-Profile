@@ -1,17 +1,17 @@
 import { Typography } from '@/components/atoms/typography'
-import type { Instructor } from '@/lib/api/courses'
+import type { Contributor } from '@/lib/api/courses'
 
 export interface MentorCardProps {
-    instructor: Instructor
+    contributor: Contributor
 }
 
-export function MentorCard({ instructor }: MentorCardProps) {
+export function MentorCard({ contributor }: MentorCardProps) {
     return (
         <div className="relative w-full h-[400px] overflow-hidden rounded-3xl group">
             {/* Background Image */}
             <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
-                style={{ backgroundImage: `url(${instructor.profileUrl})` }}
+                style={{ backgroundImage: `url(${contributor.contributor_profile_url})` }}
             />
             
             {/* Linear Gradient Overlay - White to Black (vertical) */}
@@ -26,7 +26,7 @@ export function MentorCard({ instructor }: MentorCardProps) {
                     color="neutral-50"
                     className="line-clamp-1"
                 >
-                    {instructor.name}
+                    {contributor.contributor_name}
                 </Typography>
                 <Typography
                     as="p"
@@ -35,7 +35,7 @@ export function MentorCard({ instructor }: MentorCardProps) {
                     color="neutral-50"
                     className="line-clamp-1 mb-2"
                 >
-                    {instructor.jobTitle}
+                    {contributor.contributor_job_title}
                 </Typography>
                 <Typography
                     as="p"
@@ -44,7 +44,7 @@ export function MentorCard({ instructor }: MentorCardProps) {
                     color="neutral-50"
                     className="opacity-80 line-clamp-1"
                 >
-                    {instructor.companyName}
+                    {contributor.contributor_company_name}
                 </Typography>
             </div>
         </div>

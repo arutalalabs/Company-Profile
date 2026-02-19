@@ -10,6 +10,10 @@ interface CourseDetailHeroProps {
     posterUrl?: string
     startDate?: string
     endDate?: string
+    /** API status: SCHEDULED | OPEN | ON_GOING | COMPLETED */
+    batchStatus?: string
+    /** Registration URL from API */
+    registrationUrl?: string
     onRegisterClick?: () => void
     onDemoClick?: () => void
 }
@@ -28,10 +32,24 @@ export function CourseDetailHero({
     posterUrl,
     startDate,
     endDate,
+    batchStatus,
+    registrationUrl,
     onRegisterClick,
     onDemoClick
 }: CourseDetailHeroProps) {
     const router = useRouter()
+
+    /** Pendaftaran ditutup saat kelas sedang/sudah berjalan */
+    const isRegistrationClosed = batchStatus === 'ON_GOING' || batchStatus === 'COMPLETED'
+
+    const handleRegister = () => {
+        if (isRegistrationClosed) return
+        if (registrationUrl) {
+            window.open(registrationUrl, '_blank', 'noopener,noreferrer')
+            return
+        }
+        onRegisterClick?.()
+    }
 
     // Format date helper
     const formatDate = (dateString?: string) => {
@@ -162,10 +180,11 @@ export function CourseDetailHero({
                                     size="xs"
                                     shape='solid'
                                     color='accent-600'
-                                    onClick={onRegisterClick || (() => {})}
-                                    className="w-full sm:flex-1 text-gray-900 border-0 px-6 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl hover:opacity-90 transition-all"
+                                    onClick={handleRegister}
+                                    disabled={isRegistrationClosed}
+                                    className="w-full sm:flex-1 text-gray-900 border-0 px-6 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    Daftar Sekarang
+                                    {isRegistrationClosed ? 'Pendaftaran Ditutup' : 'Daftar Sekarang'}
                                 </Button>
                                 <Button
                                     size="xs"
@@ -202,10 +221,11 @@ export function CourseDetailHero({
                                         size="sm"
                                         shape='solid'
                                         color='accent-600'
-                                        onClick={onRegisterClick || (() => {})}
-                                        className="text-gray-900 border-0 px-5 py-3 rounded-[20px] text-sm font-medium shadow-none"
+                                        onClick={handleRegister}
+                                        disabled={isRegistrationClosed}
+                                        className="text-gray-900 border-0 px-5 py-3 rounded-[20px] text-sm font-medium shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        Daftar Sekarang
+                                        {isRegistrationClosed ? 'Pendaftaran Ditutup' : 'Daftar Sekarang'}
                                     </Button>
                                     <Button
                                         size="sm"

@@ -1,4 +1,4 @@
-import { apiGet } from './client'
+import { apiFetch, apiGet } from './client'
 
 // ============================================
 // Types untuk Upcoming Course API
@@ -29,7 +29,16 @@ export interface UpcomingCoursesResponse {
 // Types untuk Available Courses API
 // ============================================
 
+export interface Contributor {
+    contributor_id: string
+    contributor_name: string
+    contributor_job_title: string
+    contributor_company_name: string
+    contributor_profile_url: string
+}
+
 export interface Instructor {
+    id?: string
     name: string
     jobTitle: string
     companyName: string
@@ -103,7 +112,9 @@ export interface CourseDetailBatch {
     instructor: Instructor
     prices: Prices
     sessions: BatchSession[]
+    /** API batch status: SCHEDULED | OPEN | ON_GOING | COMPLETED */
     status?: string
+    registration_url?: string
     class_schedule?: string
     registration_date?: string
 }
@@ -125,7 +136,6 @@ export interface CourseDetailResponse {
     data: CourseDetail[]
 }
 
-// API Response types (as returned from backend)
 export interface ApiCourseBatchResponse {
     course_batch_id: string
     name: string
@@ -135,6 +145,7 @@ export interface ApiCourseBatchResponse {
     start_date: string
     end_date: string
     batch_status: string
+    registration_url?: string
     instructor_name: string
     instructor_job_title: string
     instructor_company_name: string
@@ -165,47 +176,17 @@ export interface ApiCourseDetailResponse {
 // API Functions
 // ============================================
 
-/**
- * Fetch upcoming courses (pelatihan mendatang)
- * 
- * @example
- * ```ts
- * const response = await getUpcomingCourses()
- * console.log(response.data) // Array of upcoming courses
- * ```
- */
 export async function getUpcomingCourses(): Promise<UpcomingCoursesResponse> {
     return apiGet<UpcomingCoursesResponse>('/courses/upcoming-course')
 }
 
-/**
- * Fetch all available courses
- * 
- * @example
- * ```ts
- * const response = await getAvailableCourses()
- * console.log(response.data) // Array of available courses
- * ```
- */
 export async function getAvailableCourses(): Promise<AvailableCoursesResponse> {
     return apiGet<AvailableCoursesResponse>('/courses?available=true')
 }
 
-/**
- * Fetch course detail by ID
- * 
- * @param courseId - UUID of the course
- * @example
- * ```ts
- * const response = await getCourseById('5b3010a9-534e-45e0-b882-50aa853553ab')
- * console.log(response.data[0]) // Course detail
- * ```
- */
 export async function getCourseById(courseId: string): Promise<CourseDetailResponse> {
-    // Fetch from API - structure is different for by ID endpoint
     const apiResponse = await apiGet<ApiCourseDetailResponse>(`/courses/${courseId}`)
-    
-    // Transform API response to match CourseDetailResponse format
+
     const transformedData: CourseDetail = {
         course_id: apiResponse.data.course_id,
         course_title: apiResponse.data.course_title,
@@ -227,6 +208,7 @@ export async function getCourseById(courseId: string): Promise<CourseDetailRespo
             start_date: batch.start_date,
             end_date: batch.end_date,
             status: batch.batch_status,
+            registration_url: batch.registration_url,
             instructor: {
                 name: batch.instructor_name,
                 jobTitle: batch.instructor_job_title,
@@ -254,63 +236,38 @@ export async function getAllCourse(): Promise<CourseDetailResponse> {
     return apiGet<CourseDetailResponse>(`/courses/`)
 }
 
-/**
- * Fetch all instructors from courses
- * Extracts unique instructors from all course batches
- * 
- * @example
- * ```ts
- * const instructors = await getAllInstructors()
- * console.log(instructors) // Array of unique instructors
- * ```
- */
+export interface ContributorsResponse {
+    success: boolean
+    message: string
+    data: Contributor[]
+}
+
+export async function getAllContributors(): Promise<Contributor[]> {
+    const response = await apiGet<ContributorsResponse>('/contributors')
+    return Array.isArray(response.data) ? response.data : []
+}
+
 export async function getAllInstructors(): Promise<Instructor[]> {
     const response = await getAllCourse()
-
-    // Extract all instructors from all course batches
     const instructors: Instructor[] = []
-    const instructorSet = new Set<string>() // To track unique instructors by name
-
+    const seen = new Set<string>()
     response.data.forEach(course => {
-        // Ensure course_batch is an array
-        const batches = Array.isArray(course.course_batch)
-            ? course.course_batch
-            : [course.course_batch]
-
+        const batches = Array.isArray(course.course_batch) ? course.course_batch : [course.course_batch]
         batches.forEach(batch => {
-            // Skip if batch or instructor is undefined
-            if (!batch || !batch.instructor) return
-
-            const instructorKey = `${batch.instructor.name}-${batch.instructor.companyName}`
-
-            // Only add if not already in set (to avoid duplicates)
-            if (!instructorSet.has(instructorKey)) {
-                instructorSet.add(instructorKey)
+            if (!batch?.instructor) return
+            const key = `${batch.instructor.name}-${batch.instructor.companyName}`
+            if (!seen.has(key)) {
+                seen.add(key)
                 instructors.push(batch.instructor)
             }
         })
     })
-
     return instructors
 }
 
-/**
- * Fetch course detail by slug
- * Slug is generated from course_title by converting to lowercase and replacing spaces with dashes
- * 
- * @param slug - URL-friendly slug of the course
- * @example
- * ```ts
- * const response = await getCourseBySlug('pengetahuan-dasar-pengembangan-aplikasi-ai')
- * console.log(response.data[0]) // Course detail
- * ```
- */
 export async function getCourseBySlug(slug: string): Promise<CourseDetailResponse> {
     try {
-        // First get all courses to find the matching course_id
         const allCourses = await getAllCourse()
-
-        // Find the course that matches the slug
         const matchedCourse = allCourses.data.find(course => {
             const courseSlug = course.course_title
                 .toLowerCase()
@@ -327,7 +284,6 @@ export async function getCourseBySlug(slug: string): Promise<CourseDetailRespons
             }
         }
         
-        // Fetch full course detail by ID to get complete data including sessions
         const fullCourseDetail = await getCourseById(matchedCourse.course_id)
         
         if (!fullCourseDetail.success || !fullCourseDetail.data || fullCourseDetail.data.length === 0) {
@@ -349,11 +305,6 @@ export async function getCourseBySlug(slug: string): Promise<CourseDetailRespons
     }
 }
 
-/**
- * Generate slug from course title
- * @param title - Course title
- * @returns URL-friendly slug
- */
 export function generateCourseSlug(title: string): string {
     return title
         .toLowerCase()

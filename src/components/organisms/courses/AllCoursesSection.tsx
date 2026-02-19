@@ -28,22 +28,24 @@ export default function AllCoursesSection() {
                         const batchA = Array.isArray(a.course_batch) ? a.course_batch[0] : a.course_batch;
                         const batchB = Array.isArray(b.course_batch) ? b.course_batch[0] : b.course_batch;
                         
+                        const statusA = (batchA as any)?.status as string | undefined
+                        const statusB = (batchB as any)?.status as string | undefined
+
+                        // OPEN first, then SCHEDULED, then ON_GOING, then COMPLETED
+                        const statusPriority: Record<string, number> = {
+                            'OPEN': 1,
+                            'SCHEDULED': 2,
+                            'ON_GOING': 3,
+                            'COMPLETED': 4
+                        }
+                        const priA = statusPriority[statusA ?? ''] ?? 5
+                        const priB = statusPriority[statusB ?? ''] ?? 5
+                        if (priA !== priB) return priA - priB
+
+                        // Same status: sort OPEN by nearest registration_end
                         const regEndA = batchA?.registration_end ? new Date(batchA.registration_end).getTime() : Infinity;
                         const regEndB = batchB?.registration_end ? new Date(batchB.registration_end).getTime() : Infinity;
-                        
-                        const now = Date.now();
-                        const isActiveA = regEndA > now;
-                        const isActiveB = regEndB > now;
-                        
-                        // Active courses first
-                        if (isActiveA && !isActiveB) return -1;
-                        if (!isActiveA && isActiveB) return 1;
-                        
-                        // Both active: nearest deadline first
-                        if (isActiveA && isActiveB) return regEndA - regEndB;
-                        
-                        // Both closed: recently closed first
-                        return regEndB - regEndA;
+                        return regEndA - regEndB;
                     });
                     
                     setCourses(sortedCourses);
@@ -159,7 +161,7 @@ export default function AllCoursesSection() {
                             <span 
                                 className="text-[var(--color-primary-900)] font-medium"
                             >
-                                Semua Pelatihan
+                                Katalog Pelatihan
                             </span>
                         </div>
                     </div>
@@ -218,9 +220,10 @@ export default function AllCoursesSection() {
                             const batch = Array.isArray(batchData) ? batchData[0] : batchData;
                             const instructor = batch?.instructor;
                             
-                            // Check if registration is closed
-                            const registrationEnd = batch?.registration_end ? new Date(batch.registration_end).getTime() : null;
-                            const isRegistrationClosed = registrationEnd ? registrationEnd < Date.now() : false;
+                            // Use API status to determine if registration is closed
+                            // SCHEDULED → belum dibuka, OPEN → masih buka, ON_GOING → ditutup (kelas berjalan), COMPLETED → selesai
+                            const batchStatus = batch?.status as string | undefined
+                            const isRegistrationClosed = batchStatus === 'ON_GOING' || batchStatus === 'COMPLETED'
 
                             return (
                             <div 
