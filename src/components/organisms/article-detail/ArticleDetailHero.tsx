@@ -1,13 +1,15 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Typography } from '@/components'
+import { Typography, Image } from '@/components'
 
 interface ArticleDetailHeroProps {
     title: string
     subtitle?: string
     coverUrl?: string
     publishDate?: string
+    author?: string
+    showCover?: boolean
 }
 
 /**
@@ -17,24 +19,44 @@ export function ArticleDetailHero({
     title,
     subtitle,
     coverUrl,
-    publishDate
+    publishDate,
+    author,
+    showCover = true
 }: ArticleDetailHeroProps) {
     const router = useRouter()
 
     // Format date
     const formatDate = (dateString?: string) => {
         if (!dateString) return ''
+
+        const months = [
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        ]
+
         const date = new Date(dateString)
-        return date.toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        })
+        if (Number.isNaN(date.getTime())) return dateString
+
+        const day = date.getUTCDate()
+        const month = months[date.getUTCMonth()]
+        const year = date.getUTCFullYear()
+
+        return `${day} ${month} ${year}`
     }
 
     return (
         <section className="w-full bg-white">
-            <div className="relative z-10 pt-8 sm:pt-10 lg:pt-16">
+            <div className="relative z-5 pt-8 sm:pt-10 lg:pt-16">
                 <div className="mx-auto max-w-full sm:max-w-md md:max-w-xl lg:max-w-6xl 2xl:max-w-7xl px-6 sm:px-6 md:px-8">
                     {/* Breadcrumb */}
                     <button
@@ -47,14 +69,26 @@ export function ArticleDetailHero({
                         <span className="font-medium">Kembali ke Artikel</span>
                     </button>
 
+                    {/* Author */}
+                    {author && (
+                        <Typography
+                            as="p"
+                            size="lg"
+                            weight="medium"
+                            color="neutral-950"
+                        >
+                            {author}
+                        </Typography>
+                    )}
+
                     {/* Date */}
                     {publishDate && (
                         <Typography
                             as="p"
-                            size="sm"
+                            size="lg"
                             weight="medium"
-                            color="accent-600"
-                            className="mb-3"
+                            color="neutral-50"
+                            className="mb-3 text-[var(--color-neutral-400)]"
                         >
                             {formatDate(publishDate)}
                         </Typography>
@@ -71,6 +105,8 @@ export function ArticleDetailHero({
                         {title}
                     </Typography>
 
+                    
+
                     {/* Subtitle */}
                     {subtitle && (
                         <div
@@ -79,6 +115,18 @@ export function ArticleDetailHero({
                         />
                     )}
 
+                    {/* Cover Image */}
+                    {/* {showCover && coverUrl && (
+                        <div className="relative w-64 h-64 sm:h-80 md:h-96 lg:w-[800px] lg:h-[100px] mb-8">
+                            <Image
+                                src={coverUrl}
+                                alt={title}
+                                fit="cover"
+                                shape="rounded"
+                                className="w-auto h-auto max-h-2xl mx-auto rounded-2xl"
+                            />
+                        </div>
+                    )} */}
                 </div>
             </div>
         </section>

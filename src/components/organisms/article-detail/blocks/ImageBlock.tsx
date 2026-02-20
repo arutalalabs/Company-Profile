@@ -16,7 +16,7 @@ export function ImageBlock({ data }: ImageBlockProps) {
         <figure className="my-8">
             <div
                 className={`
-                    relative w-full overflow-hidden rounded-xl
+                    relative flex w-full items-center justify-center overflow-hidden rounded-xl
                     ${withBorder ? 'border-2 border-gray-200' : ''}
                     ${withBackground ? 'bg-gray-100 p-4' : ''}
                 `}
@@ -25,7 +25,7 @@ export function ImageBlock({ data }: ImageBlockProps) {
                 <img
                     src={file.url}
                     alt={caption || 'Article image'}
-                    className="w-full h-auto object-cover rounded-2xl shadow-2xl"
+                    className="mx-auto w-auto sm:max-h-[300px] lg:max-h-[440px] 2xl:max-h-[500px] object-cover rounded-2xl shadow-2xl"
                     loading="lazy"
                 />
 

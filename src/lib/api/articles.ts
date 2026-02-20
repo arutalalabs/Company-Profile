@@ -53,11 +53,12 @@ export type ContentBlock =
 export interface Article {
     article_id: string
     article_title: string
-    article_content?: string
+    author: string
     article_content_blocks: ContentBlock[]
     article_cover_url: string
     article_status: 'PUBLISHED' | 'DRAFT' | string
     article_content_text?: string
+    article_cover_description?: string
     created_date?: string // ISO 8601 format from API
     article_slug?: string
     created_at?: string
@@ -112,8 +113,7 @@ export function transformArticleForDisplay(article: Article): DisplayArticle {
     return {
         id: article.article_id,
         title: article.article_title,
-        description: article.article_content_text ||
-            (article.article_content ? article.article_content.substring(0, 200) + '...' : ''),
+        description: article.article_cover_description || article.article_content_text?.slice(0, 350) || '',
         image: article.article_cover_url || '/src/article/python.png',
         // Prioritize created_at (available in list) over created_date (detail only)
         created_date: article.created_at ||

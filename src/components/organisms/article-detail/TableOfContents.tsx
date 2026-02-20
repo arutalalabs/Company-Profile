@@ -94,8 +94,8 @@ export function TableOfContents({ blocks }: TableOfContentsProps) {
                                     className={`
                                         block transition-all duration-200 relative
                                         ${isSubItem
-                                            ? 'ml-4 pl-6 py-2 text-sm border-l-2 border-gray-200'
-                                            : 'pl-6 py-3 text-base font-medium'
+                                            ? 'ml-4 pl-6 py-1 text-sm border-l-2 border-gray-200'
+                                            : 'pl-6 py-1 text-base font-medium'
                                         }
                                         ${isActive
                                             ? 'text-gray-900 font-semibold'
@@ -112,21 +112,21 @@ export function TableOfContents({ blocks }: TableOfContentsProps) {
                                         />
                                     )}
 
-                                    {/* Segitiga indikator untuk item aktif h3 - di border gray
+                                    {/* Segitiga indikator untuk item aktif h3 - di border gray */}
                                     {isActive && isSubItem && (
                                         <img
                                             src="/src/article/segitiga-indikator.svg"
                                             alt=""
                                             className="absolute left-0 top-1/2 -translate-y-1/2 w-2.5 h-auto"
                                         />
-                                    )} */}
+                                    )}
 
                                     {/* Penomoran untuk sub-items */}
-                                    {isSubItem && (
+                                    {/* {isSubItem && (
                                         <span className="mr-1 text-gray-600">
                                             {subItemCounter}.
                                         </span>
-                                    )}
+                                    )} */}
 
                                     {header.text}
                                 </a>
