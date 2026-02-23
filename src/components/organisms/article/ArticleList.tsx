@@ -100,7 +100,7 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                         >
                             <div className="flex flex-col lg:flex-row gap-5 lg:gap-22 2xl:gap-24">
                                 {/* Image - Top on mobile/tablet, Right on desktop */}
-                                <div className="w-full lg:w-[240px] 2xl:w-[280px] h-48 sm:h-56 lg:h-[180px] 2xl:h-auto flex-shrink-0 order-1 lg:order-2">
+                                <div className="w-full lg:w-[240px] 2xl:w-[280px] h-48 sm:h-56 lg:h-[180px] 2xl:h-[180px] flex-shrink-0 order-1 lg:order-2">
                                     <Image
                                         src={article.image}
                                         alt={article.title}

@@ -63,10 +63,11 @@ export function ArticleDetailContent({ article }: ArticleDetailContentProps) {
 
     // Do not slice from first image anymore; keep full flow
     // Remove only duplicated hero image (if same URL as cover)
-    const contentBlocks =
+    const contentBlocks = (
         firstImageIndex >= 0 && heroCoverUrl && firstImageUrl === heroCoverUrl
             ? processedBlocks.filter((_, idx) => idx !== firstImageIndex)
             : processedBlocks
+    ).filter(block => !(block.type === 'header' && block.data?.level === 1))
 
     return (
         <main className="min-h-screen bg-white">
