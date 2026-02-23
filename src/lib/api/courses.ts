@@ -1,4 +1,4 @@
-import { apiFetch, apiGet } from './client'
+import { apiGet } from './client'
 
 // ============================================
 // Types untuk Upcoming Course API
@@ -43,6 +43,12 @@ export interface Instructor {
     jobTitle: string
     companyName: string
     profileUrl: string
+    contributorType: ContributorType
+}
+
+export enum ContributorType {
+    INTERNAL = 'INTERNAL',
+    EXTERNAL = 'EXTERNAL'
 }
 
 // Mock data untuk testing tersedia di src/__fixtures__/mock-instructors.ts
@@ -213,7 +219,8 @@ export async function getCourseById(courseId: string): Promise<CourseDetailRespo
                 name: batch.instructor_name,
                 jobTitle: batch.instructor_job_title,
                 companyName: batch.instructor_company_name,
-                profileUrl: batch.instructor_profile_url
+                profileUrl: batch.instructor_profile_url,
+                contributorType: ContributorType.EXTERNAL
             },
             prices: {
                 basePrice: batch.base_price,
@@ -243,26 +250,20 @@ export interface ContributorsResponse {
 }
 
 export async function getAllContributors(): Promise<Contributor[]> {
-    const response = await apiGet<ContributorsResponse>('/contributors')
+    const response = await apiGet<ContributorsResponse>('/contributors?type=internal')
     return Array.isArray(response.data) ? response.data : []
 }
 
 export async function getAllInstructors(): Promise<Instructor[]> {
-    const response = await getAllCourse()
-    const instructors: Instructor[] = []
-    const seen = new Set<string>()
-    response.data.forEach(course => {
-        const batches = Array.isArray(course.course_batch) ? course.course_batch : [course.course_batch]
-        batches.forEach(batch => {
-            if (!batch?.instructor) return
-            const key = `${batch.instructor.name}-${batch.instructor.companyName}`
-            if (!seen.has(key)) {
-                seen.add(key)
-                instructors.push(batch.instructor)
-            }
-        })
-    })
-    return instructors
+    const contributors = await getAllContributors()
+    return contributors.map(contributor => ({
+        id: contributor.contributor_id,
+        name: contributor.contributor_name,
+        jobTitle: contributor.contributor_job_title,
+        companyName: contributor.contributor_company_name,
+        profileUrl: contributor.contributor_profile_url,
+        contributorType: ContributorType.INTERNAL
+    }))
 }
 
 export async function getCourseBySlug(slug: string): Promise<CourseDetailResponse> {
