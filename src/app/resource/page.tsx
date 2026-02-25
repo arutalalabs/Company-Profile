@@ -9,7 +9,8 @@ export default function ResourcePage() {
             <HeroResource />
             <ITField />
             <ProfitSection />
-            <TerstimonialSection />
+            {/* hide terlebih dahulu karena image belum tersedia */}
+            {/* <TerstimonialSection /> */}
             <CTA 
                 title="Mencari Talent?"
                 description="Jangan biarkan sumber daya manusia menghambat pengembangan proyek IT anda, konsultasikan segera dengan kami!" 

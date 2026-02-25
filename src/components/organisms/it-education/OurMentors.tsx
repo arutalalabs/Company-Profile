@@ -1,20 +1,12 @@
-'use client'
-import { getAllInstructors } from '@/lib/api/courses'
+import { getAllContributors } from '@/lib/api/courses'
 import { Typography } from '@/components/atoms/typography'
 import { MentorCard } from '@/components/molecules/mentor-card'
-import { useEffect, useState } from 'react'
 
-export function Mentor() {
-    const [instructors, setInstructors] = useState<any[]>([])
+export async function Mentor() {
+    const contributors = await getAllContributors()
 
-    useEffect(() => {
-        // Pilih salah satu:
-        getAllInstructors().then(setInstructors)      // Fetch dari API
-        // getLocalInstructors().then(setInstructors)    // Get dari data lokal
-    }, [])
-
-    // Duplicate instructors untuk infinite loop effect
-    const duplicatedInstructors = [...instructors, ...instructors]
+    // Duplicate contributors untuk infinite loop effect
+    const duplicatedContributors = [...contributors,  ...contributors ]
 
     return (
         <section className="w-full py-16 px-4 overflow-hidden">
@@ -35,38 +27,18 @@ export function Mentor() {
 
                 {/* Mentor Cards Slider - Responsive */}
                 <div className="relative w-full">
-                    <div className="flex gap-6 animate-slide-infinite hover:pause-animation">
-                        {duplicatedInstructors.map((instructor, index) => (
+                    <div className="flex gap-6 animate-slide-infinite">
+                        {duplicatedContributors.map((contributor, index) => (
                             <div
                                 key={index}
                                 className="flex-shrink-0 w-[300px]"
                             >
-                                <MentorCard instructor={instructor} />
+                                <MentorCard contributor={contributor} />
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
-
-            <style jsx>{`
-                @keyframes slide {
-                    from {
-                        transform: translateX(0);
-                    }
-                    to {
-                        transform: translateX(-50%);
-                    }
-                }
-
-                .animate-slide-infinite {
-                    animation: slide 30s linear infinite;
-                    width: max-content;
-                }
-
-                .hover\\:pause-animation:hover {
-                    animation-play-state: paused;
-                }
-            `}</style>
         </section>
     )
 }

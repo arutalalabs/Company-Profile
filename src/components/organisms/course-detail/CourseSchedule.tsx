@@ -45,39 +45,46 @@ export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps
         return match ? parseInt(match[0]) : 0
     }
     
-    // Helper to determine actual batch status based on dates
-    const getBatchStatus = (batch: CourseDetailBatch): 'available' | 'full' | 'coming-soon' => {
+    // Helper to map API batch status to display status
+    const getBatchStatus = (batch: CourseDetailBatch): 'available' | 'full' | 'coming-soon' | 'on-going' | 'completed' => {
+        // Prioritise the API status field (SCHEDULED, OPEN, ON_GOING, COMPLETED)
+        switch (batch.status?.toUpperCase()) {
+            case 'OPEN':      return 'available'
+            case 'SCHEDULED': return 'coming-soon'
+            case 'ON_GOING':  return 'on-going'
+            case 'COMPLETED': return 'completed'
+        }
+
+        // Fallback: infer from registration dates
         const now = new Date()
         now.setHours(0, 0, 0, 0)
-        
+
         if (batch.registration_end) {
             const registrationEndDate = new Date(batch.registration_end)
             registrationEndDate.setHours(23, 59, 59, 999)
             if (now > registrationEndDate) return 'full'
         }
-        
+
         if (batch.registration_start) {
             const registrationStartDate = new Date(batch.registration_start)
             registrationStartDate.setHours(0, 0, 0, 0)
             if (now < registrationStartDate) return 'coming-soon'
         }
-        
-        if (batch.status === 'full') return 'full'
-        if (batch.status === 'coming-soon') return 'coming-soon'
-        
+
         return 'available'
     }
     
-    // Sort batches: 1. By status (available first), 2. By batch number (ascending)
+    // Sort batches: 1. By status priority (available > coming-soon > on-going > completed > full), 2. By batch number
     const sortedBatches = [...batches].sort((a, b) => {
         const statusA = getBatchStatus(a)
         const statusB = getBatchStatus(b)
-        
-        // Priority order: available > coming-soon > full
+
         const statusPriority: Record<string, number> = {
             'available': 1,
             'coming-soon': 2,
-            'full': 3
+            'on-going': 3,
+            'completed': 4,
+            'full': 5
         }
         
         const priorityA = statusPriority[statusA]
@@ -204,7 +211,14 @@ export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps
             finalPrice: formatPrice(batch.prices),
             discountPercent: calculateDiscount(batch.prices),
             status: getBatchStatus(batch),
-            onRegisterClick: () => onRegisterClick?.(batch.name)
+            registrationUrl: batch.registration_url,
+            onRegisterClick: () => {
+                if (batch.registration_url) {
+                    window.open(batch.registration_url, '_blank', 'noopener,noreferrer')
+                } else {
+                    onRegisterClick?.(batch.name)
+                }
+            }
         }
     })
 

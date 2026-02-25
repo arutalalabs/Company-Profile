@@ -60,3 +60,18 @@
         --color-neutral-950: #0a0a0a;
     }
 }
+
+/* Mentor Slider Animation */
+@keyframes slide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.animate-slide-infinite {
+    animation: slide 30s linear infinite;
+    width: max-content;
+}
+
+.animate-slide-infinite:hover {
+    animation-play-state: paused;
+}

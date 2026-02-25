@@ -16,8 +16,8 @@ interface CourseDetailPageProps {
     }>
 }
 
-/** ISR: revalidate setiap 1 jam */
-export const revalidate = 3600
+/** ISR: revalidate setiap 1 detik untuk memastikan data selalu up-to-date tanpa perlu rebuild seluruh site.*/
+export const revalidate = 1
 
 /**
  * Generate static params untuk semua courses
@@ -75,6 +75,8 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
                 posterUrl={firstBatch?.posterUrl}
                 startDate={firstBatch?.start_date}
                 endDate={firstBatch?.end_date}
+                batchStatus={firstBatch?.status}
+                registrationUrl={firstBatch?.registration_url}
             />
 
             {/* Course Features Section */}
