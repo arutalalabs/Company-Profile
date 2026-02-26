@@ -1,6 +1,6 @@
 'use client'
 
-import { HeaderBlockData } from '@/lib/api/articles'
+import { HeaderBlockData } from '@/types/article'
 
 interface HeaderBlockProps {
     data: HeaderBlockData

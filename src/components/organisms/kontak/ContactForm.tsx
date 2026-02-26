@@ -92,7 +92,7 @@ export function ContactForm() {
     }
 
     return (
-        <div className="bg-[#FFFFFF] border border-[var(--color-primary-900)] rounded-2xl shadow-xl p-8 lg:px-18 lg:py-14">
+        <div className="bg-white border border-[var(--color-primary-900)] rounded-2xl shadow-xl p-8 lg:px-18 lg:py-14">
             <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Nama */}
                 <div>

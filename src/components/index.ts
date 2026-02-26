@@ -86,10 +86,14 @@ export { default as IndustrySolutions } from './organisms/profile/IndustrySoluti
 export { default as HeroResource } from './organisms/resource/HeroResource'
 export { default as ITField } from './organisms/resource/ITField'
 export { default as ProfitSection } from './organisms/resource/ProfitSection'
-export { default as TerstimonialSection } from './organisms/resource/TerstimonialSection'
+export { default as TestimonialTalentSection } from './organisms/resource/TestimonialTalentSection'
 
 
 // ============================================
 // Re-export common types and utilities
 // ============================================
 export type { ComponentPropsWithoutRef, ElementRef } from 'react'
+
+export { formatDateIndonesia } from '../utils/date'
+export { scrollToElement } from '../utils/scroll'
+export { ROUTES } from '../constants/routes'

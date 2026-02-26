@@ -182,7 +182,7 @@ export function CourseDetailHero({
                                     color='accent-600'
                                     onClick={handleRegister}
                                     disabled={isRegistrationClosed}
-                                    className="w-full sm:flex-1 text-gray-900 border-0 px-6 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full sm:flex-1 text-gray-900 border-0 px-5 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {isRegistrationClosed ? 'Pendaftaran Ditutup' : 'Daftar Sekarang'}
                                 </Button>
@@ -191,7 +191,7 @@ export function CourseDetailHero({
                                     shape='outline'
                                     color='accent-600'
                                     onClick={onDemoClick || scrollToContent}
-                                    className="w-full sm:flex-1 text-gray-900 bg-white border-2 px-6 py-3 rounded-full text-sm font-semibold shadow-md hover:shadow-lg hover:bg-gray-50 transition-all"
+                                    className="w-full sm:flex-1 text-gray-900 bg-white border-2 px-5 py-3 rounded-full text-sm font-semibold shadow-md hover:shadow-lg hover:bg-gray-50 transition-all"
                                 >
                                     Lihat Detail
                                 </Button>
@@ -223,7 +223,7 @@ export function CourseDetailHero({
                                         color='accent-600'
                                         onClick={handleRegister}
                                         disabled={isRegistrationClosed}
-                                        className="text-gray-900 border-0 px-5 py-3 rounded-[20px] text-sm font-medium shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="text-gray-900 border-0 px-4 py-3 rounded-[20px] text-sm font-medium shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         {isRegistrationClosed ? 'Pendaftaran Ditutup' : 'Daftar Sekarang'}
                                     </Button>
@@ -232,7 +232,7 @@ export function CourseDetailHero({
                                         shape='outline'
                                         color='accent-600'
                                         onClick={onDemoClick || scrollToContent}
-                                        className="text-gray-900 border-2 px-5 py-3 rounded-[20px] text-sm font-medium shadow-none"
+                                        className="text-gray-900 border-2 px-4 py-3 rounded-[20px] text-sm font-medium shadow-none"
                                     >
                                         Lihat Detail
                                     </Button>

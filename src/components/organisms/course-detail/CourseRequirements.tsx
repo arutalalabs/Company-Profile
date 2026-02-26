@@ -1,6 +1,6 @@
 'use client'
 import { Typography } from '@/components'
-import type { CourseBenefit } from '@/lib/api/courses'
+import type { CourseBenefit } from '@/types/course'
 
 interface Requirement {
     title: string

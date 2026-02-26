@@ -1,5 +1,5 @@
 import { Typography } from '@/components/atoms/typography'
-import type { Contributor } from '@/lib/api/courses'
+import type { Contributor } from '@/types/course'
 
 export interface MentorCardProps {
     contributor: Contributor

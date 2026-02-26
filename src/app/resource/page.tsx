@@ -1,7 +1,7 @@
 import { HeroResource, CTA } from '@/components';
 import ITField from '@/components/organisms/resource/ITField';
 import ProfitSection from '@/components/organisms/resource/ProfitSection';
-import TerstimonialSection from '@/components/organisms/resource/TerstimonialSection';
+import TestimonialSection from '@/components/organisms/resource/TestimonialTalentSection';
 
 export default function ResourcePage() {
     return (
@@ -10,7 +10,7 @@ export default function ResourcePage() {
             <ITField />
             <ProfitSection />
             {/* hide terlebih dahulu karena image belum tersedia */}
-            {/* <TerstimonialSection /> */}
+            <TestimonialSection />
             <CTA 
                 title="Mencari Talent?"
                 description="Jangan biarkan sumber daya manusia menghambat pengembangan proyek IT anda, konsultasikan segera dengan kami!" 

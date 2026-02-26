@@ -2,7 +2,8 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Button, Typography } from '@/components';
-import { getAvailableCourses, generateCourseSlug, type AvailableCourse } from '@/lib/api/courses';
+import { getAvailableCourses, generateCourseSlug } from '@/lib/api/courses';
+import type { AvailableCourse } from '@/types/course';
 
 
 export default function AvailableCourseSection() {

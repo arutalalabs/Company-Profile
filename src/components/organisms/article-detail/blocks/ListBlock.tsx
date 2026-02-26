@@ -1,6 +1,6 @@
 'use client'
 
-import { ListBlockData } from '@/lib/api/articles'
+import { ListBlockData } from '@/types/article'
 
 interface ListBlockProps {
     data: ListBlockData

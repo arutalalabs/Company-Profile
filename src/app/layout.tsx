@@ -64,6 +64,7 @@ export default function RootLayout({
                     }}
                     layananItems={[
                         { label: 'IT Education', href: '/it-education' },
+                        { label: 'Courses', href: '/courses' },
                         { label: 'Resource', href: '/resource' },
                         {
                             label: 'Software Services',

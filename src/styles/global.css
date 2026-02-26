@@ -68,10 +68,25 @@
 }
 
 .animate-slide-infinite {
-    animation: slide 30s linear infinite;
+    animation: slide 20s linear infinite;
     width: max-content;
 }
 
 .animate-slide-infinite:hover {
+    animation-play-state: paused;
+}
+
+/* Mitra Scroll Animation */
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+    animation: scroll 30s linear infinite;
+    width: max-content;
+}
+
+.animate-scroll:hover {
     animation-play-state: paused;
 }

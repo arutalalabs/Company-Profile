@@ -2,7 +2,7 @@
 
 import { Typography } from '@/components'
 import { MitraCard } from '@/components/molecules/mitra-card'
-import type { Mitra } from '@/lib/api/mitras'
+import type { Mitra } from '@/types/mitra'
 import { useState, useRef, useEffect } from 'react'
 
 /**

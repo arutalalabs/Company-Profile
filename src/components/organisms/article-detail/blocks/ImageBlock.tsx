@@ -1,6 +1,6 @@
 'use client'
 
-import { ImageBlockData } from '@/lib/api/articles'
+import { ImageBlockData } from '@/types/article'
 
 interface ImageBlockProps {
     data: ImageBlockData

@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ContentBlock, extractHeaders } from '@/lib/api/articles'
+import type { ContentBlock } from '@/types/article'
+import { extractHeaders } from '@/lib/api/articles'
 
 interface TableOfContentsProps {
     blocks: ContentBlock[]

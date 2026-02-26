@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Typography, Icon } from '@/components';
-import { getAllCourse, generateCourseSlug, type CourseDetail } from '@/lib/api/courses';
+import { getAllCourse, generateCourseSlug } from '@/lib/api/courses';
+import type { CourseDetail } from '@/types/course';
 
 export default function AllCoursesSection() {
     const router = useRouter();

@@ -1,6 +1,6 @@
 'use client'
 
-import { CodeBlockData } from '@/lib/api/articles'
+import { CodeBlockData } from '@/types/article'
 
 interface CodeBlockProps {
     data: CodeBlockData

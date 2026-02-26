@@ -1,7 +1,7 @@
 'use client'
 import { Typography, Icon } from '@/components'
 import { MentorDetailCard } from '@/components/molecules/mentor-detail-card'
-import type { CourseMaterial, Instructor } from '@/lib/api/courses'
+import type { CourseMaterial, Instructor } from '@/types/course'
 
 interface CourseLearningProps {
     materials: CourseMaterial[]

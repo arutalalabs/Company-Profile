@@ -1,23 +1,23 @@
 import { apiGet } from './client'
+import { generateSlug } from '@/utils/slug'
+
+import type {
+    UpcomingCourse,
+    AvailableCourse,
+    Contributor,
+    Instructor,
+    BatchSession,
+    CourseDetail,
+    CourseDetailBatch,
+    Prices,
+} from '@/types/course'
+import { ContributorType } from '@/types/course'
+
+export const generateCourseSlug = generateSlug
 
 // ============================================
-// Types untuk Upcoming Course API
+// API Response Types (internal to API layer)
 // ============================================
-
-export interface NearestBatch {
-    name: string
-    posterUrl: string
-    start_date: string
-    registration_end: string
-}
-
-export interface UpcomingCourse {
-    course_id: string
-    course_title: string
-    course_description: string
-    course_category_name: string
-    nearest_batch: NearestBatch
-}
 
 export interface UpcomingCoursesResponse {
     success: boolean
@@ -25,115 +25,10 @@ export interface UpcomingCoursesResponse {
     data: UpcomingCourse[]
 }
 
-// ============================================
-// Types untuk Available Courses API
-// ============================================
-
-export interface Contributor {
-    contributor_id: string
-    contributor_name: string
-    contributor_job_title: string
-    contributor_company_name: string
-    contributor_profile_url: string
-}
-
-export interface Instructor {
-    id?: string
-    name: string
-    jobTitle: string
-    companyName: string
-    profileUrl: string
-    contributorType: ContributorType
-}
-
-export enum ContributorType {
-    INTERNAL = 'INTERNAL',
-    EXTERNAL = 'EXTERNAL'
-}
-
-// Mock data untuk testing tersedia di src/__fixtures__/mock-instructors.ts
-
-export interface Prices {
-    basePrice: number
-    discountType: string | null
-    discountValue: number | null
-    finalPrice: number | null
-}
-
-export interface CourseBatch {
-    name: string
-    status: string
-    posterUrl: string
-    registration_start: string
-    registration_end: string
-    start_date: string
-    end_date: string
-    instructor: Instructor
-    prices: Prices
-}
-
-export interface AvailableCourse {
-    course_id: string
-    course_title: string
-    course_description: string
-    course_category_name: string
-    course_field_name: string
-    course_batch: CourseBatch
-}
-
 export interface AvailableCoursesResponse {
     success: boolean
     message: string
     data: AvailableCourse[]
-}
-
-// ============================================
-// Types untuk Course Detail API
-// ============================================
-
-export interface CourseMaterial {
-    description: string
-}
-
-export interface CourseBenefit {
-    title: string
-    description: string
-}
-
-export interface BatchSession {
-    course_session_id: string
-    topic: string
-    date: string
-    start_time: string
-    end_time: string
-}
-
-export interface CourseDetailBatch {
-    name: string
-    posterUrl: string
-    registration_start: string
-    registration_end: string
-    start_date: string
-    end_date: string
-    instructor: Instructor
-    prices: Prices
-    sessions: BatchSession[]
-    /** API batch status: SCHEDULED | OPEN | ON_GOING | COMPLETED */
-    status?: string
-    registration_url?: string
-    class_schedule?: string
-    registration_date?: string
-}
-
-export interface CourseDetail {
-    course_id: string
-    course_title: string
-    course_description: string
-    course_category_name: string
-    course_field_name: string
-    course_material: CourseMaterial[]
-    course_benefit: CourseBenefit[]
-    course_batch: CourseDetailBatch[]
 }
 
 export interface CourseDetailResponse {
@@ -183,15 +78,15 @@ export interface ApiCourseDetailResponse {
 // ============================================
 
 export async function getUpcomingCourses(): Promise<UpcomingCoursesResponse> {
-    return apiGet<UpcomingCoursesResponse>('/courses/upcoming-course')
+    return apiGet<UpcomingCoursesResponse>('/v2/courses/upcoming-course?isDisplayed=true')
 }
 
 export async function getAvailableCourses(): Promise<AvailableCoursesResponse> {
-    return apiGet<AvailableCoursesResponse>('/courses?available=true')
+    return apiGet<AvailableCoursesResponse>('/v2/courses?available=true')
 }
 
 export async function getCourseById(courseId: string): Promise<CourseDetailResponse> {
-    const apiResponse = await apiGet<ApiCourseDetailResponse>(`/courses/${courseId}`)
+    const apiResponse = await apiGet<ApiCourseDetailResponse>(`/v2/courses/${courseId}`)
 
     const transformedData: CourseDetail = {
         course_id: apiResponse.data.course_id,
@@ -240,7 +135,7 @@ export async function getCourseById(courseId: string): Promise<CourseDetailRespo
 }
 
 export async function getAllCourse(): Promise<CourseDetailResponse> {
-    return apiGet<CourseDetailResponse>(`/courses/`)
+    return apiGet<CourseDetailResponse>(`/v2/courses?isDisplayed=true`)
 }
 
 export interface ContributorsResponse {
@@ -250,7 +145,7 @@ export interface ContributorsResponse {
 }
 
 export async function getAllContributors(): Promise<Contributor[]> {
-    const response = await apiGet<ContributorsResponse>('/contributors?type=internal')
+    const response = await apiGet<ContributorsResponse>('/v2/contributors?type=internal')
     return Array.isArray(response.data) ? response.data : []
 }
 
@@ -304,11 +199,4 @@ export async function getCourseBySlug(slug: string): Promise<CourseDetailRespons
             data: []
         }
     }
-}
-
-export function generateCourseSlug(title: string): string {
-    return title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]/g, '')
-        .replace(/\s+/g, '-')
 }

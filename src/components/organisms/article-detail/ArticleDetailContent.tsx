@@ -1,6 +1,6 @@
 'use client'
 
-import { Article, ContentBlock } from '@/lib/api/articles'
+import { Article, ContentBlock } from '@/types/article'
 import { ArticleDetailHero } from './ArticleDetailHero'
 import { BlockRenderer } from './BlockRenderer'
 import { TableOfContents } from './TableOfContents'
