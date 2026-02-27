@@ -61,8 +61,8 @@ export const MentorDetailCard = forwardRef<HTMLDivElement, MentorDetailCardProps
             md: {
                 container: 'p-4',
                 image: 'w-16 h-16',
-                name: 'text-base',
-                title: 'text-sm',
+                name: 'text-sm 2xl:text-base',
+                title: 'text-xs 2xl:text-sm',
                 role: 'text-xs'
             },
             lg: {
@@ -89,9 +89,10 @@ export const MentorDetailCard = forwardRef<HTMLDivElement, MentorDetailCardProps
                 {...props}
             >
                 {/* Profile Image */}
+                <div className="rounded-full flex-shrink-0 border-2 border-[var(--color-primary-900)] p-1">
                 <div className={clsx(
                     sizeStyles[size].image,
-                    'rounded-full overflow-hidden flex-shrink-0 bg-gray-200'
+                    'rounded-full overflow-hidden bg-gray-200'
                 )}>
                     {profileUrl ? (
                         <img 
@@ -106,6 +107,7 @@ export const MentorDetailCard = forwardRef<HTMLDivElement, MentorDetailCardProps
                             </svg>
                         </div>
                     )}
+                </div>
                 </div>
 
                 {/* Mentor Info */}

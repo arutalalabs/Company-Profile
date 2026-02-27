@@ -1,75 +1,22 @@
 'use client'
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { Button, Typography } from '@/components';
-import { getAvailableCourses, generateCourseSlug } from '@/lib/api/courses';
-import type { AvailableCourse } from '@/types/course';
+import { generateCourseSlug } from '@/lib/api/courses';
+import { ROUTES } from '@/constants/routes';
+import { formatDateIndonesia } from '@/utils/date';
+import { formatPriceIDR } from '@/utils/format';
+import { useAvailableCourses } from '@/hooks/useAvailableCourses';
+import { useBreakpointCount } from '@/hooks/useBreakpointCount';
 
 
 export default function AvailableCourseSection() {
     const router = useRouter()
-        const handleContactClick = () => {
-            router.push('/courses')
-        }
-    
-    const [courses, setCourses] = useState<AvailableCourse[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [visibleCount, setVisibleCount] = useState(1);
+    const handleContactClick = () => {
+        router.push(ROUTES.COURSES)
+    }
 
-    // Detect screen size and set visible count
-    useEffect(() => {
-        const handleResize = () => {
-            const width = window.innerWidth;
-            if (width >= 1536) { // 2xl
-                setVisibleCount(3);
-            } else if (width >= 1024) { // lg
-                setVisibleCount(2);
-            } else if (width >= 640) { // sm
-                setVisibleCount(2);
-            } else { // mobile
-                setVisibleCount(1);
-            }
-        };
-
-        handleResize(); // Set initial value
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    useEffect(() => {
-        async function fetchCourses() {
-            try {
-                setLoading(true);
-                const response = await getAvailableCourses();
-                if (response.success) {
-                    // Sort courses by registration end date (ascending - most urgent first)
-                    const sortedCourses = response.data.sort((a, b) => {
-                        const batchA = Array.isArray(a.course_batch) ? a.course_batch[0] : a.course_batch;
-                        const batchB = Array.isArray(b.course_batch) ? b.course_batch[0] : b.course_batch;
-                        
-                        const dateA = batchA?.registration_end ? new Date(batchA.registration_end).getTime() : 
-                                     batchA?.start_date ? new Date(batchA.start_date).getTime() : Infinity;
-                        const dateB = batchB?.registration_end ? new Date(batchB.registration_end).getTime() : 
-                                     batchB?.start_date ? new Date(batchB.start_date).getTime() : Infinity;
-                        
-                        return dateA - dateB; // Ascending: nearest deadline first
-                    });
-                    
-                    setCourses(sortedCourses);
-                } else {
-                    setError(response.message || 'Failed to fetch courses');
-                }
-            } catch (err) {
-                setError('Error fetching courses');
-                console.error('Error fetching courses:', err);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchCourses();
-    }, []);
+    const { courses, loading, error } = useAvailableCourses()
+    const visibleCount = useBreakpointCount({ default: 1, sm: 2, lg: 2, '2xl': 3 })
 
     if (loading) {
         return (
@@ -140,33 +87,6 @@ export default function AvailableCourseSection() {
             </section>
         );
     }
-
-    // Helper function to format price
-    const formatPrice = (prices: any) => {
-        if (!prices) return 'Gratis';
-        
-        if (prices.finalPrice === 0 || prices.basePrice === 0) {
-            return 'Gratis';
-        }
-        
-        const price = prices.finalPrice || prices.basePrice;
-        return new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 0,
-        }).format(price);
-    };
-
-    // Helper function to format date
-    const formatDate = (dateString: string) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-    };
 
     return (
         <section className="py-20 bg-white">
@@ -262,7 +182,7 @@ export default function AvailableCourseSection() {
                                     {batch?.registration_end && (
                                         <div className="mb-4 sm:mb-5 lg:mb-6">
                                             <span className="bg-[var(--color-primary-900)] text-white text-[10px] sm:text-xs px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg inline-block">
-                                                Batas Pendaftaran: {formatDate(batch.registration_end)}
+                                                Batas Pendaftaran: {formatDateIndonesia(batch.registration_end)}
                                             </span>
                                         </div>
                                     )}
@@ -297,12 +217,12 @@ export default function AvailableCourseSection() {
                                     {/* Footer Info */}
                                     <div className="flex justify-between items-end mb-4 sm:mb-5 lg:mb-6">
                                         <div>
-                                            <p className="text-base sm:text-lg lg:text-base 2xl:text-lg font-bold text-navy-900">{formatPrice(batch?.prices)}</p>
+                                            <p className="text-base sm:text-lg lg:text-base 2xl:text-lg font-bold text-navy-900">{formatPriceIDR(batch?.prices)}</p>
                                         </div>
                                         {batch?.start_date && (
                                             <div className="text-right">
                                                 <p className="text-[9px] sm:text-[10px] text-gray-500">Kelas dimulai:</p>
-                                                <p className="text-[11px] sm:text-xs font-semibold text-navy-900">{formatDate(batch.start_date)}</p>
+                                                <p className="text-[11px] sm:text-xs font-semibold text-navy-900">{formatDateIndonesia(batch.start_date)}</p>
                                             </div>
                                         )}
                                     </div>
@@ -313,7 +233,7 @@ export default function AvailableCourseSection() {
                                         shape="solid"
                                         color="accent-600"
                                         className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:rounded-[20px]"
-                                        onClick={() => router.push(`/courses/${generateCourseSlug(course.course_title)}`)}
+                                        onClick={() => router.push(`${ROUTES.COURSES}/${generateCourseSlug(course.course_title)}`)}
                                     >
                                         Pelajari Selengkapnya
                                     </Button>
