@@ -1,6 +1,6 @@
 'use client'
 
-import { QuoteBlockData } from '@/lib/api/articles'
+import { QuoteBlockData } from '@/types/article'
 
 interface QuoteBlockProps {
     data: QuoteBlockData

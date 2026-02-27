@@ -11,6 +11,7 @@ const montserrat = Montserrat({
 
 const menuItems = [
     { label: 'IT Education', href: '/it-education' },
+    { label: 'Courses', href: '/courses' },
     { label: 'Resource', href: '/resource' },
     { label: 'Courses', href: '/courses' },
     { label: 'Software Services', href: '/software-services' },

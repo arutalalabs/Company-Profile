@@ -5,17 +5,7 @@
 
 import { apiPost, apiGet } from './client'
 
-/**
- * Interface untuk form data yang dikirim
- */
-export interface MessageFormData {
-    senderName: string
-    senderEmail: string
-    organizationName?: string
-    senderPhone: string
-    subject: string[]
-    messageBody: string
-}
+import type { MessageFormData } from '@/types/contact'
 
 /**
  * Interface untuk response dari API

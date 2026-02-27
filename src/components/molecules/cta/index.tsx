@@ -12,10 +12,6 @@ interface CTAProps {
     contactPath?: string
 }
 
-/**
- * CTA Component - Call To Action section
- * Default mengarah ke halaman kontak (/kontak)
- */
 export function CTA({
     title = 'Siap Akselerasi?',
     description = 'Temukan solusi pengembangan skill, penyediaan talenta, dan software services bersama ArutalaLab. Hubungi kami untuk informasi selanjutnya.',
@@ -34,7 +30,7 @@ export function CTA({
     }
 
     return (
-        <section className="w-full px-4 py-12 md:py-30">
+        <section className="w-full px-4 pt-12 py-12 md:pt-40 md:pb-20">
             <div className="max-w-xs sm:max-w-md md:max-w-full 2xl:max-w-[1440px] mx-auto flex justify-center">
                 <div className="relative w-full lg:w-fit lg:min-w-[940px] max-w-full bg-[var(--color-primary-900)] rounded-xl md:rounded-3xl overflow-visible">
                     <div className="relative flex flex-col md:flex-row items-center md:items-stretch h-auto md:min-h-[300px]">

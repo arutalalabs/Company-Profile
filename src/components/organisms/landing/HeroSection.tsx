@@ -1,49 +1,41 @@
 'use client'
 import { Tag, Typography, Button } from '@/components'
 import { useRouter } from 'next/navigation'
+import { scrollToElement } from '@/utils/scroll'
+import { ROUTES } from '@/constants/routes'
+
+function StarGlow({ position, delay }: { position: string; delay: string }) {
+    return (
+        <div className={`absolute ${position} w-40 h-40 sm:w-56 sm:h-56 lg:w-56 lg:h-56 2xl:w-65 2xl:h-64 animate-[pulse_4s_ease-in-out_${delay}]`}>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 sm:w-6 lg:w-8 2xl:w-8 h-full bg-gradient-to-b from-transparent via-blue-900/80 to-transparent blur-md" />
+            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-4 sm:h-6 lg:h-8 2xl:h-8 bg-gradient-to-r from-transparent via-blue-900/80 to-transparent blur-md" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 lg:w-26 lg:h-26 2xl:w-26 2xl:h-26 bg-blue-900/90 rounded-full blur-xl" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 2xl:w-8 2xl:h-8 bg-blue-900/30 rounded-full blur-md" />
+        </div>
+    )
+}
 
 export default function HeroSection() {
     const router = useRouter()
 
     const handleContactClick = () => {
-        router.push('/kontak')
+        router.push(ROUTES.KONTAK)
     }
 
     const handleScrollToLearning = () => {
-        const element = document.getElementById('coming-soon-learning')
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
+        scrollToElement('coming-soon-learning')
     }
 
     return (
-        <section className="bg-[#ffffff] w-full sm:px-4 sm:pt-2 lg:pt-6 lg:px-8 ">
+        <section className="bg-white w-full sm:px-4 sm:pt-2 lg:pt-6 lg:px-8 ">
             <div className="relative bg-[var(--color-neutral-950)] w-full min-h-[614px] flex justify-center items-center overflow-hidden sm:rounded-2xl sm:min-h-[520px] md:min-h-[580px] lg:min-h-[480px] 2xl:min-h-[614px] lg:rounded-3xl">
                 {/* Background Animations Layer */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden">
                     {/* Star Glow - Top Right */}
-                    <div className="absolute top-4 right-4 sm:top-2 sm:right-2 lg:top-4 lg:right-4 2xl:top-10 2xl:right-12 w-40 h-40 sm:w-56 sm:h-56 lg:w-56 lg:h-56 2xl:w-65 2xl:h-64 animate-[pulse_4s_ease-in-out_infinite]">
-                        {/* Vertical beam - tall and narrow */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 sm:w-6 lg:w-8 2xl:w-8 h-full bg-gradient-to-b from-transparent via-blue-900/80 to-transparent blur-md" />
-                        {/* Horizontal beam - wide and short */}
-                        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-4 sm:h-6 lg:h-8 2xl:h-8 bg-gradient-to-r from-transparent via-blue-900/80 to-transparent blur-md" />
-                        {/* Bright center core */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 lg:w-26 lg:h-26 2xl:w-26 2xl:h-26 bg-blue-900/90 rounded-full blur-xl" />
-                        {/* Inner bright spot */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 2xl:w-8 2xl:h-8 bg-blue-900/30 rounded-full blur-md" />
-                    </div>
+                    <StarGlow position="top-4 right-4 sm:top-2 sm:right-2 lg:top-4 lg:right-4 2xl:top-10 2xl:right-12" delay="infinite" />
 
                     {/* Star Glow - Bottom Left */}
-                    <div className="absolute bottom-4 left-4 sm:bottom-2 sm:left-2 lg:bottom-4 lg:left-4 2xl:bottom-10 2xl:left-12 w-40 h-40 sm:w-56 sm:h-56 lg:w-56 lg:h-56 2xl:w-64 2xl:h-64 animate-[pulse_4s_ease-in-out_infinite_2s]">
-                        {/* Vertical beam - tall and narrow */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 sm:w-6 lg:w-8 2xl:w-8 h-full bg-gradient-to-b from-transparent via-blue-900/80 to-transparent blur-md" />
-                        {/* Horizontal beam - wide and short */}
-                        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-4 sm:h-6 lg:h-8 2xl:h-8 bg-gradient-to-r from-transparent via-blue-900/80 to-transparent blur-md" />
-                        {/* Bright center core */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 lg:w-26 lg:h-26 2xl:w-26 2xl:h-26 bg-blue-900/90 rounded-full blur-xl" />
-                        {/* Inner bright spot */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 2xl:w-8 2xl:h-8 bg-blue-900/30 rounded-full blur-md" />
-                    </div>
+                    <StarGlow position="bottom-4 left-4 sm:bottom-2 sm:left-2 lg:bottom-4 lg:left-4 2xl:bottom-10 2xl:left-12" delay="infinite_2s" />
 
                     {/* Center Circle Glow */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[pulse_5s_ease-in-out_infinite]">

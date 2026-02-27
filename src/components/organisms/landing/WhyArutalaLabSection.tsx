@@ -1,9 +1,10 @@
 'use client'
 import { Typography, Image, Icon } from '@/components'
+import { LANDING_FEATURES } from '@/constants/landing'
 
 export default function WhyArutalaLabSection() {
     return (
-        <section className="bg-[#ffffff] w-full pb-16 px-4 sm:px-6 lg:px-8">
+        <section className="bg-white w-full pb-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-xs md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="text-center mb-12">
@@ -13,7 +14,7 @@ export default function WhyArutalaLabSection() {
                         weight="semibold"
                         color="neutral-950"
                         align="center"
-                        className="mb-0 text-xl md:text-2xl 2xl:text-3xl lg:mb-4 lg:text-start "
+                        className="mb-0 text-xl md:text-2xl 2xl:text-3xl lg:mb-4 lg:text-start"
                     >
                         Mengapa Layanan ArutalaLab Terbaik
                     </Typography>
@@ -35,151 +36,41 @@ export default function WhyArutalaLabSection() {
 
                     {/* Right Column - Features */}
                     <div className="w-[324px] sm:w-[464px] space-y-8 lg:w-full mx-auto lg:mx-0">
-                        {/* Feature Item 1 */}
-                        <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0">
-                                <Icon
-                                    icon="right-arrow"
-                                    type="image"
-                                    src="/src/landing/bluearrow.svg"
-                                    size="xl"
-                                    color="current"
-                                    alt="Right Arrow"
-                                />
+                        {LANDING_FEATURES.map((feature) => (
+                            <div key={feature.title} className="flex items-start gap-4">
+                                <div className="flex-shrink-0">
+                                    <Icon
+                                        icon="right-arrow"
+                                        type="image"
+                                        src="/src/landing/bluearrow.svg"
+                                        size="xl"
+                                        color="current"
+                                        alt="Right Arrow"
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <Typography
+                                        as="h3"
+                                        size="lg"
+                                        weight="semibold"
+                                        color="neutral-950"
+                                        className="mb-2 sm:text-lg"
+                                    >
+                                        {feature.title}
+                                    </Typography>
+                                    <Typography
+                                        as="p"
+                                        size="sm"
+                                        weight="normal"
+                                        color="neutral-600"
+                                        leading="normal"
+                                        className="2xl:text-base"
+                                    >
+                                        {feature.description}
+                                    </Typography>
+                                </div>
                             </div>
-                            <div className="flex-1">
-                                <Typography
-                                    as="h3"
-                                    size="lg"
-                                    weight="semibold"
-                                    color="neutral-950"
-                                    className="mb-2 sm:text-lg"
-                                >
-                                    Inovasi yang Menginspirasi
-                                </Typography>
-                                <Typography
-                                    as="p"
-                                    size="sm"
-                                    weight="normal"
-                                    color="neutral-600"
-                                    leading="normal"
-                                    className='2xl:text-base'
-                                >
-                                    Mendorong kreativitas dan pemikiran
-                                    teknologi yang relevan dengan kebutuhan
-                                    masa depan.
-                                </Typography>
-                            </div>
-                        </div>
-
-                        {/* Feature Item 2 */}
-                        <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0">
-                                <Icon
-                                    icon="right-arrow"
-                                    type="image"
-                                    src="/src/landing/bluearrow.svg"
-                                    size="xl"
-                                    color="current"
-                                    alt="Right Arrow"
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <Typography
-                                    as="h3"
-                                    size="lg"
-                                    weight="semibold"
-                                    color="neutral-950"
-                                    className="mb-2 sm:text-lg"
-                                >
-                                    Membuka Pintu Peluang
-                                </Typography>
-                                <Typography
-                                    as="p"
-                                    size="sm"
-                                    weight="normal"
-                                    color="neutral-600"
-                                    leading="normal"
-                                    className='2xl:text-base'
-                                >
-                                    Membekali talenta dengan skill dan
-                                    kesiapan menghadapi dunia industri.
-                                </Typography>
-                            </div>
-                        </div>
-
-                        {/* Feature Item 3 */}
-                        <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0">
-                                <Icon
-                                    icon="right-arrow"
-                                    type="image"
-                                    src="/src/landing/bluearrow.svg"
-                                    size="xl"
-                                    color="current"
-                                    alt="Right Arrow"
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <Typography
-                                    as="h3"
-                                    size="lg"
-                                    weight="semibold"
-                                    color="neutral-950"
-                                    className="mb-2 sm:text-lg"
-                                >
-                                    Pengalaman yang Mendalam
-                                </Typography>
-                                <Typography
-                                    as="p"
-                                    size="sm"
-                                    weight="normal"
-                                    color="neutral-600"
-                                    leading="normal"
-                                    className='2xl:text-base'
-                                >
-                                    Didukung tim profesional dengan keahlian
-                                    luas dalam pengembangan talenta dan
-                                    teknologi.
-                                </Typography>
-                            </div>
-                        </div>
-
-                        {/* Feature Item 4 */}
-                        <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0">
-                                <Icon
-                                    icon="right-arrow"
-                                    type="image"
-                                    src="/src/landing/bluearrow.svg"
-                                    size="xl"
-                                    color="current"
-                                    alt="Right Arrow"
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <Typography
-                                    as="h3"
-                                    size="lg"
-                                    weight="semibold"
-                                    color="neutral-950"
-                                    className="mb-2 sm:text-lg"
-                                >
-                                    Kemitraan yang Kuat
-                                </Typography>
-                                <Typography
-                                    as="p"
-                                    size="sm"
-                                    weight="normal"
-                                    color="neutral-600"
-                                    leading="normal"
-                                    className='2xl:text-base'
-                                >
-                                    Memiliki kolaborasi yang saling
-                                    menguatkan untuk mencapai tujuan bisnis.
-                                </Typography>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>

@@ -1,31 +1,20 @@
 import { apiGet } from './client'
 
-export interface TestimoniData {
-    author_name: string
-    author_job_title: string
-    author_company_name: string
-    author_profile_url: string
-    testimoni_content: string
-}
+import type { TestimoniData, TestimoniCategory } from '@/types/testimonial'
 
-export interface TestimoniCategory {
-    testimoni_id: string
-    author_name: string
-    author_job_title: string
-    author_company_name: string
-    author_profile_url: string
-    testimoni_content: string
-}
+// ============================================
+// API Response Types (internal to API layer)
+// ============================================
 
 export interface TestimoniResponse {
     success: boolean
-    massage: string
+    message: string
     data: TestimoniData[]
 }
 
 export interface TestimoniCategoryResponse {
     success: boolean
-    massage: string
+    message: string
     data: TestimoniCategory[]
 }
 
@@ -39,10 +28,10 @@ export interface TestimoniCategoryResponse {
  * ```
  */
 export async function getTestimonies(): Promise<TestimoniResponse> {
-    return apiGet<TestimoniResponse>('/testimonies/')
+    return apiGet<TestimoniResponse>('/v2/testimonies/')
 }
 
 export async function getTestimoniesByCategory(category: string): Promise<TestimoniCategoryResponse> {
-    return apiGet<TestimoniCategoryResponse>(`/testimonies?category=${category}`)
+    return apiGet<TestimoniCategoryResponse>(`/v2/testimonies?category=${category}`)
 }
 

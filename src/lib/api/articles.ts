@@ -1,68 +1,13 @@
 import { apiGet } from './client'
+import { generateSlug } from '@/utils/slug'
+
+import type { Article, ContentBlock, DisplayArticle, HeaderBlockData } from '@/types/article'
+
+export const generateArticleSlug = generateSlug
 
 // ============================================
-// Content Block Types (Editor.js format)
+// API Response Types (internal to API layer)
 // ============================================
-
-export interface ParagraphBlockData {
-    text: string
-}
-
-export interface HeaderBlockData {
-    text: string
-    level: 1 | 2 | 3 | 4 | 5 | 6
-}
-
-export interface ImageBlockData {
-    file: { url: string }
-    caption?: string
-    stretched?: boolean
-    withBorder?: boolean
-    withBackground?: boolean
-}
-
-export interface ListBlockData {
-    style: 'ordered' | 'unordered'
-    items: string[]
-}
-
-export interface CodeBlockData {
-    code: string
-    language?: string
-}
-
-export interface QuoteBlockData {
-    text: string
-    caption?: string
-    alignment?: 'left' | 'center' | 'right'
-}
-
-// Union type for content blocks
-export type ContentBlock =
-    | { id: string; type: 'paragraph'; data: ParagraphBlockData }
-    | { id: string; type: 'header'; data: HeaderBlockData }
-    | { id: string; type: 'image'; data: ImageBlockData }
-    | { id: string; type: 'list'; data: ListBlockData }
-    | { id: string; type: 'code'; data: CodeBlockData }
-    | { id: string; type: 'quote'; data: QuoteBlockData }
-
-// ============================================
-// Article Types
-// ============================================
-
-export interface Article {
-    article_id: string
-    article_title: string
-    article_content?: string
-    article_content_blocks: ContentBlock[]
-    article_cover_url: string
-    article_status: 'PUBLISHED' | 'DRAFT' | string
-    article_content_text?: string
-    created_date?: string // ISO 8601 format from API
-    article_slug?: string
-    created_at?: string
-    updated_at?: string
-}
 
 export interface ArticlesResponse {
     success: boolean
@@ -76,16 +21,6 @@ export interface ArticleDetailResponse {
     data: Article
 }
 
-// Interface untuk display di komponen list (sesuai dengan format existing)
-export interface DisplayArticle {
-    id: string
-    title: string
-    description: string
-    image: string
-    created_date: string
-    slug: string
-}
-
 // ============================================
 // API Functions
 // ============================================
@@ -94,14 +29,14 @@ export interface DisplayArticle {
  * Fetch semua artikel dari API
  */
 export async function getAllArticles(): Promise<ArticlesResponse> {
-    return apiGet<ArticlesResponse>('/article/')
+    return apiGet<ArticlesResponse>('/v2/article/')
 }
 
 /**
  * Fetch detail artikel by ID
  */
 export async function getArticleById(id: string): Promise<ArticleDetailResponse> {
-    return apiGet<ArticleDetailResponse>(`/article/${id}`)
+    return apiGet<ArticleDetailResponse>(`/v2/article/${id}`)
 }
 
 /**
@@ -112,8 +47,7 @@ export function transformArticleForDisplay(article: Article): DisplayArticle {
     return {
         id: article.article_id,
         title: article.article_title,
-        description: article.article_content_text ||
-            (article.article_content ? article.article_content.substring(0, 200) + '...' : ''),
+        description: article.article_cover_description || article.article_content_text?.slice(0, 350) || '',
         image: article.article_cover_url || '/src/article/python.png',
         // Prioritize created_at (available in list) over created_date (detail only)
         created_date: article.created_at ||
@@ -123,15 +57,7 @@ export function transformArticleForDisplay(article: Article): DisplayArticle {
     }
 }
 
-/**
- * Generate slug dari article title
- */
-export function generateArticleSlug(title: string): string {
-    return title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]/g, '')
-        .replace(/\s+/g, '-')
-}
+
 
 /**
  * Fetch published articles dan transform ke DisplayArticle

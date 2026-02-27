@@ -1,7 +1,7 @@
 'use client'
 import { Typography, Button } from '@/components'
 import { ScheduleTable, type ScheduleRowData } from '@/components/molecules/schedule-table'
-import type { CourseDetailBatch, Prices } from '@/lib/api/courses'
+import type { CourseDetailBatch, Prices } from '@/types/course'
 
 interface CourseScheduleProps {
     batches: CourseDetailBatch[]

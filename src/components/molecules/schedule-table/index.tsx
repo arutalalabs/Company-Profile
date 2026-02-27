@@ -92,7 +92,7 @@ export const ScheduleTable = forwardRef<HTMLDivElement, ScheduleTableProps>(
                                     size="lg"
                                     weight="bold"
                                     color="neutral-950"
-                                    className="text-lg"
+                                    className="text-lg mb-2"
                                 >
                                     {row.batchName}
                                 </Typography>
@@ -112,7 +112,7 @@ export const ScheduleTable = forwardRef<HTMLDivElement, ScheduleTableProps>(
                                     </span>
                                 )}
                                 {row.status === 'on-going' && (
-                                    <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">
+                                    <span className="px-1 py-2 mb-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full text-center">
                                         Sedang Berjalan
                                     </span>
                                 )}

@@ -4,78 +4,9 @@
  */
 
 import { useState } from 'react'
-import { messagesApi, type MessageFormData } from '@/lib/api/messages'
+import { messagesApi } from '@/lib/api/messages'
+import type { MessageFormData, FieldErrors, UseContactFormReturn } from '@/types/contact'
 
-/**
- * Field-level validation errors
- */
-interface FieldErrors {
-    senderName?: string
-    senderEmail?: string
-    organizationName?: string
-    senderPhone?: string
-    subject?: string
-    messageBody?: string
-}
-
-/**
- * Return type dari useContactForm hook
- */
-interface UseContactFormReturn {
-    /** Status loading saat submit */
-    isSubmitting: boolean
-    /** Status result dari submission */
-    submitStatus: {
-        type: 'success' | 'error' | null
-        message: string
-    }
-    /** Field-level validation errors */
-    fieldErrors: FieldErrors
-    /** Function untuk submit form */
-    submitForm: (data: MessageFormData) => Promise<boolean>
-    /** Function untuk reset status */
-    resetStatus: () => void
-    /** Function untuk validate single field */
-    validateField: (fieldName: keyof MessageFormData, value: any) => string | undefined
-}
-
-/**
- * Custom hook untuk mengelola contact form submission
- *
- * Features:
- * - Loading state management
- * - Error handling
- * - Success feedback
- * - Type-safe API calls
- *
- * @returns Object berisi state dan functions untuk form handling
- *
- * @example
- * ```tsx
- * function ContactForm() {
- *   const { isSubmitting, submitStatus, submitForm } = useContactForm()
- *
- *   const handleSubmit = async (e: FormEvent) => {
- *     e.preventDefault()
- *     const success = await submitForm(formData)
- *     if (success) {
- *       // Reset form atau redirect
- *     }
- *   }
- *
- *   return (
- *     <form onSubmit={handleSubmit}>
- *       {submitStatus.type === 'error' && (
- *         <p>{submitStatus.message}</p>
- *       )}
- *       <button disabled={isSubmitting}>
- *         {isSubmitting ? 'Mengirim...' : 'Kirim'}
- *       </button>
- *     </form>
- *   )
- * }
- * ```
- */
 export function useContactForm(): UseContactFormReturn {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [submitStatus, setSubmitStatus] = useState<{

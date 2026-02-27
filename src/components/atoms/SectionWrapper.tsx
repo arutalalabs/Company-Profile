@@ -14,7 +14,7 @@ export const SectionWrapper: React.FC<SectionWrapperProps> = ({
     background = 'white',
 }) => {
     const backgrounds = {
-        white: 'bg-[#FFFFFF]',
+        white: 'bg-white',
         gray: 'bg-gray-50',
         gradient: 'bg-gradient-to-b from-[var(--color-primary-400)] to-[var(--color-primary-100)]',
     };

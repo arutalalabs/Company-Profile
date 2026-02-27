@@ -1,6 +1,6 @@
 'use client'
 
-import { ContentBlock } from '@/lib/api/articles'
+import { ContentBlock } from '@/types/article'
 import {
     HeaderBlock,
     ParagraphBlock,

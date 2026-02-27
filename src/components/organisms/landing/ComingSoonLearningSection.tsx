@@ -1,70 +1,29 @@
 'use client'
-import { Typography, Button, Icon, Image } from '@/components'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
-import { getUpcomingCourses, UpcomingCourse, generateCourseSlug } from '@/lib/api/courses'
+import { Typography, Button, Icon, Image } from '@/components'
+import { generateCourseSlug } from '@/lib/api/courses'
+import { useUpcomingCourses } from '@/hooks/useUpcomingCourses'
+import { useCourseSelection } from '@/hooks/useCourseSelection'
+import { PosterModal } from './PosterModal'
+import { ROUTES } from '@/constants/routes'
 
 export default function ComingSoonLearningSection() {
     const router = useRouter()
-    const [selectedIndex, setSelectedIndex] = useState(0)
     const [showPosterModal, setShowPosterModal] = useState(false)
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-    const [courses, setCourses] = useState<UpcomingCourse[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
-
-    // Fetch upcoming courses from API
-    useEffect(() => {
-        async function fetchCourses() {
-            try {
-                setLoading(true)
-                const response = await getUpcomingCourses()
-                setCourses(response.data)
-                setError(null)
-            } catch (err) {
-                console.error('Error fetching upcoming courses:', err)
-                setError(err instanceof Error ? err.message : 'Gagal memuat data pelatihan')
-
-                // Fallback data jika API gagal
-                setCourses([
-                    {
-                        course_id: 'fallback-1',
-                        course_title: 'Software Quality Assurance',
-                        course_description: 'Peserta memahami fundamental software testing dan menerapkannya dalam pengujian software, baik skala kecil, menengah maupun skala besar',
-                        course_category_name: 'Bootcamp',
-                        nearest_batch: {
-                            name: 'SQA Batch 1',
-                            posterUrl: '/src/poster/sqaintensif.png',
-                            start_date: '2026-02-01',
-                            registration_end: '2026-01-31'
-                        }
-                    }
-                ])
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        fetchCourses()
-    }, [])
-
     const handlePosterClick = () => {
         setShowPosterModal(true)
     }
-
-    const closePosterModal = () => {
-        setShowPosterModal(false)
-    }
-
-    // Fixed categories untuk konsistensi UI
-    const categories = ['Bootcamp', 'Offline/Online Class', 'Webinar', 'Workshop']
-
-    // Filter courses by selected category (case-insensitive)
-    const selectedCategory = categories[selectedIndex] || categories[0]
-    const filteredCourses = courses.filter(course => 
-        course.course_category_name?.toLowerCase() === selectedCategory.toLowerCase()
-    )
-    const currentCourse = filteredCourses[0]
+    const { courses, loading, error } = useUpcomingCourses()
+    const {
+        categories,
+        selectedIndex,
+        selectedCategory,
+        currentCourse,
+        isDropdownOpen,
+        setSelectedIndex,
+        setIsDropdownOpen,
+    } = useCourseSelection(courses)
 
     // Current poster from API
     const currentPoster = currentCourse?.nearest_batch?.posterUrl
@@ -87,9 +46,6 @@ export default function ComingSoonLearningSection() {
     if (error) {
         console.warn('Upcoming Courses API Error:', error)
     }
-
-    // Tetap render komponen meskipun tidak ada data
-    // UI sudah di-handle untuk kondisi courses kosong dengan placeholder
 
     return (
         <>
@@ -305,7 +261,7 @@ export default function ComingSoonLearningSection() {
                                 <div className="">
                                     <button
                                         className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
-                                        onClick={() => router.push(`/courses/${generateCourseSlug(currentCourse.course_title)}`)}
+                                        onClick={() => router.push(`${ROUTES.COURSES}/${generateCourseSlug(currentCourse.course_title)}`)}
                                     >
                                         <Typography
                                             as="span"
@@ -406,40 +362,13 @@ export default function ComingSoonLearningSection() {
                 </div>
             </section >
 
-            {/* Poster Modal */}
-            {
-                showPosterModal && currentCourse && hasPoster && (
-                    <div
-                        className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-                        onClick={closePosterModal}
-                    >
-                        <div className="relative lg:max-w-lg lg:max-h-[79vh] w-full">
-                            <button
-                                onClick={closePosterModal}
-                                className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
-                            >
-                                <Typography
-                                    as="span"
-                                    size="lg"
-                                    weight="normal"
-                                    color="neutral-50"
-                                >
-                                    ✕ Tutup
-                                </Typography>
-                            </button>
-                            <Image
-                                src={currentPoster!}
-                                alt={`${currentCourse.course_title} Poster`}
-                                fullWidth={true}
-                                aspectRatio="auto"
-                                shape="rounded"
-                                fit="contain"
-                                className="w-full h-full rounded-2xl"
-                            />
-                        </div>
-                    </div>
-                )
-            }
+        {showPosterModal && currentCourse && hasPoster && (
+            <PosterModal
+                course={currentCourse}
+                posterUrl={currentPoster!}
+                onClose={() => setShowPosterModal(false)}
+            />
+        )}
         </>
     )
 }

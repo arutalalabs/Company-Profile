@@ -3,7 +3,8 @@
 import { useEffect, useState, useCallback } from 'react'
 import { ArticleHero } from './ArticleHero'
 import { ArticleList } from './ArticleList'
-import { getPublishedArticles, DisplayArticle } from '@/lib/api/articles'
+import { getPublishedArticles } from '@/lib/api/articles'
+import type { DisplayArticle } from '@/types/article'
 import { Typography, Button } from '@/components'
 
 interface ArticlePageContentProps {

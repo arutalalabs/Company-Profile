@@ -1,6 +1,6 @@
 'use client'
 
-import { ParagraphBlockData } from '@/lib/api/articles'
+import { ParagraphBlockData } from '@/types/article'
 
 interface ParagraphBlockProps {
     data: ParagraphBlockData

@@ -1,7 +1,7 @@
 import { HeroResource, CTA } from '@/components';
 import ITField from '@/components/organisms/resource/ITField';
 import ProfitSection from '@/components/organisms/resource/ProfitSection';
-import TerstimonialSection from '@/components/organisms/resource/TerstimonialSection';
+import TestimonialSection from '@/components/organisms/resource/TestimonialTalentSection';
 
 export default function ResourcePage() {
     return (
