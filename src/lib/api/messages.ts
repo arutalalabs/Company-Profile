@@ -1,8 +1,3 @@
-/**
- * Messages API Service
- * Handle semua operasi terkait contact messages
- */
-
 import { apiPost, apiGet } from './client'
 
 import type { MessageFormData } from '@/types/contact'
@@ -43,7 +38,7 @@ export const messagesApi = {
      * ```
      */
     send: async (data: MessageFormData): Promise<MessageResponse> => {
-        return apiPost<MessageResponse>('/messages/', data)
+        return apiPost<MessageResponse>('/v2/messages/', data)
     },
 
     /**
@@ -53,7 +48,7 @@ export const messagesApi = {
      * @returns Promise dengan data message
      */
     getById: async (id: string): Promise<MessageResponse> => {
-        return apiGet<MessageResponse>(`/messages/${id}`)
+        return apiGet<MessageResponse>(`/v2/messages/${id}`)
     },
 
     /**
@@ -73,6 +68,6 @@ export const messagesApi = {
         if (params?.status) queryParams.set('status', params.status)
 
         const query = queryParams.toString()
-        return apiGet<MessageResponse>(`/messages/${query ? `?${query}` : ''}`)
+        return apiGet<MessageResponse>(`/v2/messages/${query ? `?${query}` : ''}`)
     }
 }

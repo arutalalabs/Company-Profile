@@ -1,13 +1,15 @@
 'use client'
 import { Typography, Tag, Button, Image } from '@/components'
 import { useRouter } from 'next/navigation'
+import { ROUTES } from '@/constants/routes'
+import { IT_EDUCATION_TAGS } from '@/constants/it-education'
 
 export default function ITEducationHero() {
     const router = useRouter()
-    
-        const handleContactClick = () => {
-            router.push('/kontak')
-        }
+
+    const handleContactClick = () => {
+        router.push(ROUTES.KONTAK)
+    }
     return (
         <section className="container mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-6xl 2xl:max-w-[90rem] lg:py-20 2x:py-24 px-4 py-4">
             <div className="grid grid-cols-1 lg:grid-cols-[7fr_3fr] gap-10 lg:gap-18 items-center">
@@ -38,78 +40,17 @@ export default function ITEducationHero() {
 
                     {/* Tags */}
                     <div className="hidden lg:block lg:flex lg:flex-wrap lg:gap-4 lg:py-6">
-                        <Tag
-                            variant="outline"
-                            size="sm"
-                            color='accent-600'
-                            className='text-black rounded-xl'
-                        >
-                            Microservices
-                        </Tag>
-                        <Tag
-                            variant="outline"
-                            size="sm"
-                            color='accent-600'
-                            className='text-black rounded-xl'
-                        >
-                            UI/UX Design
-                        </Tag>
-                        <Tag
-                            variant="outline"
-                            size="sm"
-                            color='accent-600'
-                            className='text-black rounded-xl'
-                        >
-                            Quality Assurance
-                        </Tag>
-                        <Tag
-                            variant="outline"
-                            size="sm"
-                            color='accent-600'
-                            className='text-black rounded-xl'
-                        >
-                            Back-End Development
-                        </Tag>
-                        <Tag
-                            variant="outline"
-                            size="sm"
-                            color='accent-600'
-                            className='text-black rounded-xl'
-                        >
-                            Front-End Development
-                        </Tag>
-                        <Tag
-                            variant="outline"
-                            size="sm"
-                            color='accent-600'
-                            className='text-black rounded-xl'
-                        >
-                            Basic Agile
-                        </Tag>
-                        <Tag
-                            variant="outline"
-                            size="sm"
-                            color='accent-600'
-                            className='text-black rounded-xl'
-                        >
-                            Artificial Intelligence Apps Development
-                        </Tag>
-                        <Tag
-                            variant="outline"
-                            size="sm"
-                            color='accent-600'
-                            className='text-black rounded-xl'
-                        >
-                            Software Project Management
-                        </Tag>
-                        <Tag
-                            variant="outline"
-                            size="sm"
-                            color='accent-600'
-                            className='text-black rounded-xl'
-                        >
-                            Mobile Development
-                        </Tag>
+                        {IT_EDUCATION_TAGS.map((tag) => (
+                            <Tag
+                                key={tag}
+                                variant="outline"
+                                size="sm"
+                                color="accent-600"
+                                className="text-black rounded-xl"
+                            >
+                                {tag}
+                            </Tag>
+                        ))}
                     </div>
 
                     {/* Buttons */}

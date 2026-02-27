@@ -1,33 +1,8 @@
 import { Typography, Image } from '@/components'
-
-interface CardData {
-    title: string;
-    description: string;
-    imageSrc: string;
-    imageAlt: string;
-}
+import { IT_EDUCATION_WHY_CARDS } from '@/constants/it-education'
 
 export default function WhyITEducation() {
-    const cards: CardData[] = [
-        {
-            title: "Mentor Profesional",
-            description: "Akses eksklusif ke jaringan mentor expert kami.",
-            imageSrc: "/src/it-education/pro-mentor.png",
-            imageAlt: "mentor profesional"
-        },
-        {
-            title: "Simulasi Kerja Nyata",
-            description: "Metode belajar menggunakan Project-based learning.",
-            imageSrc: "/src/it-education/good-job.png",
-            imageAlt: "simulasi kerja nyata"
-        },
-        {
-            title: "Komunitas dan Networking",
-            description: "Berkesempatan bertemu dengan orang-orang terbaik.",
-            imageSrc: "/src/it-education/earth.png",
-            imageAlt: "komunitas dan networking"
-        }
-    ];
+    const cards = IT_EDUCATION_WHY_CARDS
 
     return (
         <section className="w-full px-4 py-12 md:pb-16">

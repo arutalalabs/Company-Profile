@@ -99,7 +99,7 @@ export function CourseLearning({ materials, instructor, masterOfCeremony }: Cour
                                             as="p"
                                             size="sm"
                                             color="neutral-950"
-                                            className="text-sm sm:text-base lg:text-sm 2xl:text-lg leading-relaxed"
+                                            className="text-sm sm:text-base lg:text-xs 2xl:text-lg leading-relaxed"
                                         >
                                             {material.description}
                                         </Typography>
