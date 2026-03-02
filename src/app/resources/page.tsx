@@ -10,7 +10,7 @@ export default function ResourcePage() {
             <ITField />
             <ProfitSection />
             {/* hide terlebih dahulu karena image belum tersedia */}
-            <TestimonialSection />
+            {/* <TerstimonialSection /> */}
             <CTA 
                 title="Mencari Talent?"
                 description="Jangan biarkan sumber daya manusia menghambat pengembangan proyek IT anda, konsultasikan segera dengan kami!" 
