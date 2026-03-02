@@ -229,7 +229,7 @@ export default function ComingSoonLearningSection() {
                                             color="neutral-950"
                                             className="text-sm md:text-base leading-relaxed line-clamp-3"
                                         >
-                                            {currentCourse.course_description}
+                                            {currentCourse.course_headline}
                                         </Typography>
                                     </>
                                 ) : (

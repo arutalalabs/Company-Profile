@@ -30,7 +30,7 @@ export function ContactForm() {
     // Pilihan subject
     const subjectOptions = [
         { value: 'IT Education', label: 'IT Education' },
-        { value: 'Resource', label: 'Resource' },
+        { value: 'Resources', label: 'Resources' },
         { value: 'Software Services', label: 'Software Services' },
         { value: 'Partner', label: 'Partner' },
         { value: 'Lainnya', label: 'Lainnya' }

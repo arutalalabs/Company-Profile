@@ -11,9 +11,6 @@ interface CourseFAQProps {
     customFAQs?: AccordionItemProps[]
 }
 
-/**
- * CourseFAQ - Frequently Asked Questions section for course detail
- */
 export function CourseFAQ({ courseTitle, categoryName, customFAQs }: CourseFAQProps) {
     // Default FAQ items
     const defaultFAQs: AccordionItemProps[] = [

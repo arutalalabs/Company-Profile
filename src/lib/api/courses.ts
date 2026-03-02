@@ -64,6 +64,7 @@ export interface ApiCourseDetailResponse {
     data: {
         course_id: string
         course_title: string
+        course_headline: string
         course_description: string
         course_category_name: string
         course_field_name: string
@@ -92,6 +93,7 @@ export async function getCourseById(courseId: string): Promise<CourseDetailRespo
         course_id: apiResponse.data.course_id,
         course_title: apiResponse.data.course_title,
         course_description: apiResponse.data.course_description,
+        course_headline: apiResponse.data.course_headline,
         course_category_name: apiResponse.data.course_category_name,
         course_field_name: apiResponse.data.course_field_name,
         course_material: apiResponse.data.courseMaterial?.map(m => ({
@@ -145,7 +147,7 @@ export interface ContributorsResponse {
 }
 
 export async function getAllContributors(): Promise<Contributor[]> {
-    const response = await apiGet<ContributorsResponse>('/v2/contributors?type=internal')
+    const response = await apiGet<ContributorsResponse>('/v2/contributors?isDisplayed=true')
     return Array.isArray(response.data) ? response.data : []
 }
 

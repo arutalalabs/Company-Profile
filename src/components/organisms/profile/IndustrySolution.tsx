@@ -31,8 +31,8 @@ export default function IndustrySolutions({
     },
     {
       id: "resource",
-      label: "IT Resource",
-      title: "Penyediaan IT Resource",
+      label: "IT Resources",
+      title: "Penyediaan IT Resources",
       description: "Layanan head hunting dan outsourcing IT profesional untuk memenuhi kebutuhan SDM teknologi perusahaan Anda dengan talenta terbaik yang tersertifikasi.",
       imageSrc: "/images/it-resource.jpg"
     },

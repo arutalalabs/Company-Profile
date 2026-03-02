@@ -37,8 +37,8 @@ export const LANDING_SERVICES = [
     },
     {
         image: '/src/landing/resource.webp',
-        alt: 'Resource Service',
-        title: 'Resource',
+        alt: 'Resources Service',
+        title: 'Resources',
         description: 'Penyedia talenta IT melalui proses headhunting atau outsourcing',
         path: ROUTES.RESOURCE,
     },

@@ -90,3 +90,35 @@
 .animate-scroll:hover {
     animation-play-state: paused;
 }
+
+/* Courses Hero Animations */
+@keyframes wave {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50%       { transform: translateY(-10px) scale(1.05); }
+}
+
+@media (min-width: 768px) {
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50%       { transform: translateY(-15px) scale(1.08); }
+    }
+}
+
+@media (min-width: 1024px) {
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50%       { transform: translateY(-20px) scale(1.1); }
+    }
+}
+
+@keyframes particle {
+    0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+}

@@ -2,11 +2,6 @@
 
 import { Typography } from '@/components'
 
-/**
- * CoursesHero - Organism Component
- * 
- * Hero section dengan design modern dan clean
- */
 export function CoursesHero() {
     return (
         <section className="w-full bg-gradient-to-b from-[var(--color-primary-900)] via-[var(--color-primary-900)] to-[var(--color-primary-900)] relative overflow-hidden">
@@ -25,36 +20,6 @@ export function CoursesHero() {
             <div className="hidden sm:block absolute top-1/4 left-1/3 w-1 h-1 sm:w-1.5 sm:h-1.5 lg:w-2 lg:h-2 bg-[var(--color-accent-600)]/40 sm:bg-[var(--color-accent-600)]/60 lg:bg-[var(--color-accent-600)]/100 rounded-full animate-[particle_8s_linear_infinite]"></div>
             <div className="absolute top-1/2 right-1/4 w-1 h-1 sm:w-1.5 sm:h-1.5 lg:w-2 lg:h-2 bg-[var(--color-accent-600)]/40 sm:bg-[var(--color-accent-600)]/60 lg:bg-[var(--color-accent-600)]/100 rounded-full animate-[particle_10s_linear_infinite_2s]"></div>
             <div className="hidden lg:block absolute bottom-1/3 left-1/2 w-2 h-2 bg-[var(--color-accent-600)]/100 rounded-full animate-[particle_12s_linear_infinite_4s]"></div>
-            
-            {/* Custom CSS for animations */}
-            <style jsx>{`
-                @keyframes wave {
-                    0%, 100% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                }
-                @keyframes float {
-                    0%, 100% { transform: translateY(0px) scale(1); }
-                    50% { transform: translateY(-10px) scale(1.05); }
-                }
-                @media (min-width: 768px) {
-                    @keyframes float {
-                        0%, 100% { transform: translateY(0px) scale(1); }
-                        50% { transform: translateY(-15px) scale(1.08); }
-                    }
-                }
-                @media (min-width: 1024px) {
-                    @keyframes float {
-                        0%, 100% { transform: translateY(0px) scale(1); }
-                        50% { transform: translateY(-20px) scale(1.1); }
-                    }
-                }
-                @keyframes particle {
-                    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-                    10% { opacity: 1; }
-                    90% { opacity: 1; }
-                    100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
-                }
-            `}</style>
             
             <div className="relative z-10 w-full flex justify-center items-center py-16 lg:py-20">
                 <div className="mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-5xl 2xl:max-w-7xl px-4 text-center">

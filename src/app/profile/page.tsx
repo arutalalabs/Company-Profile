@@ -18,7 +18,7 @@ export default function ProfilePage() {
         }}
         missions={[
           { text: "Mewujudkan mimpi menjadi bagian dalam pengembangan IT melalui pelatihan IT." },
-          { text: "Menjadi pilihan utama dalam penyediaan IT resource melalui layanan head hunting dan outsource." },
+          { text: "Menjadi pilihan utama dalam penyediaan IT resources melalui layanan head hunting dan outsource." },
           { text: "Menjadi mitra tepercaya dalam mendukung penyediaan software bagi industri dan" }
         ]}
         imageSrc="/src/profile/visi-mission.jpg"
@@ -49,8 +49,8 @@ export default function ProfilePage() {
             imageSrc: "/src/profile/it-edu.png"
           },
           {
-            id: "resource",
-            label: "Resource",
+            id: "resources",
+            label: "Resources",
             title: "Solusi Headhunting dan Outsource IT Profesional",
             description: "Kami membantu perusahaan menyediakan talenta IT profesional yang tepat melalui layanan headhunting dan outsourcing. Proses seleksi dilakukan secara terstruktur dan efisien untuk memastikan kandidat sesuai dengan kebutuhan teknis maupun budaya perusahaan.",
             imageSrc: "/src/profile/resource.png"

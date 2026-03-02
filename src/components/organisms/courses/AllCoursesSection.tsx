@@ -1,10 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Typography, Icon } from '@/components';
-import { getAllCourse, generateCourseSlug } from '@/lib/api/courses';
-import type { CourseDetail } from '@/types/course';
+import { generateCourseSlug } from '@/lib/api/courses';
+import { useAllCourses } from '@/hooks/useAllCourses';
+import { formatPriceIDR } from '@/utils/format';
+import { formatDateIndonesia } from '@/utils/date';
 
 export default function AllCoursesSection() {
     const router = useRouter();
@@ -12,92 +14,7 @@ export default function AllCoursesSection() {
         router.push('/it-education');
     };
 
-    const [courses, setCourses] = useState<CourseDetail[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [filter, setFilter] = useState<string>('all');
-    const [categories, setCategories] = useState<string[]>([]);
-
-    useEffect(() => {
-        async function fetchCourses() {
-            try {
-                setLoading(true);
-                const response = await getAllCourse();
-                if (response.success) {
-                    // Sort courses: Active first (by registration_end asc), then closed (by registration_end desc)
-                    const sortedCourses = response.data.sort((a, b) => {
-                        const batchA = Array.isArray(a.course_batch) ? a.course_batch[0] : a.course_batch;
-                        const batchB = Array.isArray(b.course_batch) ? b.course_batch[0] : b.course_batch;
-                        
-                        const statusA = (batchA as any)?.status as string | undefined
-                        const statusB = (batchB as any)?.status as string | undefined
-
-                        // OPEN first, then SCHEDULED, then ON_GOING, then COMPLETED
-                        const statusPriority: Record<string, number> = {
-                            'OPEN': 1,
-                            'SCHEDULED': 2,
-                            'ON_GOING': 3,
-                            'COMPLETED': 4
-                        }
-                        const priA = statusPriority[statusA ?? ''] ?? 5
-                        const priB = statusPriority[statusB ?? ''] ?? 5
-                        if (priA !== priB) return priA - priB
-
-                        // Same status: sort OPEN by nearest registration_end
-                        const regEndA = batchA?.registration_end ? new Date(batchA.registration_end).getTime() : Infinity;
-                        const regEndB = batchB?.registration_end ? new Date(batchB.registration_end).getTime() : Infinity;
-                        return regEndA - regEndB;
-                    });
-                    
-                    setCourses(sortedCourses);
-                    // Extract unique categories
-                    const uniqueCategories = [...new Set(sortedCourses.map(c => c.course_category_name))];
-                    setCategories(uniqueCategories);
-                } else {
-                    setError(response.message || 'Failed to fetch courses');
-                }
-            } catch (err) {
-                setError('Error fetching courses');
-                console.error('Error fetching courses:', err);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchCourses();
-    }, []);
-
-    // Filter courses based on selected category
-    const filteredCourses = filter === 'all' 
-        ? courses 
-        : courses.filter(course => course.course_category_name === filter);
-
-    // Helper function to format price
-    const formatPrice = (prices: any) => {
-        if (!prices) return 'Gratis';
-        
-        if (prices.finalPrice === 0 || prices.basePrice === 0) {
-            return 'Gratis';
-        }
-        
-        const price = prices.finalPrice || prices.basePrice;
-        return new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 0,
-        }).format(price);
-    };
-
-    // Helper function to format date
-    const formatDate = (dateString: string) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-    };
+    const { loading, error, filter, setFilter, categories, filteredCourses } = useAllCourses();
 
     if (loading) {
         return (
@@ -281,7 +198,7 @@ export default function AllCoursesSection() {
                                     </div>
 
                                     <p className="text-gray-600 text-xs sm:text-sm lg:text-xs 2xl:text-sm mb-4 sm:mb-5 lg:mb-6 flex-1 line-clamp-3">
-                                        {course.course_description}
+                                        {course.course_headline}
                                     </p>
 
                                     {/* Deadline Badge */}
@@ -294,7 +211,7 @@ export default function AllCoursesSection() {
                                             }`}>
                                                 {isRegistrationClosed 
                                                     ? '🔒 Pendaftaran Ditutup' 
-                                                    : `Batas Pendaftaran: ${formatDate(batch.registration_end)}`
+                                                    : `Batas Pendaftaran: ${formatDateIndonesia(batch.registration_end)}`
                                                 }
                                             </span>
                                         </div>
@@ -330,12 +247,12 @@ export default function AllCoursesSection() {
                                     {/* Footer Info */}
                                     <div className="flex justify-between items-end mb-4 sm:mb-5 lg:mb-6">
                                         <div>
-                                            <p className="text-base sm:text-lg lg:text-base 2xl:text-lg font-bold text-navy-900">{formatPrice(batch?.prices)}</p>
+                                            <p className="text-base sm:text-lg lg:text-base 2xl:text-lg font-bold text-navy-900">{formatPriceIDR(batch?.prices)}</p>
                                         </div>
                                         {batch?.start_date && (
                                             <div className="text-right">
                                                 <p className="text-[9px] sm:text-[10px] text-gray-500">Kelas dimulai:</p>
-                                                <p className="text-[11px] sm:text-xs font-semibold text-navy-900">{formatDate(batch.start_date)}</p>
+                                                <p className="text-[11px] sm:text-xs font-semibold text-navy-900">{formatDateIndonesia(batch.start_date)}</p>
                                             </div>
                                         )}
                                     </div>

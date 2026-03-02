@@ -83,7 +83,7 @@ export default function HeroSection() {
                                 className="max-w-2xl lg:max-w-3xl mx-auto mb-0 lg:mb-1 text-sm sm:text-base md:text-md 2xl:text-lg"
                             >
                                 ArutalaLab merupakan platform untuk IT
-                                Education, Resource, dan Software Services
+                                Education, Resources, dan Software Services
                                 yang mendukung pertumbuhan individu dan
                                 perusahaan.
                             </Typography>

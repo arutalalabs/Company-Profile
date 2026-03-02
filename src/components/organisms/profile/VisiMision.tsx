@@ -25,7 +25,7 @@ export default function VisionMission({
   },
   missions = [
     { text: "Mewujudkan mimpi menjadi bagian dalam pengembangan IT melalui pelatihan IT." },
-    { text: "Menjadi pilihan utama dalam penyediaan IT resource melalui layanan head hunting dan outsource." },
+    { text: "Menjadi pilihan utama dalam penyediaan IT resources melalui layanan head hunting dan outsource." },
     { text: "Menjadi mitra tepercaya dalam mendukung penyediaan software bagi industri dan" }
   ],
   imageSrc = "/src/profile/vision-mission.jpg"
