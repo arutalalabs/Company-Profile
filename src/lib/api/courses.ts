@@ -79,11 +79,11 @@ export interface ApiCourseDetailResponse {
 // ============================================
 
 export async function getUpcomingCourses(): Promise<UpcomingCoursesResponse> {
-    return apiGet<UpcomingCoursesResponse>('/v2/courses/upcoming-course?isDisplayed=true')
+    return apiGet<UpcomingCoursesResponse>('/v2/courses/upcoming-course')
 }
 
 export async function getAvailableCourses(): Promise<AvailableCoursesResponse> {
-    return apiGet<AvailableCoursesResponse>('/v2/courses?available=true')
+    return apiGet<AvailableCoursesResponse>('/v2/courses?available=true&isDisplayed=true')
 }
 
 export async function getCourseById(courseId: string): Promise<CourseDetailResponse> {

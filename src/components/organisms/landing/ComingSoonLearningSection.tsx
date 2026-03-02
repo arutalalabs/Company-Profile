@@ -52,9 +52,9 @@ export default function ComingSoonLearningSection() {
             <section id="coming-soon-learning" className="w-full py-12 px-4 sm:px-6 lg:px-8 lg:py-20">
                 <div className="max-w-md md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto rounded-2xl bg-gradient-to-b from-[var(--color-primary-100)] to-[var(--color-primary-300)] relative overflow-hidden lg:h-auto">
                     {/* Container untuk layout 60-40 */}
-                    <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 relative z-10">
+                    <div className="flex flex-col lg:flex-row items-center lg:items-stretch gap-6 relative z-10">
                         {/* Konten Detail Pelatihan - 60% */}
-                        <div className="w-full lg:w-[60%] space-y-6 lg:space-y-8 p-6 md:p-8 lg:p-12 lg:">
+                        <div className="w-full lg:w-[60%] 2xl:w-[68%] h-auto space-y-6 lg:space-y-8 p-4 lg:p-0 lg:mx-8 2xl:mx-12 lg:my-4 2xl:my-12 items-center ">
                             {/* Section Title & Description */}
                             <div className="space-y-4">
                                 <Typography
@@ -159,27 +159,24 @@ export default function ComingSoonLearningSection() {
                                                 aspectRatio="auto"
                                                 shape="rounded"
                                                 fit="cover"
-                                                className="w-full h-full rounded-2xl transition-all duration-300 object-cover"
+                                                className="w-full h-full rounded-2xl transition-all duration-300"
                                             />
                                             {/* Overlay on hover untuk mobile */}
                                             <div className="absolute inset-0 bg-black/5 opacity-0 group-active:opacity-100 transition-opacity duration-300 rounded-2xl flex items-center justify-center">
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="max-w-md mx-auto aspect-[3/4] rounded-2xl bg-gradient-to-br from-[var(--color-primary-800)]/50 to-[var(--color-primary-900)]/50 border border-[var(--color-primary-700)]/30 backdrop-blur-sm flex flex-col items-center justify-center p-6 space-y-4 relative overflow-hidden group">
-                                            {/* Decorative Background Elements */}
-                                            <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-accent-600)]/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
-
+                                        <div className="max-w-md mx-auto aspect-[3/4] rounded-2xl bg-gradient-to-br from-[var(--color-primary-900)]/70 to-[var(--color-primary-900)]/90 border border-[var(--color-primary-700)] backdrop-blur-sm flex flex-col items-center justify-center p-8 space-y-6 relative overflow-hidden group">
                                             {/* Icon Container with Pulse Effect */}
                                             <div className="relative">
                                                 <div className="absolute inset-0 bg-[var(--color-accent-600)]/20 rounded-full blur-xl animate-pulse"></div>
-                                                <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-[var(--color-primary-700)] to-[var(--color-primary-800)] border border-[var(--color-primary-600)] flex items-center justify-center shadow-lg">
-                                                    <svg className="w-8 h-8 text-[var(--color-accent-400)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-[var(--color-primary-700)] to-[var(--color-primary-800)] border border-[var(--color-primary-600)] flex items-center justify-center shadow-xl">
+                                                    <svg className="w-10 h-10 text-[var(--color-accent-400)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                     </svg>
                                                 </div>
                                                 {/* Floating Badge */}
-                                                <div className="absolute -top-1 -right-1 bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg transform rotate-12">
+                                                <div className="absolute -top-2 -right-2 bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] text-[10px] font-bold px-2 py-1 rounded-full shadow-lg transform rotate-12">
                                                     SOON
                                                 </div>
                                             </div>
@@ -190,6 +187,7 @@ export default function ComingSoonLearningSection() {
                                                     size="lg"
                                                     weight="bold"
                                                     color="neutral-50"
+                                                    align="center"
                                                     className="text-center tracking-tight"
                                                 >
                                                     {currentCourse?.course_title || selectedCategory}
@@ -199,9 +197,10 @@ export default function ComingSoonLearningSection() {
                                                     size="sm"
                                                     weight="normal"
                                                     color="neutral-50"
-                                                    className="text-center max-w-[200px] mx-auto leading-relaxed opacity-70"
+                                                    align="center"
+                                                    className="max-w-[200px] mx-auto leading-relaxed opacity-60"
                                                 >
-                                                    {currentCourse ? 'Poster sedang dipersiapkan.' : 'Jadwal belum tersedia.'}
+                                                    {currentCourse ? 'Poster sedang dipersiapkan tim kami.' : 'Jadwal pelatihan belum tersedia.'}
                                                 </Typography>
                                             </div>
                                         </div>
@@ -210,7 +209,7 @@ export default function ComingSoonLearningSection() {
                             </div>
 
                             {/* Training Details */}
-                            <div className="space-y-4 lg:space-y-6 lg:mt-10">
+                            <div className="space-y-4 lg:space-y-4 2xl:space-y-6 lg:mt-8 2xl:mt-10">
                                 {currentCourse ? (
                                     <>
                                         <Typography
@@ -218,7 +217,7 @@ export default function ComingSoonLearningSection() {
                                             size="lg"
                                             weight="medium"
                                             color="neutral-950"
-                                            className="text-md text-medium sm:text-semibold md:text-2xl lg:text-2xl"
+                                            className="text-md text-medium sm:text-semibold md:text-2xl lg:text-xl 2xl:text-2xl"
                                         >
                                             {currentCourse.course_title}
                                         </Typography>
@@ -227,7 +226,7 @@ export default function ComingSoonLearningSection() {
                                             size="base"
                                             weight="normal"
                                             color="neutral-950"
-                                            className="text-sm md:text-base leading-relaxed line-clamp-3"
+                                            className="text-sm md:text-base leading-relaxed lg:line-clamp-2 2xl:line-clamp-3"
                                         >
                                             {currentCourse.course_headline}
                                         </Typography>
@@ -260,7 +259,7 @@ export default function ComingSoonLearningSection() {
                             {currentCourse && (
                                 <div className="">
                                     <button
-                                        className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
+                                        className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer lg:mb-4 2xl:mb-0"
                                         onClick={() => router.push(`${ROUTES.COURSES}/${generateCourseSlug(currentCourse.course_title)}`)}
                                     >
                                         <Typography
@@ -285,13 +284,11 @@ export default function ComingSoonLearningSection() {
                                 </div>
                             )}
                         </div>
-                    </div>
 
-                    {/* Poster Area - Absolute Positioned Full Right */}
-                    <div className="h-full absolute top-0 right-0 bottom-0 w-[30%%] hidden lg:block z-20">
+                        <div className="lg:w-[40%] 2xl:w-[40%] hidden lg:flex items-center justify-end relative">
                         {currentCourse && hasPoster ? (
                             <div
-                                className="relative w-full h-full cursor-pointer group"
+                                className="lg:h-[404px] 2xl:h-[500px] w-auto relative cursor-pointer group rounded-2xl overflow-hidden flex items-center"
                                 onClick={handlePosterClick}
                             >
                                 <Image
@@ -299,19 +296,18 @@ export default function ComingSoonLearningSection() {
                                     alt={`${currentCourse.course_title} Poster`}
                                     fullWidth={true}
                                     aspectRatio="auto"
-                                    shape="rounded"
-                                    fit="contain"
-                                    className="w-full h-full rounded-2xl transition-all duration-300 group-hover:scale-95"
+                                    fit="cover"
+                                    className="w-full h-full !rounded-2xl object-cover transition-all duration-300 group-hover:scale-95"
                                 />
-                                {/* Overlay on hover */}
+                                {/* Overlay mengikuti ukuran wrapper image, bukan seluruh kolom */}
                                 <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex items-center justify-center">
-                                    <div className="bg-[var(--color-primary-900)] backdrop-blur-sm rounded-full py-2 px-4">
+                                    <div className="bg-[var(--color-primary-900)] backdrop-blur-sm rounded-full py-2 px-4 w-fit">
                                         <Typography
                                             as="span"
                                             size="sm"
                                             weight="medium"
                                             color="neutral-50"
-                                            className="text-xs"
+                                            className="text-xs whitespace-nowrap"
                                         >
                                             Klik untuk memperbesar
                                         </Typography>
@@ -319,7 +315,7 @@ export default function ComingSoonLearningSection() {
                                 </div>
                             </div>
                         ) : (
-                            <div className="w-full lg:w-100 h-full rounded-2xl bg-gradient-to-br from-[var(--color-primary-900)]/70 to-[var(--color-primary-900)]/90 border border-[var(--color-primary-700)] backdrop-blur-sm flex flex-col items-center justify-center p-8 space-y-6 relative overflow-hidden group">
+                            <div className="w-full h-full rounded-2xl bg-gradient-to-br from-[var(--color-primary-900)]/70 to-[var(--color-primary-900)]/90 border border-[var(--color-primary-700)] backdrop-blur-sm flex flex-col items-center justify-center p-8 space-y-6 overflow-hidden group">
                                 {/* Icon Container with Pulse Effect */}
                                 <div className="relative">
                                     <div className="absolute inset-0 bg-[var(--color-accent-600)]/20 rounded-full blur-xl animate-pulse"></div>
@@ -343,7 +339,7 @@ export default function ComingSoonLearningSection() {
                                         align='center'
                                         className="text-center tracking-tight"
                                     >
-                                        {currentCourse?.course_title || selectedCategory}
+                                        {currentCourse?.course_title  || selectedCategory}
                                     </Typography>
                                     <Typography
                                         as="p"
@@ -358,6 +354,7 @@ export default function ComingSoonLearningSection() {
                                 </div>
                             </div>
                         )}
+                        </div>
                     </div>
                 </div>
             </section >

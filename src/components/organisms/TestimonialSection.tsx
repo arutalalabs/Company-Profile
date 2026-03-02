@@ -44,7 +44,7 @@ export default function TestimonialSection({
             id={sectionId}
             className={`${className} w-full py-12 px-4 sm:px-6 lg:px-6 lg:py-20`}
         >
-            <div className="max-w-xs md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto">
+            <div className="max-w-xs md:max-w-md lg:max-w-5xl 2xl:max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
                     <div className="flex-1">
@@ -126,9 +126,8 @@ export default function TestimonialSection({
                                 alt={testimonials[currentTestimonial].name}
                                 fullWidth={true}
                                 aspectRatio="auto"
-                                shape="square"
-                                fit="contain"
-                                className="w-full h-full object-center"
+                                fit="cover"
+                                className="w-full h-full object-top"
                             />
                         </div>
 
@@ -201,14 +200,14 @@ export default function TestimonialSection({
                         </div>
 
                         {/* Desktop: Right Image */}
-                        <div className="hidden lg:block w-full lg:w-2/4 xl:w-1/3 lg:h-[300px] 2xl:h-[360px] 2xl:self-start overflow-hidden">
+                        <div className="hidden lg:block w-full md:w-1/4 lg:w-2/5 xl:w-1/3 md:h-[280px] lg:h-[300px] 2xl:h-[360px] overflow-hidden">
                             <Image
                                 src={testimonials[currentTestimonial].image}
                                 alt={testimonials[currentTestimonial].name}
                                 aspectRatio="auto"
                                 shape="rounded"
                                 fit="cover"
-                                className="w-full h-full object-center"
+                                className="w-full h-full !object-top"
                             />
                         </div>
                     </div>
