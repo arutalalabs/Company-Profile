@@ -38,9 +38,9 @@ interface SEOConfig {
 
 export const defaultSEO: SEOConfig = {
     titleTemplate: '%s | ArutalaLab',
-    defaultTitle: 'ArutalaLab - IT Education, Resource & Software Services',
+    defaultTitle: 'ArutalaLab - IT Education, Resources & Software Services',
     description:
-        'ArutalaLab menghadirkan pendidikan IT berkualitas, penyediaan resource IT profesional, dan layanan software services untuk mendukung transformasi digital Indonesia.',
+        'ArutalaLab menghadirkan pendidikan IT berkualitas, penyediaan resources IT profesional, dan layanan software services untuk mendukung transformasi digital Indonesia.',
 
     canonical: SITE_URL,
 
@@ -54,7 +54,7 @@ export const defaultSEO: SEOConfig = {
                 url: `${SITE_URL}/og-image.jpg`,
                 width: 1200,
                 height: 630,
-                alt: 'ArutalaLab - IT Education, Resource & Software Services',
+                alt: 'ArutalaLab - IT Education, Resources & Software Services',
                 type: 'image/jpeg'
             }
         ]
@@ -74,7 +74,7 @@ export const defaultSEO: SEOConfig = {
         {
             name: 'keywords',
             content:
-                'IT education, pelatihan IT, bootcamp, software services, resource IT, outsource, headhunting, ArutalaLab'
+                'IT education, pelatihan IT, bootcamp, software services, resources IT, outsource, headhunting, ArutalaLab'
         },
         {
             name: 'author',

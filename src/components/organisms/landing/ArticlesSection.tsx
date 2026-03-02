@@ -61,7 +61,7 @@ export default function ArticlesSection() {
                             >
                                 <div className="flex flex-col gap-6 lg:gap-8 lg:flex-row h-auto">
                                     {/* Left Content */}
-                                    <div className="flex-1 flex flex-col justify-between gap-4">
+                                    <div className="flex-1 flex flex-col justify-between gap-4 order-2 lg:order-1">
                                         {/* Date */}
                                         <div>
                                             <Typography
@@ -130,7 +130,7 @@ export default function ArticlesSection() {
                                     </div>
 
                                     {/* Right Image */}
-                                    <div className="w-full lg:w-[268px] h-48 sm:h-64 lg:h-auto flex-shrink-0">
+                                    <div className="w-full lg:w-[268px] h-48 sm:h-64 lg:h-auto flex-shrink-0 order-first lg:order-2">
                                         <Image
                                             src={article.image}
                                             alt={article.title}

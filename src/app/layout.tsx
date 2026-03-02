@@ -12,7 +12,7 @@ const montserrat = Montserrat({
 const menuItems = [
     { label: 'IT Education', href: '/it-education' },
     { label: 'Courses', href: '/courses' },
-    { label: 'Resource', href: '/resource' },
+    { label: 'Resources', href: '/resources' },
     { label: 'Software Services', href: '/software-services' },
     { label: 'Profile', href: '/profile' },
     { label: 'Mitra', href: '/mitra' },
@@ -65,7 +65,7 @@ export default function RootLayout({
                     layananItems={[
                         { label: 'IT Education', href: '/it-education' },
                         { label: 'Courses', href: '/courses' },
-                        { label: 'Resource', href: '/resource' },
+                        { label: 'Resources', href: '/resources' },
                         {
                             label: 'Software Services',
                             href: '/software-services'

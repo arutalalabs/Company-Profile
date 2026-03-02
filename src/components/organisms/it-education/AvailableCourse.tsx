@@ -175,7 +175,7 @@ export default function AvailableCourseSection() {
                                     </div>
 
                                     <p className="text-gray-600 text-xs sm:text-sm lg:text-xs 2xl:text-sm mb-4 sm:mb-5 lg:mb-6 flex-1 line-clamp-3">
-                                        {course.course_description}
+                                        {course.course_headline}
                                     </p>
 
                                     {/* Deadline Badge */}

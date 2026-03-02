@@ -46,7 +46,7 @@ export default function MitrasSection() {
                 </div>
 
                 {/* Partners Logo Container dengan Scrolling Animation */}
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden bg-[var(--color-primary-400)] py-4">
                     {/* Gradient Overlays untuk smooth fade effect */}
                     <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white z-10 pointer-events-none"></div>
                     <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-white z-10 pointer-events-none"></div>

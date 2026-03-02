@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 
 interface CourseDetailHeroProps {
     title: string
+    headline: string
     description: string
     course_field_name: string
     category: string
@@ -18,14 +19,9 @@ interface CourseDetailHeroProps {
     onDemoClick?: () => void
 }
 
-/**
- * CourseDetailHero - Hero section for course detail page
- * 
- * Displays course title, description, category badge, and poster image
- * with registration and demo buttons
- */
 export function CourseDetailHero({
     title,
+    headline,
     description,
     course_field_name,
     category,
@@ -65,7 +61,7 @@ export function CourseDetailHero({
     // Scroll to content below
     const scrollToContent = () => {
         window.scrollTo({
-            top: window.innerHeight - 100,
+            top: window.innerHeight - 200,
             behavior: 'smooth'
         })
     }
@@ -133,7 +129,7 @@ export function CourseDetailHero({
                                 color="neutral-950"
                                 className="text-sm sm:text-base md:text-base lg:text-base 2xl:text-lg opacity-90 mb-4 sm:mb-6 leading-relaxed"
                             >
-                                {description}
+                                {headline}
                             </Typography>
 
                             {/* Course Duration - Mobile & Tablet Only */}
@@ -198,10 +194,10 @@ export function CourseDetailHero({
                             </div>
 
                             {/* Course Duration and Action Buttons - Desktop (lg & 2xl) */}
-                            <div className="hidden lg:flex lg:w-[39rem] 2xl:w-[39rem] bg-white rounded-2xl py-4 px-6 shadow-xl items-center gap-3 sm:gap-4">
+                            <div className="hidden lg:flex lg:w-[35rem] 2xl:w-[36rem] bg-white rounded-2xl py-4 px-6 shadow-xl items-center justify-between gap-3 sm:gap-4">
                                 {/* Date Info */}
                                 {(startDate || endDate) && (
-                                    <div className="flex flex-col mr-8 lg:mr-32 xl:mr-32">
+                                    <div className="flex flex-col">
                                         {startDate && (
                                             <p className="text-sm text-gray-900 mb-1">
                                                 <span className="font-semibold">Start</span> {formatDate(startDate)}
@@ -238,18 +234,16 @@ export function CourseDetailHero({
                                     </Button>
                                 </div>
                             </div>
-
-                            
                         </div>
 
                         {/* Right Content - Poster Image */}
                         <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-                            <div className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[340px] lg:max-w-[300px] 2xl:max-w-[380px] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl">
+                            <div className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[340px] lg:max-w-[300px] 2xl:max-w-[380px] h-full sm:max-h-[500px] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl">
                                 {posterUrl ? (
                                     <img
                                         src={posterUrl}
                                         alt={title}
-                                        className="w-full h-auto object-cover"
+                                        className="w-full h-full object-contain"
                                     />
                                 ) : (
                                     <div className="w-full aspect-[3/4] bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">

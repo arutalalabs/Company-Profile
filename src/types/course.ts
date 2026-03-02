@@ -15,6 +15,7 @@ export interface UpcomingCourse {
     course_id: string
     course_title: string
     course_description: string
+    course_headline: string
     course_category_name: string
     nearest_batch: NearestBatch
 }
@@ -68,6 +69,7 @@ export interface AvailableCourse {
     course_id: string
     course_title: string
     course_description: string
+    course_headline: string
     course_category_name: string
     course_field_name: string
     course_batch: CourseBatch
@@ -114,6 +116,7 @@ export interface CourseDetailBatch {
 export interface CourseDetail {
     course_id: string
     course_title: string
+    course_headline: string
     course_description: string
     course_category_name: string
     course_field_name: string

@@ -16,13 +16,8 @@ interface CourseDetailPageProps {
     }>
 }
 
-/** ISR: revalidate setiap 1 detik untuk memastikan data selalu up-to-date tanpa perlu rebuild seluruh site.*/
 export const revalidate = 1
 
-/**
- * Generate static params untuk semua courses
- * Ini memungkinkan Next.js pre-render halaman saat build time
- */
 export async function generateStaticParams() {
     try {
         const response = await getAllCourse()
@@ -34,12 +29,6 @@ export async function generateStaticParams() {
     }
 }
 
-/**
- * Course Detail Page (Server Component)
- * 
- * Pre-rendered at build time with ISR for updated content.
- * No client-side JS needed for initial render → faster LCP.
- */
 export default async function CourseDetailPage({ params }: CourseDetailPageProps) {
     const { slug } = await params
 
@@ -69,6 +58,7 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
             {/* Hero Section */}
             <CourseDetailHero
                 title={course.course_title}
+                headline={course.course_headline}
                 description={course.course_description}
                 course_field_name={course.course_field_name}
                 category={course.course_category_name}

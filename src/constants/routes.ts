@@ -2,7 +2,7 @@ export const ROUTES = {
     HOME: '/',
     KONTAK: '/kontak',
     IT_EDUCATION: '/it-education',
-    RESOURCE: '/resource',
+    RESOURCE: '/resources',
     SOFTWARE_SERVICES: '/software-services',
     PROFILE: '/profile',
     MITRA: '/mitra',

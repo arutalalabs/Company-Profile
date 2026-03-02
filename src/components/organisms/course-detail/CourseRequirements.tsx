@@ -18,51 +18,6 @@ interface CourseRequirementsProps {
  * CourseRequirements - Section showing requirements and training outputs
  */
 export function CourseRequirements({ requirements = [], benefits = [] }: CourseRequirementsProps) {
-    // Default requirements if none provided
-    // const defaultRequirements: Requirement[] = [
-    //     {
-    //         title: 'Live Online Class (via Google Meet)',
-    //         items: [
-    //             'Pembelajaran utama dilakukan secara langsung bersama mentor.',
-    //             'Penjelasan mater',
-    //             'Praktik langsung',
-    //             'Tanya Jawab',
-    //             'Demo tools'
-    //         ]
-    //     },
-    //     {
-    //         title: 'Waktu Pelaksanaan',
-    //         items: [
-    //             'Tanggal 16 Desember 2025 - 17 Desember 2025',
-    //             '3 jam per hari yaitu pukul 13.00-16.00 WIB.'
-    //         ]
-    //     },
-    //     {
-    //         title: 'Materi yang anda dapatkan',
-    //         items: [
-    //             'Recording kelas',
-    //             'Slide PDF',
-    //             'Template proyek',
-    //             'Tools pendukung'
-    //         ]
-    //     },
-    //     {
-    //         title: 'Persyaratan Belajar',
-    //         items: [
-    //             'Laptop',
-    //             'Internet',
-    //             'Webcam & mic aktif',
-    //             'Aplikasi: Jira'
-    //         ]
-    //     }
-    // ]
-
-    // const defaultBenefits: CourseBenefit[] = [
-    //     { title: 'Benefit 1', description: 'Kamu mengerti "kenapa" dan "bagaimana" Scrum diterapkan di perusahaan nyata.' },
-    //     { title: 'Benefit 2', description: 'Kamu bisa bekerja dengan tools yang digunakan perusahaan IT saat ini.' },
-    //     { title: 'Benefit 3', description: 'Portfolio berupa Product Backlog yang bisa ditunjukkan saat interview.' },
-    //     { title: 'Benefit 4', description: 'Kamu bisa langsung bergabung ke scrum team tanpa adaptasi panjang.' }
-    // ]
 
     // Software QA specific requirements
     const defaultRequirements: Requirement[] = [
@@ -135,10 +90,6 @@ export function CourseRequirements({ requirements = [], benefits = [] }: CourseR
             description: 'Networking dengan praktisi QA dan akses ke job opportunities dari partner perusahaan' 
         }
     ]
-
-    // Uncomment lines below to use QA-specific data instead of default
-    // const displayRequirements = requirements.length > 0 ? requirements : qaRequirements
-    // const displayBenefits = benefits.length > 0 ? benefits : qaBenefits
     
     const displayRequirements = requirements.length > 0 ? requirements : defaultRequirements
     const displayBenefits = benefits.length > 0 ? benefits : defaultBenefits
