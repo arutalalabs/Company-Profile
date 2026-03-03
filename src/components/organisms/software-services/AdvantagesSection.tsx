@@ -1,36 +1,5 @@
 import { Typography, Image } from '@/components'
-
-interface Advantage {
-    icon: string
-    title: string
-}
-
-const advantages: Advantage[] = [
-    {
-        icon: '/src/software-services/tim.svg',
-        title: 'Tim Profesional Berpengalaman'
-    },
-    {
-        icon: '/src/software-services/metode.svg',
-        title: 'Metode Kerja Berbasis Industri'
-    },
-    {
-        icon: '/src/software-services/realiable.svg',
-        title: 'Reliable Delivery Approach'
-    },
-    {
-        icon: '/src/software-services/fleksible.svg',
-        title: 'Fleksibel untuk Semua Platform'
-    },
-    {
-        icon: '/src/software-services/dokumetasi.svg',
-        title: 'Dokumentasi Lengkap'
-    },
-    {
-        icon: '/src/software-services/tools.svg',
-        title: 'Tools dan Teknologi Andal'
-    }
-]
+import { ADVANTAGES } from '@/constants/software-services'
 
 export default function AdvantagesSection() {
     return (
@@ -62,7 +31,7 @@ export default function AdvantagesSection() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch">
                         {/* Advantages List */}
                         <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 gap-x-10 content-start">
-                            {advantages.map((advantage, index) => (
+                            {ADVANTAGES.map((advantage, index) => (
                                 <div
                                     key={index}
                                     className="flex items-center gap-3 bg-white rounded-full border-2 border-[var(--color-primary-600)] px-4 py-3 lg:px-4 lg:py-3 2xl:px-5 2xl:py-3.5 hover:bg-[var(--color-primary-50)] transition-colors duration-200"
