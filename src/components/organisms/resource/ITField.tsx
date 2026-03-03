@@ -1,55 +1,10 @@
 'use client'
 import { Typography, Image } from '@/components'
-import { useState } from 'react'
-
-interface ITFieldItem {
-    id: string
-    title: string
-    icon: string
-    description: string
-}
-
-const fields: ITFieldItem[] = [
-    {
-        id: 'qa',
-        title: 'Software QA',
-        icon: '/src/resource/qa.svg',
-        description: 'Melakukan pengujian perangkat lunak untuk memastikan kualitas, menemukan bug, dan menjamin produk berjalan sesuai kebutuhan pengguna.'
-    },
-    {
-        id: 'backend',
-        title: 'Back-End Developer',
-        icon: '/src/resource/back-dev.svg',
-        description: 'Mengembangkan logika aplikasi, API, dan database di sisi server untuk mendukung fungsionalitas aplikasi secara keseluruhan.'
-    },
-    {
-        id: 'frontend',
-        title: 'Front-End Developer',
-        icon: '/src/resource/front-dev.svg',
-        description: 'Membangun tampilan antarmuka pengguna yang interaktif dan responsif menggunakan teknologi web modern.'
-    },
-    {
-        id: 'writer',
-        title: 'Technical Writer',
-        icon: '/src/resource/writer.svg',
-        description: 'Menyusun dokumentasi teknis yang jelas dan terstruktur untuk membantu pengguna dan tim pengembang memahami produk.'
-    }
-]
+import { useITField } from '@/hooks/useITField'
+import { IT_FIELDS } from '@/constants/resource'
 
 export default function ITField() {
-    const [activeField, setActiveField] = useState<string | null>(null)
-
-    const toggleField = (id: string) => {
-        setActiveField(prev => prev === id ? null : id)
-    }
-
-    const handleMouseEnter = (id: string) => {
-        setActiveField(id)
-    }
-
-    const handleMouseLeave = () => {
-        setActiveField(null)
-    }
+    const { activeField, toggleField, handleMouseEnter, handleMouseLeave } = useITField()
 
     return (
         <section className="py-12 lg:py-20 px-4">
@@ -69,7 +24,7 @@ export default function ITField() {
 
                 {/* Fields - Horizontal Row */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                    {fields.map((field) => {
+                    {IT_FIELDS.map((field) => {
                         const isActive = activeField === field.id
                         return (
                             <div

@@ -1,18 +1,5 @@
 import { Typography, Image } from '@/components'
-
-interface ProfitItem {
-    icon: string
-    label: string
-}
-
-const profits: ProfitItem[] = [
-    { icon: '/src/resource/kompeten.svg', label: 'Kompetensi yang Terjamin' },
-    { icon: '/src/resource/pendekatan.svg', label: 'Pendekatan yang Disesuaikan' },
-    { icon: '/src/resource/kerahasiaan.svg', label: 'Kerahasiaan' },
-    { icon: '/src/resource/jaringan.svg', label: 'Jaringan yang  Luas' },
-    { icon: '/src/resource/efisien.svg', label: 'Efisiensi Waktu dan Biaya' },
-    { icon: '/src/resource/rekam.svg', label: 'Rekam Jejak Terbukti' },
-]
+import { PROFIT_ITEMS } from '@/constants/resource'
 
 export default function ProfitSection() {
     return (
@@ -34,7 +21,7 @@ export default function ProfitSection() {
                 {/* Profits Grid */}
                 <div className="bg-[#EBF0FB] rounded-2xl py-10 lg:py-14 px-6 lg:px-16">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-y-10 lg:gap-y-14 gap-x-6 lg:gap-x-10">
-                        {profits.map((item, index) => (
+                        {PROFIT_ITEMS.map((item, index) => (
                             <div
                                 key={index}
                                 className="flex flex-col items-center gap-3 lg:gap-4"

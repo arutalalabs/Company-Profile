@@ -1,6 +1,7 @@
 'use client'
 import { Typography, Button, Image } from '@/components'
 import { useRouter } from 'next/navigation'
+import { scrollToElement } from '@/utils/scroll'
 
 export default function HeroResource() {
     const router = useRouter()
@@ -9,12 +10,7 @@ export default function HeroResource() {
             router.push('/kontak')
         }
     
-        const handleScrollToTestimonial = () => {
-            const element = document.getElementById('testimonial')
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-            }
-        }
+        const handleScrollToTestimonial = () => scrollToElement('testimonial')
     return (
         <section className="relative container mx-auto max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-6xl 2xl:max-w-[90rem] lg:py-20 2x:py-24 py-8">
             {/* Content */}
