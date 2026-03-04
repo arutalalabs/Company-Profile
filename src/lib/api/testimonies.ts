@@ -28,10 +28,10 @@ export interface TestimoniCategoryResponse {
  * ```
  */
 export async function getTestimonies(): Promise<TestimoniResponse> {
-    return apiGet<TestimoniResponse>('/v2/testimonies/')
+    return apiGet<TestimoniResponse>('/v2/testimonies?isDisplayed=true')
 }
 
 export async function getTestimoniesByCategory(category: string): Promise<TestimoniCategoryResponse> {
-    return apiGet<TestimoniCategoryResponse>(`/v2/testimonies?category=${category}`)
+    return apiGet<TestimoniCategoryResponse>(`/v2/testimonies?category=${category}&isDisplayed=true`)
 }
 

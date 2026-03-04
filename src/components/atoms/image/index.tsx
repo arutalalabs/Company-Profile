@@ -150,7 +150,6 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
                     alt={alt}
                     loading={loading}
                     onError={handleError}
-                    onLoad={handleLoad}
                     className={clsx(
                         'w-full h-full transition-opacity duration-200',
                         fitStyles[fit],

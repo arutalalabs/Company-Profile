@@ -2,20 +2,7 @@ import Image from 'next/image';
 import { Typography } from '@/components/atoms/typography';
 import { Icon } from '@/components/atoms/icon';
 import { SectionWrapper } from '@/components/atoms/SectionWrapper';
-
-interface VisionMissionItem {
-  text: string;
-}
-
-interface VisionMissionProps {
-  title?: string;
-  vision?: {
-    title: string;
-    description: string;
-  };
-  missions?: VisionMissionItem[];
-  imageSrc?: string;
-}
+import type { VisionMissionProps } from '@/types/profile';
 
 export default function VisionMission({
   title = "Visi & Misi",

@@ -1,23 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/components/atoms/button';
 import { Typography } from '@/components/atoms/typography';
 import { Image } from '@/components/atoms/image';
 import SectionWrapper, { SectionTitle } from '@/components/atoms/SectionWrapper';
-
-interface ServiceTab {
-  id: string;
-  label: string;
-  title: string;
-  description: string;
-  imageSrc: string;
-}
-
-interface IndustrySolutionsProps {
-  mainTitle?: string;
-  tabs?: ServiceTab[];
-}
+import type { IndustrySolutionsProps } from '@/types/profile';
+import { useIndustrySolutions } from '@/hooks/useIndustrySolutions';
 
 export default function IndustrySolutions({
   mainTitle = "Solusi untuk semua Industri",
@@ -45,9 +33,7 @@ export default function IndustrySolutions({
     }
   ]
 }: IndustrySolutionsProps) {
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const currentTab = tabs.find(tab => tab.id === activeTab) || tabs[0];
+  const { activeTab, setActiveTab, isDropdownOpen, setIsDropdownOpen, currentTab } = useIndustrySolutions(tabs);
 
   return (
     <SectionWrapper>

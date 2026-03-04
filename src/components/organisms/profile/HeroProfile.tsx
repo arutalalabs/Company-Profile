@@ -1,12 +1,6 @@
 import { Typography, Image } from '@/components';
 import { SectionWrapper } from '@/components/atoms/SectionWrapper';
-
-interface HeroSectionProps {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  imageSrc?: string;
-}
+import type { HeroSectionProps } from '@/types/profile';
 
 export default function HeroSection({
   title = "ArutalaLab",
