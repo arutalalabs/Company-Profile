@@ -97,17 +97,17 @@ export const ScheduleTable = forwardRef<HTMLDivElement, ScheduleTableProps>(
                                     {row.batchName}
                                 </Typography>
                                 {row.status === 'available' && (
-                                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                    <span className="px-3 py-1 mb-2 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
                                         Tersedia
                                     </span>
                                 )}
                                 {row.status === 'full' && (
-                                    <span className="px-3 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded-full">
+                                    <span className="px-3 py-1 mb-2 bg-red-100 text-red-700 text-xs font-semibold rounded-full">
                                         Penuh
                                     </span>
                                 )}
                                 {row.status === 'coming-soon' && (
-                                    <span className="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
+                                    <span className="px-3 py-1 mb-2 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
                                         Segera
                                     </span>
                                 )}
@@ -117,7 +117,7 @@ export const ScheduleTable = forwardRef<HTMLDivElement, ScheduleTableProps>(
                                     </span>
                                 )}
                                 {row.status === 'completed' && (
-                                    <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">
+                                    <span className="px-3 py-1 mb-2 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">
                                         Selesai
                                     </span>
                                 )}
@@ -249,17 +249,33 @@ export const ScheduleTable = forwardRef<HTMLDivElement, ScheduleTableProps>(
                                 </div>
 
                                 {/* Register Button */}
-                                <Button
-                                    size="md"
-                                    onClick={row.onRegisterClick}
-                                    className="w-full bg-[#FFA500] hover:bg-[#FF8C00] text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                                    disabled={row.status === 'full' || row.status === 'on-going' || row.status === 'completed'}
-                                >
-                                    {row.status === 'full' ? 'Penuh'
-                                        : row.status === 'on-going' ? 'Pendaftaran Ditutup'
-                                        : row.status === 'completed' ? 'Selesai'
-                                        : 'Daftar Sekarang'}
-                                </Button>
+                                {row.registrationUrl && !(row.status === 'full' || row.status === 'on-going' || row.status === 'completed') ? (
+                                    <a
+                                        href={row.registrationUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block w-full"
+                                    >
+                                        <Button
+                                            size="md"
+                                            className="w-full bg-[#FFA500] hover:bg-[#FF8C00] text-white font-semibold rounded-lg"
+                                        >
+                                            Daftar Sekarang
+                                        </Button>
+                                    </a>
+                                ) : (
+                                    <Button
+                                        size="md"
+                                        onClick={row.onRegisterClick}
+                                        className="w-full bg-[#FFA500] hover:bg-[#FF8C00] text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                        disabled={row.status === 'full' || row.status === 'on-going' || row.status === 'completed'}
+                                    >
+                                        {row.status === 'full' ? 'Penuh'
+                                            : row.status === 'on-going' ? 'Pendaftaran Ditutup'
+                                            : row.status === 'completed' ? 'Selesai'
+                                            : 'Daftar Sekarang'}
+                                    </Button>
+                                )}
                             </div>
                         </div>
                     ))}

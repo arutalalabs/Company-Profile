@@ -66,28 +66,20 @@ export function CourseRequirements({ requirements = [], benefits = [] }: CourseR
     // Software QA specific benefits
     const defaultBenefits: CourseBenefit[] = [
         { 
-            title: 'Benefit 1', 
-            description: 'Menguasai fundamental QA dan mampu membuat test case yang comprehensive untuk berbagai jenis testing' 
+            title: 'Sertifikasi & Portofolio', 
+            description: 'Sertifikat kelulusan yang dapat meningkatkan kredibilitas profesional Anda di bidang IT' 
         },
         { 
-            title: 'Benefit 2', 
-            description: 'Mampu menggunakan tools industry-standard seperti Postman untuk API testing dan Jira untuk bug tracking' 
+            title: 'Materi Digital', 
+            description: 'Modul dan slide materi dalam format PDF yang dapat diakses kapan saja dan di mana saja' 
         },
         { 
-            title: 'Benefit 3', 
-            description: 'Portfolio berupa test documentation lengkap yang bisa langsung ditunjukkan saat melamar kerja' 
+            title: 'Mentor Berpengalaman', 
+            description: 'Belajar langsung dari para praktisi industri dengan pengalaman bertahun-tahun di bidangnya' 
         },
         { 
-            title: 'Benefit 4', 
-            description: 'Memahami automation testing basics dan siap untuk explore lebih dalam tentang test automation' 
-        },
-        { 
-            title: 'Benefit 5', 
-            description: 'Sertifikat kelulusan yang dapat meningkatkan kredibilitas profesional Anda di bidang QA' 
-        },
-        { 
-            title: 'Benefit 6', 
-            description: 'Networking dengan praktisi QA dan akses ke job opportunities dari partner perusahaan' 
+            title: 'Jaringan Profesional', 
+            description: 'Bergabung dengan komunitas alumni dan perluas jaringan profesional Anda bersama praktisi IT' 
         }
     ]
     
@@ -95,11 +87,11 @@ export function CourseRequirements({ requirements = [], benefits = [] }: CourseR
     const displayBenefits = benefits.length > 0 ? benefits : defaultBenefits
 
     return (
-        <section className="py-10 lg:py-16 bg-white">
+        <section className="py-10 lg:py-12 2xl:py-16 bg-white bg-white">
             <div className="mx-auto max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                     {/* Requirements Column */}
-                    <div>
+                    {/* <div>
                         <Typography
                             as="h2"
                             size="base"
@@ -108,13 +100,13 @@ export function CourseRequirements({ requirements = [], benefits = [] }: CourseR
                             className="sm:text-xl lg:text-lg 2xl:text-2xl mb-8"
                         >
                             Hal yang Harus Diperhatikan
-                        </Typography>
-
+                        </Typography> */}
+{/* 
                         <div className="space-y-6">
                             {displayRequirements.map((req, index) => (
-                                <div key={index} className="space-y-2">
+                                <div key={index} className="space-y-2"> */}
                                     {/* Main Requirement Title */}
-                                    <div className="flex items-center gap-2">
+                                    {/* <div className="flex items-center gap-2">
                                         <Typography
                                             as="span"
                                             size="sm"
@@ -133,10 +125,10 @@ export function CourseRequirements({ requirements = [], benefits = [] }: CourseR
                                         >
                                             {req.title}
                                         </Typography>
-                                    </div>
+                                    </div> */}
 
                                     {/* Sub Items */}
-                                    {req.items && req.items.length > 0 && (
+                                    {/* {req.items && req.items.length > 0 && (
                                         <div className="ml-6 space-y-1">
                                             {req.items.map((item, itemIndex) => (
                                                 <div key={itemIndex} className="flex items-center gap-2">
@@ -156,7 +148,7 @@ export function CourseRequirements({ requirements = [], benefits = [] }: CourseR
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Training Outputs Column */}
                     <div>
@@ -174,17 +166,28 @@ export function CourseRequirements({ requirements = [], benefits = [] }: CourseR
                             {displayBenefits.map((benefit, index) => (
                                 <div
                                     key={index}
-                                    className="flex items-start gap-2"
+                                    className="flex items-start gap-3"
                                 >
-                                    <span className="text-neutral-950">•</span>
-                                    <Typography
-                                        as="p"
-                                        size="sm"
-                                        color="neutral-950"
-                                        className="lg:text-sm 2xl:text-base leading-relaxed"
-                                    >
-                                        {benefit.description}
-                                    </Typography>
+                                    <span className="text-[var(--color-primary-900)] font-bold">•</span>
+                                    <div className="flex-1">
+                                        <Typography
+                                            as="h3"
+                                            size="sm"
+                                            weight="semibold"
+                                            color="neutral-950"
+                                            className="lg:text-sm 2xl:text-base mb-0.5"
+                                        >
+                                            {benefit.title}
+                                        </Typography>
+                                        <Typography
+                                            as="p"
+                                            size="sm"
+                                            color="neutral-950"
+                                            className="lg:text-sm 2xl:text-base leading-relaxed"
+                                        >
+                                            {benefit.description}
+                                        </Typography>
+                                    </div>
                                 </div>
                             ))}
                         </div>

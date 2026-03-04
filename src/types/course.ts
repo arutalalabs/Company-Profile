@@ -80,6 +80,7 @@ export interface AvailableCourse {
 // ============================================
 
 export interface CourseMaterial {
+    title?: string
     description: string
 }
 

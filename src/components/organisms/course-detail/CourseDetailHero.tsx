@@ -1,6 +1,6 @@
 'use client'
-import { Typography, Button, Tag } from '@/components'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { Typography, Button, Tag, PosterModal } from '@/components'
 
 interface CourseDetailHeroProps {
     title: string
@@ -33,19 +33,10 @@ export function CourseDetailHero({
     onRegisterClick,
     onDemoClick
 }: CourseDetailHeroProps) {
-    const router = useRouter()
+    const [showPosterModal, setShowPosterModal] = useState(false)
 
     /** Pendaftaran ditutup saat kelas sedang/sudah berjalan */
     const isRegistrationClosed = batchStatus === 'ON_GOING' || batchStatus === 'COMPLETED'
-
-    const handleRegister = () => {
-        if (isRegistrationClosed) return
-        if (registrationUrl) {
-            window.open(registrationUrl, '_blank', 'noopener,noreferrer')
-            return
-        }
-        onRegisterClick?.()
-    }
 
     // Format date helper
     const formatDate = (dateString?: string) => {
@@ -67,6 +58,7 @@ export function CourseDetailHero({
     }
 
     return (
+        <>
         <section className="w-full bg-gradient-to-b from-[var(--color-primary-100)] to-[var(--color-primary-300)] relative overflow-hidden">
 
             {/* Geometric Shapes */}
@@ -172,16 +164,34 @@ export function CourseDetailHero({
 
                             {/* Action Buttons - Mobile & Tablet */}
                             <div className="flex flex-col sm:flex-row gap-3 lg:hidden">
-                                <Button
-                                    size="xs"
-                                    shape='solid'
-                                    color='accent-600'
-                                    onClick={handleRegister}
-                                    disabled={isRegistrationClosed}
-                                    className="w-full sm:flex-1 text-gray-900 border-0 px-5 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    {isRegistrationClosed ? 'Pendaftaran Ditutup' : 'Daftar Sekarang'}
-                                </Button>
+                                {registrationUrl && !isRegistrationClosed ? (
+                                    <a
+                                        href={registrationUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full sm:flex-1"
+                                    >
+                                        <Button
+                                            size="xs"
+                                            shape='solid'
+                                            color='accent-600'
+                                            className="w-full text-gray-900 border-0 px-5 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl hover:opacity-90 transition-all"
+                                        >
+                                            Daftar Sekarang
+                                        </Button>
+                                    </a>
+                                ) : (
+                                    <Button
+                                        size="xs"
+                                        shape='solid'
+                                        color='accent-600'
+                                        onClick={isRegistrationClosed ? undefined : onRegisterClick}
+                                        disabled={isRegistrationClosed}
+                                        className="w-full sm:flex-1 text-gray-900 border-0 px-5 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {isRegistrationClosed ? 'Pendaftaran Ditutup' : 'Daftar Sekarang'}
+                                    </Button>
+                                )}
                                 <Button
                                     size="xs"
                                     shape='outline'
@@ -200,12 +210,12 @@ export function CourseDetailHero({
                                     <div className="flex flex-col">
                                         {startDate && (
                                             <p className="text-sm text-gray-900 mb-1">
-                                                <span className="font-semibold">Start</span> {formatDate(startDate)}
+                                                <span className="font-semibold">Mulai</span> {formatDate(startDate)}
                                             </p>
                                         )}
                                         {endDate && (
                                             <p className="text-sm text-gray-900">
-                                                <span className="font-semibold">Ends</span> {formatDate(endDate)}
+                                                <span className="font-semibold">Selesai</span> {formatDate(endDate)}
                                             </p>
                                         )}
                                     </div>
@@ -213,16 +223,33 @@ export function CourseDetailHero({
 
                                 {/* Action Buttons */}
                                 <div className="flex items-center gap-3">
-                                    <Button
-                                        size="sm"
-                                        shape='solid'
-                                        color='accent-600'
-                                        onClick={handleRegister}
-                                        disabled={isRegistrationClosed}
-                                        className="text-gray-900 border-0 px-4 py-3 rounded-[20px] text-sm font-medium shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        {isRegistrationClosed ? 'Pendaftaran Ditutup' : 'Daftar Sekarang'}
-                                    </Button>
+                                    {registrationUrl && !isRegistrationClosed ? (
+                                        <a
+                                            href={registrationUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <Button
+                                                size="sm"
+                                                shape='solid'
+                                                color='accent-600'
+                                                className="text-gray-900 border-0 px-4 py-3 rounded-[20px] text-sm font-medium shadow-none"
+                                            >
+                                                Daftar Sekarang
+                                            </Button>
+                                        </a>
+                                    ) : (
+                                        <Button
+                                            size="sm"
+                                            shape='solid'
+                                            color='accent-600'
+                                            onClick={isRegistrationClosed ? undefined : onRegisterClick}
+                                            disabled={isRegistrationClosed}
+                                            className="text-gray-900 border-0 px-4 py-3 rounded-[20px] text-sm font-medium shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {isRegistrationClosed ? 'Pendaftaran Ditutup' : 'Daftar Sekarang'}
+                                        </Button>
+                                    )}
                                     <Button
                                         size="sm"
                                         shape='outline'
@@ -240,11 +267,23 @@ export function CourseDetailHero({
                         <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
                             <div className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[340px] lg:max-w-[300px] 2xl:max-w-[380px] h-full sm:max-h-[500px] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl">
                                 {posterUrl ? (
-                                    <img
-                                        src={posterUrl}
-                                        alt={title}
-                                        className="w-full h-full object-contain"
-                                    />
+                                    <div
+                                        className="relative cursor-pointer group w-full h-full"
+                                        onClick={() => setShowPosterModal(true)}
+                                    >
+                                        <img
+                                            src={posterUrl}
+                                            alt={title}
+                                            className="w-full h-full object-contain"
+                                        />
+                                        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl sm:rounded-2xl flex items-center justify-center">
+                                            <div className="bg-[var(--color-primary-900)]/80 backdrop-blur-sm rounded-full py-2 px-4">
+                                                <Typography as="span" size="sm" weight="medium" color="neutral-50" className="text-xs whitespace-nowrap">
+                                                    Klik untuk memperbesar
+                                                </Typography>
+                                            </div>
+                                        </div>
+                                    </div>
                                 ) : (
                                     <div className="w-full aspect-[3/4] bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
                                         <div className="text-center p-4 sm:p-6">
@@ -272,5 +311,15 @@ export function CourseDetailHero({
                 </div>
             </div>
         </section>
+
+        {/* Poster Modal */}
+        {showPosterModal && posterUrl && (
+            <PosterModal
+                posterUrl={posterUrl}
+                title={title}
+                onClose={() => setShowPosterModal(false)}
+            />
+        )}
+    </>
     )
 }

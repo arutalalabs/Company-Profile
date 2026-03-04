@@ -38,6 +38,9 @@ export type { ScheduleTableProps, ScheduleRowData } from './molecules/schedule-t
 export { MentorDetailCard } from './molecules/mentor-detail-card'
 export type { MentorDetailCardProps } from './molecules/mentor-detail-card'
 
+export { PosterModal } from './molecules/poster-modal'
+export type { PosterModalProps } from './molecules/poster-modal'
+
 // ============================================
 // ORGANISMS - Komponen kompleks (header, footer, sections)
 // ============================================
