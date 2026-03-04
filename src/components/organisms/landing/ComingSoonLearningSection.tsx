@@ -1,15 +1,14 @@
 'use client'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Typography, Button, Icon, Image } from '@/components'
 import { generateCourseSlug } from '@/lib/api/courses'
 import { useUpcomingCourses } from '@/hooks/useUpcomingCourses'
 import { useCourseSelection } from '@/hooks/useCourseSelection'
-import { PosterModal } from './PosterModal'
+import { PosterModal } from '@/components'
 import { ROUTES } from '@/constants/routes'
+import Link from 'next/link'
 
 export default function ComingSoonLearningSection() {
-    const router = useRouter()
     const [showPosterModal, setShowPosterModal] = useState(false)
     const handlePosterClick = () => {
         setShowPosterModal(true)
@@ -258,9 +257,9 @@ export default function ComingSoonLearningSection() {
                             {/* Training Button */}
                             {currentCourse && (
                                 <div className="">
-                                    <button
+                                    <Link
+                                        href={`${ROUTES.COURSES}/${generateCourseSlug(currentCourse.course_title)}`}
                                         className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer lg:mb-4 2xl:mb-0"
-                                        onClick={() => router.push(`${ROUTES.COURSES}/${generateCourseSlug(currentCourse.course_title)}`)}
                                     >
                                         <Typography
                                             as="span"
@@ -280,7 +279,7 @@ export default function ComingSoonLearningSection() {
                                             alt="Arrow"
                                             className="transition-transform group-hover:translate-x-1 w-4 h-4 md:w-5 md:h-4 "
                                         />
-                                    </button>
+                                    </Link>
                                 </div>
                             )}
                         </div>
@@ -361,7 +360,7 @@ export default function ComingSoonLearningSection() {
 
         {showPosterModal && currentCourse && hasPoster && (
             <PosterModal
-                course={currentCourse}
+                title={currentCourse.course_title}
                 posterUrl={currentPoster!}
                 onClose={() => setShowPosterModal(false)}
             />

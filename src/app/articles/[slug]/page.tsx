@@ -11,10 +11,6 @@ interface ArticleDetailPageProps {
 /** ISR: revalidate setiap 1 jam */
 export const revalidate = 3600
 
-/**
- * Generate static params untuk semua artikel yang sudah published
- * Ini memungkinkan Next.js pre-render halaman saat build time
- */
 export async function generateStaticParams() {
     try {
         const response = await getAllArticles()
@@ -28,12 +24,6 @@ export async function generateStaticParams() {
     }
 }
 
-/**
- * Article Detail Page (Server Component)
- * 
- * Pre-rendered at build time with ISR for updated content.
- * No client-side JS needed for initial render → faster LCP.
- */
 export default async function ArticleDetailPage({ params }: ArticleDetailPageProps) {
     const { slug } = await params
 

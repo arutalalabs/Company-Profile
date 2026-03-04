@@ -1,5 +1,4 @@
 'use client'
-import { useRouter } from 'next/navigation';
 import { Button, Typography } from '@/components';
 import { generateCourseSlug } from '@/lib/api/courses';
 import { ROUTES } from '@/constants/routes';
@@ -7,14 +6,10 @@ import { formatDateIndonesia } from '@/utils/date';
 import { formatPriceIDR } from '@/utils/format';
 import { useAvailableCourses } from '@/hooks/useAvailableCourses';
 import { useBreakpointCount } from '@/hooks/useBreakpointCount';
+import Link from 'next/link';
 
 
 export default function AvailableCourseSection() {
-    const router = useRouter()
-    const handleContactClick = () => {
-        router.push(ROUTES.COURSES)
-    }
-
     const { courses, loading, error } = useAvailableCourses()
     const visibleCount = useBreakpointCount({ default: 1, sm: 2, lg: 2, '2xl': 3 })
 
@@ -228,15 +223,16 @@ export default function AvailableCourseSection() {
                                     </div>
 
                                     {/* Action Button */}
-                                    <Button 
-                                        size="sm" 
-                                        shape="solid"
-                                        color="accent-600"
-                                        className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:rounded-[20px]"
-                                        onClick={() => router.push(`${ROUTES.COURSES}/${generateCourseSlug(course.course_title)}`)}
-                                    >
-                                        Pelajari Selengkapnya
-                                    </Button>
+                                    <Link href={`${ROUTES.COURSES}/${generateCourseSlug(course.course_title)}`}>
+                                        <Button 
+                                            size="sm" 
+                                            shape="solid"
+                                            color="accent-600"
+                                            className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:rounded-[20px]"
+                                        >
+                                            Pelajari Selengkapnya
+                                        </Button>
+                                    </Link>
                                 </div>
                             </div>
                         );
@@ -245,15 +241,16 @@ export default function AvailableCourseSection() {
 
                 {/* View All Button */}
                 <div className="flex justify-end">
-                        <Button 
-                            size="sm" 
-                            shape="outline"
-                            color="accent-600"
-                            className="border-2 text-black sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
-                            onClick={handleContactClick}
-                        >
-                            Lihat Semua
-                        </Button>
+                        <Link href={ROUTES.COURSES}>
+                            <Button 
+                                size="sm" 
+                                shape="outline"
+                                color="accent-600"
+                                className="border-2 text-black sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
+                            >
+                                Lihat Semua
+                            </Button>
+                        </Link>
                 </div>
             </div>
         </section>

@@ -1,7 +1,7 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Typography, Button } from '@/components'
+import Link from 'next/link'
 
 interface ErrorProps {
     error: Error
@@ -12,8 +12,6 @@ interface ErrorProps {
  * Error boundary for article detail page
  */
 export default function ArticleDetailError({ error, reset }: ErrorProps) {
-    const router = useRouter()
-
     return (
         <main className="min-h-screen bg-white">
             <div className="min-h-[60vh] flex items-center justify-center">
@@ -38,14 +36,15 @@ export default function ArticleDetailError({ error, reset }: ErrorProps) {
                         >
                             Coba Lagi
                         </Button>
-                        <Button
-                            size="md"
-                            shape="outline"
-                            color="primary-900"
-                            onClick={() => router.push('/articles')}
-                        >
-                            Lihat Semua Artikel
-                        </Button>
+                        <Link href="/articles">
+                            <Button
+                                size="md"
+                                shape="outline"
+                                color="primary-900"
+                            >
+                                Lihat Semua Artikel
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

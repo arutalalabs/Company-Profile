@@ -5,6 +5,7 @@ import { Image } from '../../atoms/image'
 import { clsx } from 'clsx'
 import { forwardRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 export interface MenuItem {
     label: string
@@ -97,24 +98,21 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                             style={{ gap: '1px' }}
                         >
                             {menuItems.map((item, index) => (
-                                <Button
-                                    key={index}
-                                    size="sm"
-                                    shape="solid"
-                                    color="neutral-50"
-                                    className={clsx(
-                                        'transition-colors duration-200 sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:gap-3 2xl:rounded-[20px]',
-                                        isMenuActive(item)
-                                            ? 'text-[var(--color-neutral-50)] font-medium underline underline-offset-6 decoration-2 decoration-[var(--color-accent-600)]'
-                                            : 'text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]' 
-                                    )}
-                                    onClick={() =>
-                                        item.href &&
-                                        (window.location.href = item.href)
-                                    }
-                                >
-                                    {item.label}
-                                </Button>
+                                <Link key={index} href={item.href || '#'}>
+                                    <Button
+                                        size="sm"
+                                        shape="solid"
+                                        color="neutral-50"
+                                        className={clsx(
+                                            'transition-colors duration-200 sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:gap-3 2xl:rounded-[20px]',
+                                            isMenuActive(item)
+                                                ? 'text-[var(--color-neutral-50)] font-medium underline underline-offset-6 decoration-2 decoration-[var(--color-accent-600)]'
+                                                : 'text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]' 
+                                        )}
+                                    >
+                                        {item.label}
+                                    </Button>
+                                </Link>
                             ))}
                         </nav>
 
@@ -205,24 +203,21 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                                 <nav className="space-y-1">
                                     {menuItems.map((item, index) => (
                                         <div key={index}>
-                                            <Button
-                                                size="lg"
-                                                shape="link"
-                                                color="neutral-50"
-                                                className={clsx(
-                                                    'w-full justify-start px-4 py-3 text-base rounded-xl transition-all duration-200',
-                                                    isMenuActive(item)
-                                                        ? 'bg-white/10 text-[var(--color-accent-600)] font-semibold'
-                                                        : 'text-gray-100 hover:bg-white/5 hover:text-white hover:translate-x-1'
-                                                )}
-                                                onClick={() => {
-                                                    if (item.href)
-                                                        window.location.href = item.href
-                                                    setInternalMobileMenu(false)
-                                                }}
-                                            >
-                                                {item.label}
-                                            </Button>
+                                            <Link href={item.href || '#'} onClick={() => setInternalMobileMenu(false)}>
+                                                <Button
+                                                    size="lg"
+                                                    shape="link"
+                                                    color="neutral-50"
+                                                    className={clsx(
+                                                        'w-full justify-start px-4 py-3 text-base rounded-xl transition-all duration-200',
+                                                        isMenuActive(item)
+                                                            ? 'bg-white/10 text-[var(--color-accent-600)] font-semibold'
+                                                            : 'text-gray-100 hover:bg-white/5 hover:text-white hover:translate-x-1'
+                                                    )}
+                                                >
+                                                    {item.label}
+                                                </Button>
+                                            </Link>
 
                                             {/* Mobile Submenu */}
                                             {item.children && (

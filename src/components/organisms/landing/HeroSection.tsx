@@ -1,9 +1,9 @@
 'use client'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Tag, Typography, Button } from '@/components'
 import { scrollToElement } from '@/utils/scroll'
 import { ROUTES } from '@/constants/routes'
+import Link from 'next/link'
 
 // Shooting star component
 function ShootingStar({ style }: { style: React.CSSProperties }) {
@@ -120,12 +120,10 @@ const SHOOTING_STARS = [
 ]
 
 export default function HeroSection() {
-    const router = useRouter()
     const [mounted, setMounted] = useState(false)
 
     useEffect(() => { setMounted(true) }, [])
 
-    const handleContactClick = () => router.push(ROUTES.KONTAK)
     const handleScrollToLearning = () => scrollToElement('coming-soon-learning')
 
     return (
@@ -273,15 +271,16 @@ export default function HeroSection() {
 
                             {/* Buttons */}
                             <div className="flex sm:flex-row gap-3 justify-center items-center sm:gap-4 lg:gap-4">
-                                <Button
-                                    size="sm"
-                                    shape="solid"
-                                    color="accent-600"
-                                    className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
-                                    onClick={handleContactClick}
-                                >
-                                    Contact Us
-                                </Button>
+                                <Link href={ROUTES.KONTAK}>
+                                    <Button
+                                        size="sm"
+                                        shape="solid"
+                                        color="accent-600"
+                                        className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
+                                    >
+                                        Contact Us
+                                    </Button>
+                                </Link>
                                 <Button
                                     size="sm"
                                     shape="outline"

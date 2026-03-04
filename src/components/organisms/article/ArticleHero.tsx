@@ -1,7 +1,7 @@
 'use client'
 import { Typography, Button, Image } from '@/components'
-import { useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
+import Link from 'next/link'
 
 interface Article {
     id?: string | number
@@ -20,7 +20,6 @@ interface ArticleHeroProps {
  * Shows max 5 latest articles with slide animation and dot pagination
  */
 export function ArticleHero({ articles }: ArticleHeroProps) {
-    const router = useRouter()
     const [currentIndex, setCurrentIndex] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
     const intervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -123,31 +122,33 @@ export function ArticleHero({ articles }: ArticleHeroProps) {
 
                                     {/* CTA Button */}
                                     <div className="lg:ml-8">
-                                        <Button
-                                            size="md"
-                                            shape="solid"
-                                            color="accent-600"
-                                            onClick={() => router.push(`/articles/${currentArticle.slug}`)}
-                                            className="px-6 py-2.5 sm:px-8 sm:py-3 lg:px-6 lg:py-2.5 text-gray-900 font-semibold rounded-full text-sm sm:text-base lg:text-sm shadow-lg hover:shadow-xl transition-all"
-                                        >
-                                            Selengkapnya
-                                        </Button>
+                                        <Link href={`/articles/${currentArticle.slug}`}>
+                                            <Button
+                                                size="md"
+                                                shape="solid"
+                                                color="accent-600"
+                                                className="px-6 py-2.5 sm:px-8 sm:py-3 lg:px-6 lg:py-2.5 text-gray-900 font-semibold rounded-full text-sm sm:text-base lg:text-sm shadow-lg hover:shadow-xl transition-all"
+                                            >
+                                                Selengkapnya
+                                            </Button>
+                                        </Link>
                                     </div>
                                 </div>
 
                                 {/* Right Image */}
                                 <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
                                     <div className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[300px] 2xl:max-w-[360px] rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                                        <Image
-                                            src={currentArticle.image}
-                                            alt={currentArticle.title}
-                                            fullWidth={true}
-                                            aspectRatio="landscape"
-                                            shape="rounded"
-                                            fit="cover"
-                                            className="w-full h-full rounded-2xl cursor-pointer scale-105 hover:scale-107 transition-transform duration-500"
-                                            onClick={() => router.push(`/articles/${currentArticle.slug}`)}
-                                        />
+                                        <Link href={`/articles/${currentArticle.slug}`}>
+                                            <Image
+                                                src={currentArticle.image}
+                                                alt={currentArticle.title}
+                                                fullWidth={true}
+                                                aspectRatio="landscape"
+                                                shape="rounded"
+                                                fit="cover"
+                                                className="w-full h-full rounded-2xl cursor-pointer scale-105 hover:scale-107 transition-transform duration-500"
+                                            />
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

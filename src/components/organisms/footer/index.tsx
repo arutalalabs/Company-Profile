@@ -6,6 +6,7 @@ import { Icon } from '../../atoms/icon'
 import { Image } from '../../atoms/image'
 import { clsx } from 'clsx'
 import { forwardRef } from 'react'
+import Link from 'next/link'
 
 export interface FooterNavItem {
     label: string
@@ -130,21 +131,18 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                             >
                                 Layanan
                             </Typography>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col">
                                 {layananItems.map((item, index) => (
-                                    <Button
-                                        key={index}
-                                        shape="link"
-                                        color="neutral-50"
-                                        size="sm"
-                                        className="justify-start text-left transition-colors duration-200 text-sm md:text-md"
-                                        onClick={() =>
-                                            item.href &&
-                                            (window.location.href = item.href)
-                                        }
-                                    >
-                                        {item.label}
-                                    </Button>
+                                    <Link key={index} href={item.href || '#'}>
+                                        <Button
+                                            shape="link"
+                                            color="neutral-50"
+                                            size="sm"
+                                            className="justify-start text-left transition-colors duration-200 text-sm md:text-md"
+                                        >
+                                            {item.label}
+                                        </Button>
+                                    </Link>
                                 ))}
                             </div>
                         </div>
@@ -160,21 +158,18 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                             >
                                 Lainnya
                             </Typography>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col">
                                 {lainnyaItems.map((item, index) => (
-                                    <Button
-                                        key={index}
-                                        shape="link"
-                                        color="neutral-50"
-                                        size="sm"
-                                        className="justify-start text-left transition-colors duration-200 text-sm md:text-md"
-                                        onClick={() =>
-                                            item.href &&
-                                            (window.location.href = item.href)
-                                        }
-                                    >
-                                        {item.label}
-                                    </Button>
+                                    <Link key={index} href={item.href || '#'}>
+                                        <Button
+                                            shape="link"
+                                            color="neutral-50"
+                                            size="sm"
+                                            className="justify-start text-left transition-colors duration-200 text-sm md:text-md"
+                                        >
+                                            {item.label}
+                                        </Button>
+                                    </Link>
                                 ))}
                             </div>
                         </div>

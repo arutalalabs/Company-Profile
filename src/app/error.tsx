@@ -1,7 +1,7 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Typography, Button } from '@/components'
+import Link from 'next/link'
 
 interface ErrorProps {
     error: Error
@@ -13,8 +13,6 @@ interface ErrorProps {
  * Menangkap error yang tidak tertangani di semua halaman
  */
 export default function GlobalError({ error, reset }: ErrorProps) {
-    const router = useRouter()
-
     return (
         <main className="min-h-screen bg-white">
             <div className="min-h-[60vh] flex items-center justify-center">
@@ -61,14 +59,15 @@ export default function GlobalError({ error, reset }: ErrorProps) {
                         >
                             Coba Lagi
                         </Button>
-                        <Button
-                            size="md"
-                            shape="outline"
-                            color="primary-900"
-                            onClick={() => router.push('/')}
-                        >
-                            Kembali ke Beranda
-                        </Button>
+                        <Link href="/">
+                            <Button
+                                size="md"
+                                shape="outline"
+                                color="primary-900"
+                            >
+                                Kembali ke Beranda
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>
