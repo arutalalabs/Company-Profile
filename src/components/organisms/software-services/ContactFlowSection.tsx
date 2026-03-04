@@ -1,45 +1,6 @@
 import React from 'react'
 import { Typography, Image } from '@/components'
-
-interface ContactStep {
-    id: string
-    icon: string
-    title: string
-    description: string
-}
-
-const steps: ContactStep[] = [
-    {
-        id: 'explore',
-        icon: '/src/software-services/explore.svg',
-        title: 'Explore Services',
-        description: 'Melihat daftar layanan serta memahami masalah apa yang Anda ingin selesaikan.'
-    },
-    {
-        id: 'contact',
-        icon: '/src/software-services/contact.svg',
-        title: 'Contact Us',
-        description: 'Anda dapat menghubungi melalui halaman kontak atau melalui email'
-    },
-    {
-        id: 'consultation',
-        icon: '/src/software-services/consultation.svg',
-        title: 'Consultation',
-        description: 'Diskusi dengan kami kebutuhan perangkat lunak Anda'
-    },
-    {
-        id: 'negotiation',
-        icon: '/src/software-services/negotiation.svg',
-        title: 'Negotiation',
-        description: 'Menyusun scope, estimasi waktu, biaya pekerjaan serta penetapan layanan'
-    },
-    {
-        id: 'project',
-        icon: '/src/software-services/project.svg',
-        title: 'Project Kickoff',
-        description: 'Tanda tangan kesepakatan yang telah didiskusikan serta penjadwalan proyek.'
-    }
-]
+import { CONTACT_STEPS } from '@/constants/software-services'
 
 export default function ContactFlowSection() {
     return (
@@ -60,7 +21,7 @@ export default function ContactFlowSection() {
 
                 {/* Mobile: Vertical Flow */}
                 <div className="flex lg:hidden flex-col items-center gap-6 max-w-xs mx-auto">
-                    {steps.map((step, index) => (
+                    {CONTACT_STEPS.map((step, index) => (
                         <React.Fragment key={step.id}>
                             {/* Step Card */}
                             <div className="w-full bg-white rounded-2xl border-2 border-[var(--color-primary-600)] p-5 2xl:p-6 shadow-sm min-h-[150px]">
@@ -101,7 +62,7 @@ export default function ContactFlowSection() {
                             </div>
 
                             {/* Arrow between steps (except last) */}
-                            {index < steps.length - 1 && (
+                            {index < CONTACT_STEPS.length - 1 && (
                                 <div className="flex justify-center items-center w-full">
                                     <Image
                                         src="/src/software-services/arrow-bottom.svg"
@@ -125,8 +86,8 @@ export default function ContactFlowSection() {
                                 <div className="flex gap-4 items-start h-full">
                                     <div className="flex-shrink-0 lg:w-12 lg:h-12 2xl:w-16 2xl:h-16">
                                         <Image
-                                            src={steps[0].icon}
-                                            alt={steps[0].title}
+                                            src={CONTACT_STEPS[0].icon}
+                                            alt={CONTACT_STEPS[0].title}
                                             size="sm"
                                             fit="contain"
                                             className="w-full h-full"
@@ -140,7 +101,7 @@ export default function ContactFlowSection() {
                                             color="primary-900"
                                             className="text-lg lg:text-xl mb-2"
                                         >
-                                            {steps[0].title}
+                                            {CONTACT_STEPS[0].title}
                                         </Typography>
                                         <Typography
                                             as="p"
@@ -149,7 +110,7 @@ export default function ContactFlowSection() {
                                             color="neutral-950"
                                             className="text-sm"
                                         >
-                                            {steps[0].description}
+                                            {CONTACT_STEPS[0].description}
                                         </Typography>
                                     </div>
                                 </div>
@@ -173,8 +134,8 @@ export default function ContactFlowSection() {
                                 <div className="flex gap-4 items-start h-full">
                                     <div className="flex-shrink-0 lg:w-12 lg:h-12 2xl:w-16 2xl:h-16">
                                         <Image
-                                            src={steps[1].icon}
-                                            alt={steps[1].title}
+                                            src={CONTACT_STEPS[1].icon}
+                                            alt={CONTACT_STEPS[1].title}
                                             size="sm"
                                             fit="contain"
                                             className="w-full h-full"
@@ -188,7 +149,7 @@ export default function ContactFlowSection() {
                                             color="primary-900"
                                             className="text-lg lg:text-xl mb-2"
                                         >
-                                            {steps[1].title}
+                                            {CONTACT_STEPS[1].title}
                                         </Typography>
                                         <Typography
                                             as="p"
@@ -197,7 +158,7 @@ export default function ContactFlowSection() {
                                             color="neutral-950"
                                             className="text-sm"
                                         >
-                                            {steps[1].description}
+                                            {CONTACT_STEPS[1].description}
                                         </Typography>
                                     </div>
                                 </div>
@@ -221,8 +182,8 @@ export default function ContactFlowSection() {
                                 <div className="flex gap-4 items-start h-full">
                                     <div className="flex-shrink-0 lg:w-12 lg:h-12 2xl:w-16 2xl:h-16">
                                         <Image
-                                            src={steps[2].icon}
-                                            alt={steps[2].title}
+                                            src={CONTACT_STEPS[2].icon}
+                                            alt={CONTACT_STEPS[2].title}
                                             size="sm"
                                             fit="contain"
                                             className="w-full h-full"
@@ -236,7 +197,7 @@ export default function ContactFlowSection() {
                                             color="primary-900"
                                             className="text-lg lg:text-xl mb-2"
                                         >
-                                            {steps[2].title}
+                                            {CONTACT_STEPS[2].title}
                                         </Typography>
                                         <Typography
                                             as="p"
@@ -245,7 +206,7 @@ export default function ContactFlowSection() {
                                             color="neutral-950"
                                             className="text-sm"
                                         >
-                                            {steps[2].description}
+                                            {CONTACT_STEPS[2].description}
                                         </Typography>
                                     </div>
                                 </div>
@@ -261,8 +222,8 @@ export default function ContactFlowSection() {
                                 <div className="flex gap-4 items-start h-full">
                                     <div className="flex-shrink-0 lg:w-12 lg:h-12 2xl:w-16 2xl:h-16">
                                         <Image
-                                            src={steps[3].icon}
-                                            alt={steps[3].title}
+                                            src={CONTACT_STEPS[3].icon}
+                                            alt={CONTACT_STEPS[3].title}
                                             size="sm"
                                             fit="contain"
                                             className="w-full h-full"
@@ -276,7 +237,7 @@ export default function ContactFlowSection() {
                                             color="primary-900"
                                             className="text-lg lg:text-xl mb-2"
                                         >
-                                            {steps[3].title}
+                                            {CONTACT_STEPS[3].title}
                                         </Typography>
                                         <Typography
                                             as="p"
@@ -285,7 +246,7 @@ export default function ContactFlowSection() {
                                             color="neutral-950"
                                             className="text-sm"
                                         >
-                                            {steps[3].description}
+                                            {CONTACT_STEPS[3].description}
                                         </Typography>
                                     </div>
                                 </div>
@@ -309,8 +270,8 @@ export default function ContactFlowSection() {
                                 <div className="flex gap-4 items-start h-full">
                                     <div className="flex-shrink-0 lg:w-12 lg:h-12 2xl:w-16 2xl:h-16">
                                         <Image
-                                            src={steps[4].icon}
-                                            alt={steps[4].title}
+                                            src={CONTACT_STEPS[4].icon}
+                                            alt={CONTACT_STEPS[4].title}
                                             size="sm"
                                             fit="contain"
                                             className="w-full h-full"
@@ -324,7 +285,7 @@ export default function ContactFlowSection() {
                                             color="primary-900"
                                             className="text-lg lg:text-xl mb-2"
                                         >
-                                            {steps[4].title}
+                                            {CONTACT_STEPS[4].title}
                                         </Typography>
                                         <Typography
                                             as="p"
@@ -333,7 +294,7 @@ export default function ContactFlowSection() {
                                             color="neutral-950"
                                             className="text-sm"
                                         >
-                                            {steps[4].description}
+                                            {CONTACT_STEPS[4].description}
                                         </Typography>
                                     </div>
                                 </div>

@@ -1,28 +1,5 @@
 import { Typography, Image } from '@/components'
-
-interface WhyChooseCard {
-    title: string
-    description: string
-}
-
-const cards: WhyChooseCard[] = [
-    {
-        title: 'Expertise',
-        description: 'Kami menyediakan Software Services yang mengacu pada standar terbaik industri internasional. Tim kami berpengalaman menangani berbagai platform dan teknologi, serta telah terlibat dalam proyek dari beragam sektor.'
-    },
-    {
-        title: 'Customized',
-        description: 'Setiap kebutuhan klien bersifat unik. Oleh karena itu, kami menyesuaikan pemilihan software engineer berdasarkan jenis proyek, domain bisnis, tools yang digunakan, dan model kerja yang dibutuhkan.'
-    },
-    {
-        title: 'Qualified Talent',
-        description: 'Sebagian besar tim kami terdiri dari level senior yang memiliki pemahaman kuat terhadap teori dan praktik perangkat lunak secara menyeluruh. Setiap engineer melalui proses seleksi yang ketat untuk memastikan kompetensi serta kemampuan komunikasi yang baik.'
-    },
-    {
-        title: 'Security',
-        description: 'Keamanan dan kerahasiaan proyek merupakan prioritas utama kami. Tim kami menjunjung tinggi privasi klien dan menerapkan standar keamanan dalam seluruh proses.'
-    }
-]
+import { WHY_CHOOSE_CARDS } from '@/constants/software-services'
 
 export default function WhyChooseSection() {
     return (
@@ -69,7 +46,7 @@ export default function WhyChooseSection() {
 
                     {/* Right: Cards Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-0 lg:gap-5 lg:mb-40">
-                        {cards.map((card, index) => (
+                        {WHY_CHOOSE_CARDS.map((card, index) => (
                             <div
                                 key={index}
                                 className="bg-white rounded-xl border border-[var(--color-primary-600)] p-4 lg:p-5 shadow-sm hover:shadow-md transition-shadow"
