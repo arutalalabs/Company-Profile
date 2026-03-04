@@ -29,40 +29,10 @@ export function CourseLearning({ materials, instructor, masterOfCeremony }: Cour
         }
     ]
 
-    // Software QA specific materials
-    const qaMaterials: CourseMaterial[] = [
-        {
-            description: 'Memahami konsep dasar Software Quality Assurance dan pentingnya testing dalam SDLC'
-        },
-        {
-            description: 'Menguasai berbagai jenis testing: Unit, Integration, System, dan Acceptance Testing'
-        },
-        {
-            description: 'Mempelajari test case design techniques dan best practices dalam membuat test scenarios'
-        },
-        {
-            description: 'Praktik langsung dengan tools testing seperti Postman, Selenium, dan JMeter'
-        },
-        {
-            description: 'Memahami bug life cycle, bug reporting, dan tracking menggunakan Jira'
-        },
-        {
-            description: 'Menerapkan automation testing dan continuous testing dalam CI/CD pipeline'
-        },
-        {
-            description: 'Mempelajari API testing, performance testing, dan security testing fundamentals'
-        },
-        {
-            description: 'Membuat test documentation lengkap termasuk test plan dan test report'
-        }
-    ]
-
-    // Uncomment line below to use QA materials instead of default
-    // const displayMaterials = materials.length > 0 ? materials : qaMaterials
     const displayMaterials = materials.length > 0 ? materials : defaultMaterials
 
     return (
-        <section className="py-10 lg:py-16 bg-white">
+        <section className="py-10 lg:py-12 2xl:py-16 bg-white">
             <div className="mx-auto max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 lg:gap-12">
                     {/* Left Side - Learning Materials */}
@@ -75,7 +45,7 @@ export function CourseLearning({ materials, instructor, masterOfCeremony }: Cour
                             color="neutral-950"
                             className="sm:text-xl lg:text-lg 2xl:text-2xl mb-8"
                         >
-                            Yang akan kamu pelajari
+                            Yang Akan Kamu Pelajari
                         </Typography>
 
                         {/* Materials Grid - 2 columns */}
@@ -95,11 +65,22 @@ export function CourseLearning({ materials, instructor, masterOfCeremony }: Cour
 
                                     {/* Material Content */}
                                     <div className="flex-1">
+                                        {material.title && (
+                                            <Typography
+                                                as="h3"
+                                                size="sm"
+                                                weight="semibold"
+                                                color="neutral-950"
+                                                className="text-sm sm:text-base lg:text-xs 2xl:text-base mb-1"
+                                            >
+                                                {material.title}
+                                            </Typography>
+                                        )}
                                         <Typography
                                             as="p"
                                             size="sm"
                                             color="neutral-950"
-                                            className="text-sm sm:text-base lg:text-xs 2xl:text-lg leading-relaxed"
+                                            className="text-sm sm:text-base lg:text-xs 2xl:text-base leading-relaxed"
                                         >
                                             {material.description}
                                         </Typography>

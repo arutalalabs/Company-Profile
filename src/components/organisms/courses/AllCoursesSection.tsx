@@ -1,19 +1,14 @@
 'use client'
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { Button, Typography, Icon } from '@/components';
 import { generateCourseSlug } from '@/lib/api/courses';
 import { useAllCourses } from '@/hooks/useAllCourses';
 import { formatPriceIDR } from '@/utils/format';
 import { formatDateIndonesia } from '@/utils/date';
+import Link from 'next/link';
 
 export default function AllCoursesSection() {
-    const router = useRouter();
-    const handleContactClick = () => {
-        router.push('/it-education');
-    };
-
     const { loading, error, filter, setFilter, categories, filteredCourses } = useAllCourses();
 
     if (loading) {
@@ -58,21 +53,21 @@ export default function AllCoursesSection() {
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                         {/* Breadcrumb Style */}
                         <div className="flex items-center justify-center gap-2 mb-6 text-xs text-gray-600">
-                            <button 
-                                onClick={() => router.push('/')}
+                            <Link 
+                                href="/"
                                 className="hover:text-[var(--color-primary-900)] transition-colors cursor-pointer"
                             >
                                 Beranda
-                            </button>
+                            </Link>
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
-                            <button 
-                                onClick={() => router.push('/it-education')}
+                            <Link 
+                                href="/it-education"
                                 className="hover:text-[var(--color-primary-900)] transition-colors cursor-pointer"
                             >
                                 IT Education
-                            </button>
+                            </Link>
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
@@ -258,15 +253,16 @@ export default function AllCoursesSection() {
                                     </div>
 
                                     {/* Action Button */}
-                                    <Button 
-                                        size="sm" 
-                                        shape="solid"
-                                        color="accent-600"
-                                        className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:rounded-[20px]"
-                                        onClick={() => router.push(`/courses/${generateCourseSlug(course.course_title)}`)}
-                                    >
-                                        {isRegistrationClosed ? 'Lihat Detail' : 'Pelajari Selengkapnya'}
-                                    </Button>
+                                    <Link href={`/courses/${generateCourseSlug(course.course_title)}`}>
+                                        <Button 
+                                            size="sm" 
+                                            shape="solid"
+                                            color="accent-600"
+                                            className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:rounded-[20px]"
+                                        >
+                                            {isRegistrationClosed ? 'Lihat Detail' : 'Pelajari Selengkapnya'}
+                                        </Button>
+                                    </Link>
                                 </div>
                             </div>
                         );
@@ -276,26 +272,27 @@ export default function AllCoursesSection() {
 
                 {/* Back to IT Education Link */}
                 <div className="mt-12 text-center">
-                    <Button 
-                        size="sm" 
-                        shape="outline"
-                        color="accent-600"
-                        className="border-2 text-black sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
-                        onClick={handleContactClick}
-                        leftIcon={
-                            <Icon 
-                                icon={
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                                    </svg>
-                                }
-                                size="sm"
-                                color="current"
-                            />
-                        }
-                    >
-                        Kembali
-                    </Button>
+                    <Link href="/it-education">
+                        <Button 
+                            size="sm" 
+                            shape="outline"
+                            color="accent-600"
+                            className="border-2 text-black sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
+                            leftIcon={
+                                <Icon 
+                                    icon={
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                                        </svg>
+                                    }
+                                    size="sm"
+                                    color="current"
+                                />
+                            }
+                        >
+                            Kembali
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </section>

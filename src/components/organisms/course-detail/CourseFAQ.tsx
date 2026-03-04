@@ -64,7 +64,7 @@ export function CourseFAQ({ courseTitle, categoryName, customFAQs }: CourseFAQPr
     const faqItems = customFAQs && customFAQs.length > 0 ? customFAQs : defaultFAQs
 
     return (
-        <section className="py-10 lg:py-16 bg-gradient-to-b from-[var(--color-primary-100)] to-[var(--color-primary-300)]">
+        <section className="py-10 lg:py-12 2xl:py-16 bg-white bg-gradient-to-b from-[var(--color-primary-100)] to-[var(--color-primary-300)]">
             <div className="mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-5xl 2xl:max-w-7xl px-4">
                 {/* Section Title */}
                 <Typography

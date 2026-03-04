@@ -97,6 +97,7 @@ export async function getCourseById(courseId: string): Promise<CourseDetailRespo
         course_category_name: apiResponse.data.course_category_name,
         course_field_name: apiResponse.data.course_field_name,
         course_material: apiResponse.data.courseMaterial?.map(m => ({
+            title: m.title,
             description: m.description
         })) || [],
         course_benefit: apiResponse.data.courseBenefit?.map(b => ({
