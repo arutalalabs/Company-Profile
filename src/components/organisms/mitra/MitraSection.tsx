@@ -2,111 +2,13 @@
 
 import { Typography } from '@/components'
 import { MitraCard } from '@/components/molecules/mitra-card'
-import type { Mitra } from '@/types/mitra'
-import { useState, useRef, useEffect } from 'react'
+import type { MitraSectionProps } from '@/types/mitra'
+import { useScrollPagination } from '@/hooks/useScrollPagination'
 
-/**
- * Props untuk MitraSection component
- */
-export interface MitraSectionProps {
-    /** Array data mitra */
-    mitras: Mitra[]
-}
+export type { MitraSectionProps }
 
-/**
- * MitraSection - Organism Component
- * 
- * Grid untuk menampilkan list mitra dengan horizontal scroll di mobile
- * Desktop: Grid layout
- * Mobile: Swipeable dengan pagination dots
- * 
- * @example
- * ```tsx
- * <MitraSection mitras={mitrasData} />
- * ```
- */
 export function MitraSection({ mitras }: MitraSectionProps) {
-    const scrollContainerRef = useRef<HTMLDivElement>(null)
-    const [currentPage, setCurrentPage] = useState(0)
-    const [totalPages, setTotalPages] = useState(0)
-    
-    // Calculate total pages for mobile view
-    useEffect(() => {
-        const calculatePages = () => {
-            if (!scrollContainerRef.current || typeof window === 'undefined') return
-            
-            const container = scrollContainerRef.current
-            const containerWidth = container.offsetWidth
-            const scrollWidth = container.scrollWidth
-            
-            // Calculate how many pages needed based on scroll width
-            const pages = Math.ceil(scrollWidth / containerWidth)
-            setTotalPages(pages)
-        }
-        
-        calculatePages()
-        window.addEventListener('resize', calculatePages)
-        
-        return () => window.removeEventListener('resize', calculatePages)
-    }, [mitras])
-    
-    // Handle scroll for pagination indicator
-    const handleScroll = () => {
-        if (!scrollContainerRef.current) return
-        
-        const container = scrollContainerRef.current
-        const scrollLeft = container.scrollLeft
-        const containerWidth = container.offsetWidth
-        
-        const page = Math.round(scrollLeft / containerWidth)
-        setCurrentPage(page)
-    }
-    
-    // Scroll to specific page
-    const scrollToPage = (pageIndex: number) => {
-        if (!scrollContainerRef.current) return
-        
-        const container = scrollContainerRef.current
-        const containerWidth = container.offsetWidth
-        
-        container.scrollTo({
-            left: pageIndex * containerWidth,
-            behavior: 'smooth'
-        })
-    }
-    
-    // Smart pagination: show max 7 dots with ellipsis
-    const getPaginationDots = () => {
-        if (totalPages <= 7) {
-            return Array.from({ length: totalPages }, (_, i) => i)
-        }
-        
-        // Logic untuk smart pagination
-        const dots: (number | 'ellipsis')[] = []
-        
-        if (currentPage <= 3) {
-            // Awal: [0, 1, 2, 3, 4, ..., last]
-            for (let i = 0; i < 5; i++) dots.push(i)
-            dots.push('ellipsis')
-            dots.push(totalPages - 1)
-        } else if (currentPage >= totalPages - 4) {
-            // Akhir: [0, ..., n-4, n-3, n-2, n-1, n]
-            dots.push(0)
-            dots.push('ellipsis')
-            for (let i = totalPages - 5; i < totalPages; i++) dots.push(i)
-        } else {
-            // Tengah: [0, ..., current-1, current, current+1, ..., last]
-            dots.push(0)
-            dots.push('ellipsis')
-            dots.push(currentPage - 1)
-            dots.push(currentPage)
-            dots.push(currentPage + 1)
-            dots.push('ellipsis')
-            dots.push(totalPages - 1)
-        }
-        
-        return dots
-    }
+    const { scrollContainerRef, currentPage, totalPages, handleScroll, scrollToPage, getPaginationDots } = useScrollPagination([mitras])
 
     return (
         <section className="w-full h-auto bg-white">
@@ -216,12 +118,6 @@ export function MitraSection({ mitras }: MitraSectionProps) {
                 )}
             </div>
 
-            {/* Custom CSS untuk hide scrollbar */}
-            <style jsx>{`
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
-            `}</style>
         </section>
     )
 }

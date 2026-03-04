@@ -2,12 +2,6 @@
 
 import { Typography, Image } from '@/components'
 
-/**
- * MitraHero - Organism Component
- * 
- * Hero section untuk halaman mitra
- * Menampilkan judul dan gambar hero
- */
 export function MitraHero() {
     return (
         <section className="w-full">

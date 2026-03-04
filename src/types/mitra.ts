@@ -6,3 +6,8 @@ export interface Mitra {
     business_field: string
     mitra_logo_url: string
 }
+
+export interface MitraSectionProps {
+    /** Array data mitra */
+    mitras: Mitra[]
+}
