@@ -1,20 +1,7 @@
-/**
- * Base API Configuration & Error Handling
- * Centralized fetch wrapper dengan timeout, caching, dan error handling
- */
-
-/**
- * Get API base URL (lazy evaluation to avoid build-time errors)
- * Returns undefined if not set, allowing graceful fallback
- */
 function getApiBaseUrl(): string | undefined {
     return process.env.NEXT_PUBLIC_API_URL
 }
 
-/**
- * Custom API Error Class
- * Untuk error handling yang lebih detail
- */
 export class ApiError extends Error {
     constructor(
         public status: number,
@@ -26,9 +13,6 @@ export class ApiError extends Error {
     }
 }
 
-/**
- * Extended Fetch Options dengan timeout dan caching
- */
 export interface FetchOptions extends RequestInit {
     timeout?: number
     /** ISR revalidation time in seconds. Default: 3600 (1 hour). Use 0 for no cache. */
@@ -37,26 +21,6 @@ export interface FetchOptions extends RequestInit {
     tags?: string[]
 }
 
-/**
- * Enhanced fetch wrapper dengan:
- * - Automatic JSON parsing
- * - Timeout handling
- * - ISR caching (Next.js fetch cache)
- * - Comprehensive error handling
- * - Type safety
- *
- * @example
- * ```ts
- * // Cached for 1 hour (default)
- * const data = await apiFetch<User>('/users/1')
- * 
- * // Cached for 24 hours
- * const articles = await apiFetch<Article[]>('/articles', { revalidate: 86400 })
- * 
- * // No cache (real-time data)
- * const live = await apiFetch<Stats>('/stats', { revalidate: 0 })
- * ```
- */
 export async function apiFetch<T>(
     endpoint: string,
     options: FetchOptions = {}
@@ -129,16 +93,10 @@ export async function apiFetch<T>(
     }
 }
 
-/**
- * Helper untuk GET request (default cached 1 hour)
- */
 export async function apiGet<T>(endpoint: string, options?: FetchOptions): Promise<T> {
     return apiFetch<T>(endpoint, { ...options, method: 'GET' })
 }
 
-/**
- * Helper untuk POST request (no cache by default)
- */
 export async function apiPost<T>(
     endpoint: string,
     data: unknown,

@@ -38,14 +38,15 @@ export function CourseDetailHero({
     /** Pendaftaran ditutup saat kelas sedang/sudah berjalan */
     const isRegistrationClosed = batchStatus === 'ON_GOING' || batchStatus === 'COMPLETED'
 
-    // Format date helper
+    // Format date helper — explicit timeZone prevents server/client hydration mismatch
     const formatDate = (dateString?: string) => {
         if (!dateString) return ''
         const date = new Date(dateString)
         return date.toLocaleDateString('id-ID', {
             day: 'numeric',
             month: 'long',
-            year: 'numeric'
+            year: 'numeric',
+            timeZone: 'Asia/Jakarta',
         })
     }
 

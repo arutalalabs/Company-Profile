@@ -15,7 +15,7 @@ interface CourseDetailPageProps {
     }>
 }
 
-export const revalidate = 1
+export const revalidate = 60
 
 export async function generateStaticParams() {
     try {

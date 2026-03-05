@@ -6,5 +6,6 @@ export function formatDateIndonesia(dateString: string): string {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
+        timeZone: 'Asia/Jakarta',
     }).format(date)
 }

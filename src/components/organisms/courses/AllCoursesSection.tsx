@@ -258,7 +258,7 @@ export default function AllCoursesSection() {
                                             size="sm" 
                                             shape="solid"
                                             color="accent-600"
-                                            className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:rounded-[20px]"
+                                            className="w-full sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] 2xl:text-sm 2xl:px-6 py-3 2xl:min-h-[2.5rem] 2xl:rounded-[20px]"
                                         >
                                             {isRegistrationClosed ? 'Lihat Detail' : 'Pelajari Selengkapnya'}
                                         </Button>

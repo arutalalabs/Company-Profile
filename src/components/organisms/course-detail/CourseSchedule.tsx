@@ -8,11 +8,12 @@ interface CourseScheduleProps {
     onRegisterClick?: (batchName: string) => void
 }
 
-// Helper to get Indonesian day name
+// Helper to get Indonesian day name — explicit timeZone prevents hydration mismatch
 const getDayName = (dateString: string): string => {
-    const date = new Date(dateString)
-    const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
-    return days[date.getDay()]
+    return new Intl.DateTimeFormat('id-ID', {
+        weekday: 'long',
+        timeZone: 'Asia/Jakarta',
+    }).format(new Date(dateString))
 }
 
 // Helper to get day order for sorting (Senin=1, ..., Minggu=7)
@@ -56,18 +57,19 @@ export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps
         }
 
         // Fallback: infer from registration dates
+        // Use UTC midnight to produce consistent results on server (UTC) and client
         const now = new Date()
-        now.setHours(0, 0, 0, 0)
+        now.setUTCHours(0, 0, 0, 0)
 
         if (batch.registration_end) {
             const registrationEndDate = new Date(batch.registration_end)
-            registrationEndDate.setHours(23, 59, 59, 999)
+            registrationEndDate.setUTCHours(23, 59, 59, 999)
             if (now > registrationEndDate) return 'full'
         }
 
         if (batch.registration_start) {
             const registrationStartDate = new Date(batch.registration_start)
-            registrationStartDate.setHours(0, 0, 0, 0)
+            registrationStartDate.setUTCHours(0, 0, 0, 0)
             if (now < registrationStartDate) return 'coming-soon'
         }
 
@@ -142,14 +144,15 @@ export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps
         return Math.round(discount)
     }
 
-    // Helper function to format date
+    // Helper function to format date — explicit timeZone prevents hydration mismatch
     const formatDate = (dateString: string): string => {
         if (!dateString) return ''
         const date = new Date(dateString)
         return date.toLocaleDateString('id-ID', {
             day: 'numeric',
             month: 'short',
-            year: 'numeric'
+            year: 'numeric',
+            timeZone: 'Asia/Jakarta',
         })
     }
 
