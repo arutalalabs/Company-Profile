@@ -41,7 +41,7 @@ export function CourseDetailExpand({
             <div className="flex justify-center py-8">
                 <Button
                     shape="link"
-                    color="primary-900"
+                    color="accent-600"
                     size="sm"
                     className="gap-2"
                     onClick={() => setIsExpanded((prev) => !prev)}
