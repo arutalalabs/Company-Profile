@@ -12,10 +12,6 @@ interface CourseDetailExpandProps {
     masterOfCeremony?: Instructor
 }
 
-/**
- * CourseDetailExpand - Toggles visibility of CourseLearning and CourseRequirements
- * together with a single "Lihat Selengkapnya" button.
- */
 export function CourseDetailExpand({
     materials,
     benefits,

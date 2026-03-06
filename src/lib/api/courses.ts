@@ -87,7 +87,7 @@ export async function getAvailableCourses(): Promise<AvailableCoursesResponse> {
 }
 
 export async function getCourseById(courseId: string): Promise<CourseDetailResponse> {
-    const apiResponse = await apiGet<ApiCourseDetailResponse>(`/v2/courses/${courseId}`)
+    const apiResponse = await apiGet<ApiCourseDetailResponse>(`/v2/courses/${courseId}`, { revalidate: 60 })
 
     const transformedData: CourseDetail = {
         course_id: apiResponse.data.course_id,
@@ -138,7 +138,7 @@ export async function getCourseById(courseId: string): Promise<CourseDetailRespo
 }
 
 export async function getAllCourse(): Promise<CourseDetailResponse> {
-    return apiGet<CourseDetailResponse>(`/v2/courses?isDisplayed=true`)
+    return apiGet<CourseDetailResponse>(`/v2/courses?isDisplayed=true`, { revalidate: 60 })
 }
 
 export interface ContributorsResponse {

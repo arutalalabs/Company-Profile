@@ -1,7 +1,6 @@
 'use client'
 
 import { Typography, Button, Image } from '../../index'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 interface CTAProps {
@@ -19,15 +18,6 @@ export function CTA({
     onButtonClick,
     contactPath = '/kontak',
 }: CTAProps) {
-    const router = useRouter()
-    
-    const handleButtonClick = () => {
-        if (onButtonClick) {
-            onButtonClick()
-        } else {
-            router.push(contactPath)
-        }
-    }
 
     return (
         <section className="w-full px-4 pt-12 py-12 md:pt-40 md:pb-20">
@@ -57,15 +47,28 @@ export function CTA({
                             </Typography>
 
                             <div>
-                                <Button
-                                    size="sm"
-                                    shape="outline"
-                                    color="accent-600"
-                                    className="border-2 sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
-                                    onClick={handleButtonClick}
-                                >
-                                    {buttonText}
-                                </Button>
+                                {onButtonClick ? (
+                                    <Button
+                                        size="sm"
+                                        shape="outline"
+                                        color="accent-600"
+                                        className="border-2 sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
+                                        onClick={onButtonClick}
+                                    >
+                                        {buttonText}
+                                    </Button>
+                                ) : (
+                                    <Link href={contactPath}>
+                                        <Button
+                                            size="sm"
+                                            shape="outline"
+                                            color="accent-600"
+                                            className="border-2 sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
+                                        >
+                                            {buttonText}
+                                        </Button>
+                                    </Link>
+                                )}
                             </div>
                         </div>
 

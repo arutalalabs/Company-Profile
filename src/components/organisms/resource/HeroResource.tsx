@@ -1,16 +1,10 @@
 'use client'
 import { Typography, Button, Image } from '@/components'
-import { useRouter } from 'next/navigation'
 import { scrollToElement } from '@/utils/scroll'
+import Link from 'next/link'
 
 export default function HeroResource() {
-    const router = useRouter()
-    
-        const handleContactClick = () => {
-            router.push('/kontak')
-        }
-    
-        const handleScrollToTestimonial = () => scrollToElement('testimonial')
+    const handleScrollToTestimonial = () => scrollToElement('testimonial')
     return (
         <section className="relative container mx-auto max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-6xl 2xl:max-w-[90rem] lg:py-20 2x:py-24 py-8">
             {/* Content */}
@@ -45,15 +39,16 @@ export default function HeroResource() {
 
                     {/* Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4 mt-2">
-                        <Button
-                            shape="solid"
-                            color="accent-600"
-                            size="md"
-                            className="w-full sm:w-auto px-8 py-3"
-                            onClick={handleContactClick}
-                        >
-                            Konsultasi
-                        </Button>
+                        <Link href="/kontak">
+                            <Button
+                                shape="solid"
+                                color="accent-600"
+                                size="md"
+                                className="w-full sm:w-auto px-8 py-3"
+                            >
+                                Konsultasi
+                            </Button>
+                        </Link>
                         {/* Hide terlebih dahulu karena image belum tersedia */}
                         {/* <Button
                             shape="outline"

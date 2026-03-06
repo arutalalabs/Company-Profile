@@ -5,6 +5,7 @@ import { Typography } from '../../atoms/typography'
 import { Button } from '../../atoms/button'
 import { clsx } from 'clsx'
 import { forwardRef } from 'react'
+import Link from 'next/link'
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     size?: 'sm' | 'md' | 'lg'
@@ -16,6 +17,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     description: string
     buttonText?: string
     onButtonClick?: () => void
+    href?: string
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
@@ -26,7 +28,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
             title,
             description,
             buttonText = 'Selengkapnya',
-            onButtonClick,
+            onButtonClick,            
+            href,            
             className,
             ...props
         },
@@ -101,17 +104,30 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
                     </Typography>
 
                     {/* Action Button - Responsive sizing */}
-                    {onButtonClick && (
+                    {(onButtonClick || href) && (
                         <div className="flex justify-center lg:mb-0 2xl:mb-6">
-                            <Button
-                                size="md"
-                                shape="outline"
-                                color="accent-600"
-                                onClick={onButtonClick}
-                                className="text-black text-sm sm:text-base w-auto px-4 py-2 sm:px-6 sm:py-3 lg:px-5 lg:py-2 2xl:px-7 2xl:py-3 rounded-[20px]"
-                            >
-                                {buttonText}
-                            </Button>
+                            {href ? (
+                                <Link href={href}>
+                                    <Button
+                                        size="md"
+                                        shape="outline"
+                                        color="accent-600"
+                                        className="text-black text-sm sm:text-base w-auto px-4 py-2 sm:px-6 sm:py-3 lg:px-5 lg:py-2 2xl:px-7 2xl:py-3 rounded-[20px]"
+                                    >
+                                        {buttonText}
+                                    </Button>
+                                </Link>
+                            ) : (
+                                <Button
+                                    size="md"
+                                    shape="outline"
+                                    color="accent-600"
+                                    onClick={onButtonClick}
+                                    className="text-black text-sm sm:text-base w-auto px-4 py-2 sm:px-6 sm:py-3 lg:px-5 lg:py-2 2xl:px-7 2xl:py-3 rounded-[20px]"
+                                >
+                                    {buttonText}
+                                </Button>
+                            )}
                         </div>
                     )}
                 </div>

@@ -1,14 +1,8 @@
 'use client'
 import { Typography, Button, Image } from '@/components'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function HeroSoftwareServices() {
-    const router = useRouter()
-
-    const handleContactClick = () => {
-        router.push('/kontak')
-    }
-
     return (
         <section className="relative w-full">
             {/* Background Gradient - Full Width */}
@@ -52,15 +46,16 @@ export default function HeroSoftwareServices() {
 
                         {/* Button */}
                         <div className="flex flex-col sm:flex-row gap-4 mt-2">
-                            <Button
-                                shape="solid"
-                                color="accent-600"
-                                size="md"
-                                className="w-full sm:w-auto px-8 py-3"
-                                onClick={handleContactClick}
-                            >
-                                Hubungi Kami
-                            </Button>
+                            <Link href="/kontak">
+                                <Button
+                                    shape="solid"
+                                    color="accent-600"
+                                    size="md"
+                                    className="w-full sm:w-auto px-8 py-3"
+                                >
+                                    Hubungi Kami
+                                </Button>
+                            </Link>
                         </div>
                     </div>
 

@@ -1,7 +1,7 @@
 'use client'
 import { Typography, Button, Icon, Image } from '@/components'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import Link from 'next/link'
 
 interface Article {
     id: string | number
@@ -21,7 +21,6 @@ interface ArticleListProps {
  * ArticleList - List of articles with pagination
  */
 export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
-    const router = useRouter()
     const [currentPage, setCurrentPage] = useState(1)
 
     // Calculate pagination
@@ -101,16 +100,17 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                             <div className="flex flex-col lg:flex-row gap-5 lg:gap-22 2xl:gap-24">
                                 {/* Image - Top on mobile/tablet, Right on desktop */}
                                 <div className="w-full lg:w-[240px] 2xl:w-[280px] h-48 sm:h-56 lg:h-[180px] 2xl:h-[180px] flex-shrink-0 order-1 lg:order-2">
-                                    <Image
-                                        src={article.image}
-                                        alt={article.title}
-                                        fullWidth={true}
-                                        aspectRatio="auto"
-                                        shape="rounded"
-                                        fit="cover"
-                                        className="w-full h-full rounded-2xl cursor-pointer hover:opacity-90 transition-opacity"
-                                        onClick={() => router.push(`/articles/${article.slug}`)}
-                                    />
+                                    <Link href={`/articles/${article.slug}`}>
+                                        <Image
+                                            src={article.image}
+                                            alt={article.title}
+                                            fullWidth={true}
+                                            aspectRatio="auto"
+                                            shape="rounded"
+                                            fit="cover"
+                                            className="w-full h-full rounded-2xl cursor-pointer hover:opacity-90 transition-opacity"
+                                        />
+                                    </Link>
                                 </div>
 
                                 {/* Content - Below image on mobile/tablet, Left on desktop */}
@@ -127,12 +127,13 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                                     </Typography>
 
                                     {/* Title */}
-                                    <h3
-                                        className="text-lg sm:text-xl lg:text-lg 2xl:text-xl font-semibold text-[var(--color-neutral-950)] line-clamp-2 leading-tight hover:text-[var(--color-accent-600)] transition-colors cursor-pointer"
-                                        onClick={() => router.push(`/articles/${article.slug}`)}
-                                    >
-                                        {article.title}
-                                    </h3>
+                                    <Link href={`/articles/${article.slug}`}>
+                                        <h3
+                                            className="text-lg sm:text-xl lg:text-lg 2xl:text-xl font-semibold text-[var(--color-neutral-950)] line-clamp-2 leading-tight hover:text-[var(--color-accent-600)] transition-colors cursor-pointer"
+                                        >
+                                            {article.title}
+                                        </h3>
+                                    </Link>
 
                                     {/* Description */}
                                     <Typography
@@ -146,9 +147,9 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                                     </Typography>
 
                                     {/* Read More Button */}
-                                    <button
+                                    <Link
+                                        href={`/articles/${article.slug}`}
                                         className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer self-start"
-                                        onClick={() => router.push(`/articles/${article.slug}`)}
                                     >
                                         <Typography
                                             as="span"
@@ -168,7 +169,7 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                                             alt="Arrow Right"
                                             className="transition-transform group-hover:translate-x-1 w-4 h-4 sm:w-5 sm:h-5"
                                         />
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

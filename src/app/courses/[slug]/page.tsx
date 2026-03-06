@@ -2,8 +2,7 @@ import { notFound } from 'next/navigation'
 import { 
     CourseDetailHero, 
     CourseAbout, 
-    CourseLearning, 
-    CourseRequirements, 
+    CourseDetailExpand,
     CourseSchedule, 
     CourseFAQ,
     CourseFeatures
@@ -16,7 +15,7 @@ interface CourseDetailPageProps {
     }>
 }
 
-export const revalidate = 1
+export const revalidate = 60
 
 export async function generateStaticParams() {
     try {
@@ -75,15 +74,11 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
             {/* About Section */}
             <CourseAbout description={course.course_description} />
 
-            {/* Learning Materials Section */}
-            <CourseLearning 
+            {/* Learning & Requirements — revealed by toggle button */}
+            <CourseDetailExpand
                 materials={course.course_material || []}
-                instructor={instructor}
-            />
-
-            {/* Requirements & Outputs Section */}
-            <CourseRequirements 
                 benefits={course.course_benefit || []}
+                instructor={instructor}
             />
 
             {/* Schedule & Pricing Section */}

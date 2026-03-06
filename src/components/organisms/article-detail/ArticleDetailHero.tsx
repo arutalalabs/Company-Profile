@@ -1,7 +1,7 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Typography, Image } from '@/components'
+import Link from 'next/link'
 
 interface ArticleDetailHeroProps {
     title: string
@@ -23,8 +23,6 @@ export function ArticleDetailHero({
     author,
     showCover = true
 }: ArticleDetailHeroProps) {
-    const router = useRouter()
-
     // Format date
     const formatDate = (dateString?: string) => {
         if (!dateString) return ''
@@ -59,15 +57,15 @@ export function ArticleDetailHero({
             <div className="relative z-5 pt-8 sm:pt-10 lg:pt-16">
                 <div className="mx-auto max-w-full sm:max-w-md md:max-w-xl lg:max-w-6xl 2xl:max-w-7xl px-6 sm:px-6 md:px-8">
                     {/* Breadcrumb */}
-                    <button
-                        onClick={() => router.push('/articles')}
+                    <Link
+                        href="/articles"
                         className="flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors mb-6 cursor-pointer"
                     >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                         </svg>
                         <span className="font-medium">Kembali ke Artikel</span>
-                    </button>
+                    </Link>
 
                     {/* Author */}
                     {author && (

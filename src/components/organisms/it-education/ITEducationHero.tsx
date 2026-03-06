@@ -1,15 +1,10 @@
 'use client'
 import { Typography, Tag, Button, Image } from '@/components'
-import { useRouter } from 'next/navigation'
 import { ROUTES } from '@/constants/routes'
 import { IT_EDUCATION_TAGS } from '@/constants/it-education'
+import Link from 'next/link'
 
 export default function ITEducationHero() {
-    const router = useRouter()
-
-    const handleContactClick = () => {
-        router.push(ROUTES.KONTAK)
-    }
     return (
         <section className="container mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-6xl 2xl:max-w-[90rem] lg:py-20 2x:py-24 px-4 py-4">
             <div className="grid grid-cols-1 lg:grid-cols-[7fr_3fr] gap-10 lg:gap-18 items-center">
@@ -56,15 +51,16 @@ export default function ITEducationHero() {
                     {/* Buttons */}
                     <div className="mt-4 lg:mt-0">
                         
-                        <Button
-                            shape="solid"
-                            color="accent-600"
-                            size="md"
-                            className="w-full sm:w-auto px-8 py-3"
-                            onClick={handleContactClick}
-                        >
-                            Hubungi Kami
-                        </Button>
+                        <Link href={ROUTES.KONTAK}>
+                            <Button
+                                shape="solid"
+                                color="accent-600"
+                                size="md"
+                                className="w-full sm:w-auto px-8 py-3"
+                            >
+                                Hubungi Kami
+                            </Button>
+                        </Link>
                     </div>
                 </div>
 

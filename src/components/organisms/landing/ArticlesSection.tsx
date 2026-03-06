@@ -1,11 +1,10 @@
 'use client'
 import { Typography, Button, Icon, Image, formatDateIndonesia } from '@/components'
-import { useRouter } from 'next/navigation'
 import { useArticles } from '@/hooks/useArticles'
 import { ROUTES } from '@/constants/routes'
+import Link from 'next/link'
 
 export default function ArticlesSection() {
-    const router = useRouter()
     const { articles: latestArticles, loading: isLoading } = useArticles(3)
 
     return (
@@ -103,9 +102,9 @@ export default function ArticlesSection() {
 
                                         {/* Read More Button */}
                                         <div>
-                                            <button
+                                            <Link
+                                                href={`${ROUTES.ARTICLES}/${article.slug}`}
                                                 className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
-                                                onClick={() => router.push(`${ROUTES.ARTICLES}/${article.slug}`)}
                                             >
                                                 <Typography
                                                     as="span"
@@ -125,22 +124,23 @@ export default function ArticlesSection() {
                                                     alt="Arrow Right"
                                                     className="transition-transform group-hover:translate-x-1 w-4 h-4 sm:w-5 sm:h-5"
                                                 />
-                                            </button>
+                                            </Link>
                                         </div>
                                     </div>
 
                                     {/* Right Image */}
                                     <div className="w-full lg:w-[268px] h-48 sm:h-64 lg:h-auto flex-shrink-0 order-first lg:order-2">
-                                        <Image
-                                            src={article.image}
-                                            alt={article.title}
-                                            fullWidth={true}
-                                            aspectRatio="auto"
-                                            shape="rounded"
-                                            fit="cover"
-                                            className="w-full h-full lg:h-[195px] rounded-3xl"
-                                            onClick={() => router.push(`${ROUTES.ARTICLES}/${article.slug}`)}
-                                        />
+                                        <Link href={`${ROUTES.ARTICLES}/${article.slug}`}>
+                                            <Image
+                                                src={article.image}
+                                                alt={article.title}
+                                                fullWidth={true}
+                                                aspectRatio="auto"
+                                                shape="rounded"
+                                                fit="cover"
+                                                className="w-full h-full lg:h-[195px] rounded-3xl"
+                                            />
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -150,15 +150,16 @@ export default function ArticlesSection() {
 
                 {/* View All Articles Button */}
                 <div className="flex justify-center mt-12 lg:mt-16">
-                    <Button
-                        size="sm"
-                        shape="outline"
-                        color="accent-600"
-                        className="px-6 py-3 sm:px-8 sm:py-3 !lg:px-7 !lg:py-3 !2xl:px-10 !2xl:py-4 text-black text-sm sm:text-base font-medium rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
-                        onClick={() => router.push(ROUTES.ARTICLES)}
-                    >
-                        Lihat Semua Artikel
-                    </Button>
+                    <Link href={ROUTES.ARTICLES}>
+                        <Button
+                            size="sm"
+                            shape="outline"
+                            color="accent-600"
+                            className="px-6 py-3 sm:px-8 sm:py-3 !lg:px-7 !lg:py-3 !2xl:px-10 !2xl:py-4 text-black text-sm sm:text-base font-medium rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
+                        >
+                            Lihat Semua Artikel
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </section>
