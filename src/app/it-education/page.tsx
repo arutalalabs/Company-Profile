@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { CTA } from '@/components'
 import { 
     ITEducationHero,
@@ -7,6 +8,18 @@ import {
     TestimonialSection,
     AvailableCourse
 } from '@/components/organisms/it-education'
+import { getSeoData, buildMetadata } from '@/lib/api/seo'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
+
+export async function generateMetadata(): Promise<Metadata> {
+    const seo = await getSeoData('it-education')
+    return buildMetadata(seo, {
+        fallbackTitle: 'IT Education | ArutalaLab',
+        fallbackDescription: 'Program pendidikan IT berkualitas tinggi untuk mempersiapkan Anda menghadapi tantangan industri teknologi.',
+        pageUrl: `${SITE_URL}/it-education`,
+    })
+}
 
 export default function ITEducationPage() {
     return (

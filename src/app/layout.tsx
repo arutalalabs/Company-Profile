@@ -2,6 +2,47 @@ import '@/styles/global.css'
 import { Montserrat } from 'next/font/google'
 import { Header } from '@/components'
 import { Footer } from '@/components'
+import type { Metadata } from 'next'
+import { GoogleAnalytics } from '@next/third-parties/google'
+import { getSeoData, buildMetadata } from '@/lib/api/seo'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.arutalalab.com'
+
+export async function generateMetadata(): Promise<Metadata> {
+    const seo = await getSeoData('home')
+    return buildMetadata(seo, {
+        isLayout: true,
+        fallbackTitle: 'ArutalaLab',
+        fallbackDescription:
+            'ArutalaLab merupakan platform untuk IT Education, Resources, dan Software Services yang mendukung pertumbuhan individu dan perusahaan.',
+        pageUrl: SITE_URL,
+    })
+}
+
+// export const metadata: Metadata = {
+//     title: {
+//         default: 'ArutalaLab',
+//         template: '%s | ArutalaLab'
+//     },
+//     description: 'ArutalaLab merupakan platform untuk IT Education, Resources, dan Software Services yang mendukung pertumbuhan individu dan perusahaan.',
+//     keywords: ['IT Education', 'Resources', 'Software Services'],
+//     authors: [{ name: 'ArutalaLab' }],
+//     creator: 'ArutalaLab',
+//     openGraph: {
+//         type: 'website',
+//         locale: 'id_ID',
+//         url: 'https://arutalalab.com',
+//         title: 'ArutalaLab',
+//         description: 'ArutalaLab merupakan platform untuk IT Education, Resources, dan Software Services yang mendukung pertumbuhan individu dan perusahaan.',
+//         siteName: 'ArutalaLab',
+//         images: [{ url: '/logo.png', width: 1200, height: 630 }]
+//     },
+//     robots: {
+//         index: true,
+//         follow: true,
+//         googleBot: { index: true, follow: true }
+//     }
+// }
 
 const montserrat = Montserrat({
     subsets: ['latin'],
@@ -42,7 +83,12 @@ export default function RootLayout({
                     }
                 />
             </head>
+            
             <body className="font-sans">
+                {/* <GoogleTagManager gtmId="G-GDEN7QC20C" /> */}
+                {/* <GoogleAnalytics gaId="G-GDEN7QC20C" /> */}
+                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
+
                 <Header
                     logo={{
                         src: '/src/common/logo.png',

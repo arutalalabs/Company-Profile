@@ -1,4 +1,17 @@
+import type { Metadata } from 'next'
 import { ContactInfo, ContactForm } from '@/components'
+import { getSeoData, buildMetadata } from '@/lib/api/seo'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
+
+export async function generateMetadata(): Promise<Metadata> {
+    const seo = await getSeoData('kontak')
+    return buildMetadata(seo, {
+        fallbackTitle: 'Kontak | ArutalaLab',
+        fallbackDescription: 'Hubungi tim ArutalaLab untuk informasi lebih lanjut tentang layanan IT Education, Resources, dan Software Services kami.',
+        pageUrl: `${SITE_URL}/kontak`,
+    })
+}
 
 export default function KontakPage() {
     return (

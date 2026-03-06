@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { 
     CourseDetailHero, 
@@ -8,6 +9,7 @@ import {
     CourseFeatures
 } from '@/components/organisms/course-detail'
 import { getCourseBySlug, getAllCourse, generateCourseSlug } from '@/lib/api/courses'
+import { getSeoData, buildMetadata } from '@/lib/api/seo'
 
 interface CourseDetailPageProps {
     params: Promise<{
@@ -15,7 +17,24 @@ interface CourseDetailPageProps {
     }>
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
+
 export const revalidate = 60
+
+export async function generateMetadata({ params }: CourseDetailPageProps): Promise<Metadata> {
+    const { slug } = await params
+    const response = await getCourseBySlug(slug)
+    const course = response.success && response.data.length > 0 ? response.data[0] : null
+    const seo = course ? await getSeoData(course.course_id) : null
+    return buildMetadata(seo, {
+        fallbackTitle: course?.course_title ?? 'Courses | ArutalaLab',
+        fallbackDescription:
+            course?.course_headline ??
+            course?.course_description ??
+            'Temukan kursus IT berkualitas untuk meningkatkan skill dan karier Anda.',
+        pageUrl: `${SITE_URL}/courses/${slug}`,
+    })
+}
 
 export async function generateStaticParams() {
     try {

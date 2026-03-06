@@ -1,5 +1,5 @@
 const SITE_URL =
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://www.arutalalab.com/'
 
 interface SEOConfig {
     titleTemplate?: string
@@ -18,11 +18,6 @@ interface SEOConfig {
             alt: string
             type: string
         }[]
-    }
-    twitter?: {
-        handle: string
-        site: string
-        cardType: string
     }
     additionalMetaTags?: {
         name?: string
@@ -51,19 +46,13 @@ export const defaultSEO: SEOConfig = {
         siteName: 'ArutalaLab',
         images: [
             {
-                url: `${SITE_URL}/og-image.jpg`,
+                url: `${SITE_URL}/logo.png`,
                 width: 1200,
                 height: 630,
                 alt: 'ArutalaLab - IT Education, Resources & Software Services',
-                type: 'image/jpeg'
+                type: 'image/png'
             }
         ]
-    },
-
-    twitter: {
-        handle: '@arutalalab',
-        site: '@arutalalab',
-        cardType: 'summary_large_image'
     },
 
     additionalMetaTags: [
