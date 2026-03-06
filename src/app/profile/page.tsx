@@ -1,4 +1,17 @@
+import type { Metadata } from 'next'
 import { HeroProfile, VisiMision, TalentBuilding, IndustrySolutions, CTA } from '@/components';
+import { getSeoData, buildMetadata } from '@/lib/api/seo'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
+
+export async function generateMetadata(): Promise<Metadata> {
+    const seo = await getSeoData('profile')
+    return buildMetadata(seo, {
+        fallbackTitle: 'Profile | ArutalaLab',
+        fallbackDescription: 'Kenali lebih dalam tentang visi, misi, dan tim ArutalaLab dalam mendukung transformasi digital Indonesia.',
+        pageUrl: `${SITE_URL}/profile`,
+    })
+}
 
 export default function ProfilePage() {
   return (

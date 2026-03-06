@@ -1,5 +1,18 @@
+import type { Metadata } from 'next'
 import { ArticlePageContent } from '@/components/organisms/article'
 import { CTA } from '@/components/molecules/cta'
+import { getSeoData, buildMetadata } from '@/lib/api/seo'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
+
+export async function generateMetadata(): Promise<Metadata> {
+    const seo = await getSeoData('articles')
+    return buildMetadata(seo, {
+        fallbackTitle: 'Artikel | ArutalaLab',
+        fallbackDescription: 'Baca artikel terbaru seputar dunia IT, teknologi, dan pengembangan software dari ArutalaLab.',
+        pageUrl: `${SITE_URL}/articles`,
+    })
+}
 
 export default function ArticlePage() {
     // Mock data for articles - KEEP as fallback/reference

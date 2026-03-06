@@ -1,6 +1,8 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ArticleDetailContent } from '@/components/organisms/article-detail'
 import { getArticleBySlugWithContent, getAllArticles, generateArticleSlug } from '@/lib/api/articles'
+import { getSeoData, buildMetadata } from '@/lib/api/seo'
 
 interface ArticleDetailPageProps {
     params: Promise<{
@@ -8,8 +10,24 @@ interface ArticleDetailPageProps {
     }>
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
+
 /** ISR: revalidate setiap 1 jam */
 export const revalidate = 3600
+
+export async function generateMetadata({ params }: ArticleDetailPageProps): Promise<Metadata> {
+    const { slug } = await params
+    const article = await getArticleBySlugWithContent(slug)
+    const seo = article ? await getSeoData(article.article_id) : null
+    return buildMetadata(seo, {
+        fallbackTitle: article?.article_title ?? 'Artikel | ArutalaLab',
+        fallbackDescription:
+            article?.article_cover_description ??
+            article?.article_content_text?.slice(0, 160) ??
+            'Baca artikel terbaru seputar dunia IT dari ArutalaLab.',
+        pageUrl: `${SITE_URL}/articles/${slug}`,
+    })
+}
 
 export async function generateStaticParams() {
     try {

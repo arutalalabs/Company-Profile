@@ -36,7 +36,7 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
             lainnyaItems,
             socialIcons = [
                 { icon: '', alt: 'Instagram' },
-                { icon: '', alt: 'Twitter' },
+                { icon: '', alt: 'Youtube' },
                 { icon: '', alt: 'LinkedIn' }
             ],
             className,
