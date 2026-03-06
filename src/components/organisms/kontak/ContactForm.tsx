@@ -1,95 +1,20 @@
 'use client'
 
-import { useState } from 'react'
 import { Typography, Button } from '@/components'
-import { useContactForm } from '@/hooks/useContactForm'
+import { useContactFormState } from '@/hooks/useContactFormState'
+import { CONTACT_SUBJECT_OPTIONS } from '@/constants/kontak'
 
-/**
- * Komponen form kontak untuk mengirim pesan
- * Berisi form dengan validasi dan integrasi API
- */
 export function ContactForm() {
-    // State untuk form fields
-    const [formData, setFormData] = useState({
-        senderName: '',
-        senderEmail: '',
-        organizationName: '',
-        senderPhone: '',
-        subject: [] as string[],
-        messageBody: ''
-    })
-
-    // Gunakan custom hook untuk submission logic
-    const { isSubmitting, submitStatus, fieldErrors, submitForm, validateField } = useContactForm()
-
-    // Handle blur untuk real-time validation
-    const handleBlur = (fieldName: keyof typeof formData) => {
-        validateField(fieldName, formData[fieldName])
-    }
-
-    // Pilihan subject
-    const subjectOptions = [
-        { value: 'IT Education', label: 'IT Education' },
-        { value: 'Resources', label: 'Resources' },
-        { value: 'Software Services', label: 'Software Services' },
-        { value: 'Partner', label: 'Partner' },
-        { value: 'Lainnya', label: 'Lainnya' }
-    ]
-
-    // Handle perubahan input
-    const handleInputChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >
-    ) => {
-        const { name, value } = e.target
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }))
-    }
-
-    // Handle perubahan subject (checkbox - multiple choice)
-    const handleSubjectCheckboxChange = (value: string) => {
-        setFormData((prev) => {
-            const currentSubjects = prev.subject
-            const isChecked = currentSubjects.includes(value)
-
-            if (isChecked) {
-                // Jika sudah dipilih, remove dari array (uncheck)
-                return {
-                    ...prev,
-                    subject: currentSubjects.filter(item => item !== value)
-                }
-            } else {
-                // Jika belum dipilih, tambahkan ke array (multiple selection allowed)
-                return {
-                    ...prev,
-                    subject: [...currentSubjects, value]
-                }
-            }
-        })
-    }
-
-    // Handle submit form
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-
-        // Submit menggunakan custom hook
-        const success = await submitForm(formData)
-
-        // Reset form hanya jika berhasil
-        if (success) {
-            setFormData({
-                senderName: '',
-                senderEmail: '',
-                organizationName: '',
-                senderPhone: '',
-                subject: [],
-                messageBody: ''
-            })
-        }
-    }
+    const {
+        formData,
+        isSubmitting,
+        submitStatus,
+        fieldErrors,
+        handleInputChange,
+        handleSubjectCheckboxChange,
+        handleBlur,
+        handleSubmit,
+    } = useContactFormState()
 
     return (
         <div className="bg-white border border-[var(--color-primary-900)] rounded-2xl shadow-xl p-8 lg:px-18 lg:py-14">
@@ -212,7 +137,7 @@ export function ContactForm() {
                         </Typography>
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                        {subjectOptions.map((option) => (
+                        {CONTACT_SUBJECT_OPTIONS.map((option) => (
                             <label
                                 key={option.value}
                                 className="flex items-center gap-3 cursor-pointer group transition-all"

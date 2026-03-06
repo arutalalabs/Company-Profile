@@ -1,29 +1,51 @@
 'use client'
 
-import { ListBlockData } from '@/types/article'
+import { ListBlockData, ListItem } from '@/types/article'
 
 interface ListBlockProps {
     data: ListBlockData
 }
 
-/**
- * ListBlock - Renders ordered or unordered lists
- */
-export function ListBlock({ data }: ListBlockProps) {
-    const { style, items } = data
+function getItemContent(item: string | ListItem): string {
+    if (typeof item === 'string') return item
+    return item.content
+}
 
+function getItemChildren(item: string | ListItem): (string | ListItem)[] {
+    if (typeof item === 'string') return []
+    return item.items || []
+}
+
+function RenderItems({ items, style }: { items: (string | ListItem)[], style: 'ordered' | 'unordered' }) {
     const Tag = style === 'ordered' ? 'ol' : 'ul'
     const listStyle = style === 'ordered' ? 'list-decimal' : 'list-disc'
 
     return (
-        <Tag className={`${listStyle} ml-6 mb-6 space-y-2`}>
+        <Tag className={`${listStyle} ml-6 space-y-2`}>
             {items.map((item, index) => (
                 <li
                     key={index}
                     className="text-base sm:text-lg text-[var(--color-neutral-700)] leading-relaxed pl-2"
-                    dangerouslySetInnerHTML={{ __html: item }}
-                />
+                >
+                    <span dangerouslySetInnerHTML={{ __html: getItemContent(item) }} />
+                    {getItemChildren(item).length > 0 && (
+                        <RenderItems items={getItemChildren(item)} style={style} />
+                    )}
+                </li>
             ))}
         </Tag>
+    )
+}
+
+/**
+ * ListBlock - Renders ordered or unordered lists (supports nested Editor.js list format)
+ */
+export function ListBlock({ data }: ListBlockProps) {
+    const { style, items } = data
+
+    return (
+        <div className="mb-6">
+            <RenderItems items={items} style={style} />
+        </div>
     )
 }
