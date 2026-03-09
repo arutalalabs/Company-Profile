@@ -1,20 +1,103 @@
 'use client'
 
 import { Typography, Button } from '@/components'
-import { useContactFormState } from '@/hooks/useContactFormState'
-import { CONTACT_SUBJECT_OPTIONS } from '@/constants/kontak'
+import { useContactForm } from '@/hooks/useContactForm'
+import {
+    trackContactFormSubmit,
+    trackContactFormSuccess,
+    trackContactFormError,
+} from '@/lib/analytics'
 
 export function ContactForm() {
-    const {
-        formData,
-        isSubmitting,
-        submitStatus,
-        fieldErrors,
-        handleInputChange,
-        handleSubjectCheckboxChange,
-        handleBlur,
-        handleSubmit,
-    } = useContactFormState()
+    // State untuk form fields
+    const [formData, setFormData] = useState({
+        senderName: '',
+        senderEmail: '',
+        organizationName: '',
+        senderPhone: '',
+        subject: [] as string[],
+        messageBody: ''
+    })
+
+    // Gunakan custom hook untuk submission logic
+    const { isSubmitting, submitStatus, fieldErrors, submitForm, validateField } = useContactForm()
+
+    // Handle blur untuk real-time validation
+    const handleBlur = (fieldName: keyof typeof formData) => {
+        validateField(fieldName, formData[fieldName])
+    }
+
+    // Pilihan subject
+    const subjectOptions = [
+        { value: 'IT Education', label: 'IT Education' },
+        { value: 'Resources', label: 'Resources' },
+        { value: 'Software Services', label: 'Software Services' },
+        { value: 'Partner', label: 'Partner' },
+        { value: 'Lainnya', label: 'Lainnya' }
+    ]
+
+    // Handle perubahan input
+    const handleInputChange = (
+        e: React.ChangeEvent<
+            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >
+    ) => {
+        const { name, value } = e.target
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    // Handle perubahan subject (checkbox - multiple choice)
+    const handleSubjectCheckboxChange = (value: string) => {
+        setFormData((prev) => {
+            const currentSubjects = prev.subject
+            const isChecked = currentSubjects.includes(value)
+
+            if (isChecked) {
+                // Jika sudah dipilih, remove dari array (uncheck)
+                return {
+                    ...prev,
+                    subject: currentSubjects.filter(item => item !== value)
+                }
+            } else {
+                // Jika belum dipilih, tambahkan ke array (multiple selection allowed)
+                return {
+                    ...prev,
+                    subject: [...currentSubjects, value]
+                }
+            }
+        })
+    }
+
+    // Handle submit form
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+
+        trackContactFormSubmit(formData.subject)
+
+        // Submit menggunakan custom hook
+        const success = await submitForm(formData)
+
+        if (success) {
+            // Kirim event GA4: form berhasil dikirim (konversi)
+            trackContactFormSuccess(formData.subject)
+
+            // Reset form hanya jika berhasil
+            setFormData({
+                senderName: '',
+                senderEmail: '',
+                organizationName: '',
+                senderPhone: '',
+                subject: [],
+                messageBody: ''
+            })
+        } else {
+            // Kirim event GA4: form gagal dikirim
+            trackContactFormError(formData.subject, 'submission_failed')
+        }
+    }
 
     return (
         <div className="bg-white border border-[var(--color-primary-900)] rounded-2xl shadow-xl p-8 lg:px-18 lg:py-14">
