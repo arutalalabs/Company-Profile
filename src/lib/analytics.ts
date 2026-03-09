@@ -1,4 +1,3 @@
-
 type GtagEventParams = {
     [key: string]: string | number | boolean
 }
