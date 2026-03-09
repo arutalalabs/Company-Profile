@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { Typography, Button } from '@/components'
 import { useContactForm } from '@/hooks/useContactForm'
 import {
@@ -221,7 +220,7 @@ export function ContactForm() {
                         </Typography>
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                        {subjectOptions.map((option) => (
+                        {CONTACT_SUBJECT_OPTIONS.map((option) => (
                             <label
                                 key={option.value}
                                 className="flex items-center gap-3 cursor-pointer group transition-all"

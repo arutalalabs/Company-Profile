@@ -1,11 +1,8 @@
 'use client'
 
 import { Typography } from '@/components'
+import { CONTACT_DETAILS } from '@/constants/kontak'
 
-/**
- * Komponen untuk menampilkan informasi kontak
- * Menampilkan judul, deskripsi, email, dan WhatsApp
- */
 export function ContactInfo() {
     return (
         <div className="space-y-4">
@@ -51,7 +48,7 @@ export function ContactInfo() {
                     </div>
                     <div>
                         <Typography color="neutral-600" className="mt-1">
-                            admin@arutalab.com
+                            {CONTACT_DETAILS.email}
                         </Typography>
                     </div>
                 </div>
@@ -71,7 +68,7 @@ export function ContactInfo() {
                     </div>
                     <div>
                         <Typography color="neutral-600" className="mt-1">
-                            0851-8316-6005
+                            {CONTACT_DETAILS.whatsapp}
                         </Typography>
                     </div>
                 </div>

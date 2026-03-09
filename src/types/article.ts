@@ -21,9 +21,14 @@ export interface ImageBlockData {
     withBackground?: boolean
 }
 
+export interface ListItem {
+    content: string
+    items?: ListItem[]
+}
+
 export interface ListBlockData {
     style: 'ordered' | 'unordered'
-    items: string[]
+    items: (string | ListItem)[]
 }
 
 export interface CodeBlockData {
