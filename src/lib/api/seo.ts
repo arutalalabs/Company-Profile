@@ -70,7 +70,7 @@ export function buildMetadata(
             title,
             description,
             siteName: 'ArutalaLab',
-            images: [{ url: '/logo.png', width: 1200, height: 630 }],
+            images: [{ url: '/src/common/logo.png', width: 1200, height: 630 }],
         },
         robots: {
             index: true,
