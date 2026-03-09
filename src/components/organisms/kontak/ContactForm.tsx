@@ -3,11 +3,12 @@
 import { useState } from 'react'
 import { Typography, Button } from '@/components'
 import { useContactForm } from '@/hooks/useContactForm'
+import {
+    trackContactFormSubmit,
+    trackContactFormSuccess,
+    trackContactFormError,
+} from '@/lib/analytics'
 
-/**
- * Komponen form kontak untuk mengirim pesan
- * Berisi form dengan validasi dan integrasi API
- */
 export function ContactForm() {
     // State untuk form fields
     const [formData, setFormData] = useState({
@@ -75,11 +76,16 @@ export function ContactForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
+        trackContactFormSubmit(formData.subject)
+
         // Submit menggunakan custom hook
         const success = await submitForm(formData)
 
-        // Reset form hanya jika berhasil
         if (success) {
+            // Kirim event GA4: form berhasil dikirim (konversi)
+            trackContactFormSuccess(formData.subject)
+
+            // Reset form hanya jika berhasil
             setFormData({
                 senderName: '',
                 senderEmail: '',
@@ -88,6 +94,9 @@ export function ContactForm() {
                 subject: [],
                 messageBody: ''
             })
+        } else {
+            // Kirim event GA4: form gagal dikirim
+            trackContactFormError(formData.subject, 'submission_failed')
         }
     }
 
