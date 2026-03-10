@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getSeoData, buildMetadata } from '@/lib/api/seo'
+import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 import {
     CTA,
     HeroSection,
@@ -10,8 +10,6 @@ import {
     MitrasSection,
     ArticlesSection
 } from '@/components'
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.arutalalab.com'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('home')

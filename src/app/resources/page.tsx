@@ -3,9 +3,7 @@ import { HeroResource, CTA } from '@/components';
 import ITField from '@/components/organisms/resource/ITField';
 import ProfitSection from '@/components/organisms/resource/ProfitSection';
 import TestimonialSection from '@/components/organisms/resource/TestimonialTalentSection';
-import { getSeoData, buildMetadata } from '@/lib/api/seo'
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
+import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('resources')

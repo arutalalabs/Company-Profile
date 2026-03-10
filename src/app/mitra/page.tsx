@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import { MitraHero, MitraSection, CTA } from '@/components'
 import { mitrasApi } from '@/lib/api/mitras'
-import { getSeoData, buildMetadata } from '@/lib/api/seo'
+import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 
 export const revalidate = 3600
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('mitra')

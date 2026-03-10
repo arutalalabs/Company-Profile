@@ -1,14 +1,12 @@
 import type { Metadata } from 'next'
 import { CTA } from '@/components'
-import { getSeoData, buildMetadata } from '@/lib/api/seo'
+import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 import HeroSoftwareServices from '@/components/organisms/software-services/HeroSoftwareServices'
 import AboutSection from '@/components/organisms/software-services/AboutSection'
 import ProcessSection from '@/components/organisms/software-services/ProcessSection'
 import AdvantagesSection from '@/components/organisms/software-services/AdvantagesSection'
 import WhyChooseSection from '@/components/organisms/software-services/WhyChooseSection'
 import ContactFlowSection from '@/components/organisms/software-services/ContactFlowSection'
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('software-services')
