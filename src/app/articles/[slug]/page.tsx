@@ -2,15 +2,13 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ArticleDetailContent } from '@/components/organisms/article-detail'
 import { getArticleBySlugWithContent, getAllArticles, generateArticleSlug } from '@/lib/api/articles'
-import { getSeoData, buildMetadata } from '@/lib/api/seo'
+import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 
 interface ArticleDetailPageProps {
     params: Promise<{
         slug: string
     }>
 }
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
 
 /** ISR: revalidate setiap 1 jam */
 export const revalidate = 3600

@@ -1,9 +1,7 @@
 import type { Metadata } from 'next'
 import { ArticlePageContent } from '@/components/organisms/article'
 import { CTA } from '@/components/molecules/cta'
-import { getSeoData, buildMetadata } from '@/lib/api/seo'
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
+import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('articles')

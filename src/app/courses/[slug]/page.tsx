@@ -9,15 +9,13 @@ import {
     CourseFeatures
 } from '@/components/organisms/course-detail'
 import { getCourseBySlug, getAllCourse, generateCourseSlug } from '@/lib/api/courses'
-import { getSeoData, buildMetadata } from '@/lib/api/seo'
+import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 
 interface CourseDetailPageProps {
     params: Promise<{
         slug: string
     }>
 }
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://arutalalab.vercel.app'
 
 export const revalidate = 60
 

@@ -4,9 +4,7 @@ import { Header } from '@/components'
 import { Footer } from '@/components'
 import type { Metadata } from 'next'
 import { GoogleAnalytics } from '@next/third-parties/google'
-import { getSeoData, buildMetadata } from '@/lib/api/seo'
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.arutalalab.com'
+import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('home')
