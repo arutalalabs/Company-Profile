@@ -1,6 +1,11 @@
-import config from 'config/eslint/next.js'
-import typescript from 'config/eslint/typescript.js'
+import { FlatCompat } from '@eslint/eslintrc'
 
-export default typescript(import.meta.dirname, config, {
-    ignores: [...config.ignores]
-})
+const compat = new FlatCompat({ baseDirectory: import.meta.dirname })
+
+export default [
+    ...compat.extends('next/core-web-vitals', 'next/typescript'),
+    ...compat.extends('prettier'),
+    {
+        ignores: ['.next/**', 'node_modules/**', 'out/**', 'build/**'],
+    },
+]
