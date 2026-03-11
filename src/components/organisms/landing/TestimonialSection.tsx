@@ -1,5 +1,5 @@
 ﻿import TestimonialSection from '@/components/organisms/TestimonialSection'
 
 export default function LandingTestimonialSection() {
-    return <TestimonialSection category="siswa" title="Testimoni Peserta" />
+    return <TestimonialSection category="siswa" title="Testimoni Peserta" source="landing_page" />
 }

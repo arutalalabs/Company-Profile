@@ -1,21 +1,21 @@
 'use client'
-import { useEffect, useState } from 'react'
 import { Tag, Typography, Button } from '@/components'
 import { scrollToElement } from '@/utils/scroll'
 import { ROUTES } from '@/constants/routes'
+import { HERO_STARS, HERO_GLOW_STARS, HERO_SHOOTING_STARS } from '@/constants/landing'
+import { useMounted } from '@/hooks/useMounted'
 import Link from 'next/link'
+import { trackHeroContactClick, trackHeroUpcomingCourseClick } from '@/lib/analytics'
 
-// Shooting star component
 function ShootingStar({ style }: { style: React.CSSProperties }) {
     return (
         <div
-            className="absolute h-px bg-gradient-to-r from-transparent via-white to-transparent animate-[shoot_linear_infinite]"
+            className="absolute h-px bg-gradient-to-r from-transparent via-white to-transparent"
             style={style}
         />
     )
 }
 
-// Static twinkling star
 function Star({ x, y, size, delay, duration, opacity }: {
     x: number; y: number; size: number;
     delay: number; duration: number; opacity: number
@@ -35,7 +35,6 @@ function Star({ x, y, size, delay, duration, opacity }: {
     )
 }
 
-// Glowing star — menggunakan desain StarGlow asli (salib + blur layers) dalam ukuran kecil
 function GlowStar({ x, y, delay }: { x: number; y: number; delay: number }) {
     const duration = `${3 + delay}s`
     const delayStr = `${delay}s`
@@ -45,7 +44,6 @@ function GlowStar({ x, y, delay }: { x: number; y: number; delay: number }) {
             style={{
                 left: `${x}%`,
                 top: `${y}%`,
-                // ukuran container tetap kecil: 20px (setara w-5 h-5)
                 width: '20px',
                 height: '20px',
                 animation: `twinkle ${duration} ease-in-out ${delayStr} infinite`,
@@ -75,70 +73,27 @@ function GlowStar({ x, y, delay }: { x: number; y: number; delay: number }) {
     )
 }
 
-// Deterministic star data generated from seed
-function generateStars(count: number, seed = 42) {
-    const stars = []
-    let s = seed
-    const rand = () => {
-        s = (s * 1664525 + 1013904223) & 0xffffffff
-        return (s >>> 0) / 0xffffffff
-    }
-    for (let i = 0; i < count; i++) {
-        stars.push({
-            x: rand() * 100,
-            y: rand() * 100,
-            size: rand() * 1.5 + 0.5,
-            delay: rand() * 5,
-            duration: rand() * 3 + 2,
-            opacity: rand() * 0.6 + 0.2,
-        })
-    }
-    return stars
-}
-
-function generateGlowStars(count: number, seed = 99) {
-    const stars = []
-    let s = seed
-    const rand = () => {
-        s = (s * 1664525 + 1013904223) & 0xffffffff
-        return (s >>> 0) / 0xffffffff
-    }
-    for (let i = 0; i < count; i++) {
-        stars.push({ x: rand() * 95 + 2.5, y: rand() * 85 + 2.5, delay: rand() * 4 })
-    }
-    return stars
-}
-
-const STARS = generateStars(50)
-const GLOW_STARS = generateGlowStars(5)
-
-const SHOOTING_STARS = [
-    { top: '12%', left: '-5%', width: '120px', animationDuration: '4s', animationDelay: '1s', transform: 'rotate(20deg)' },
-    { top: '28%', left: '-8%', width: '80px',  animationDuration: '6s', animationDelay: '3.5s', transform: 'rotate(18deg)' },
-    { top: '8%',  left: '-10%', width: '160px', animationDuration: '5s', animationDelay: '7s',   transform: 'rotate(22deg)' },
-    { top: '55%', left: '-6%', width: '100px', animationDuration: '7s', animationDelay: '2s',   transform: 'rotate(15deg)' },
-]
-
 export default function HeroSection() {
-    const [mounted, setMounted] = useState(false)
+    const mounted = useMounted()
 
-    useEffect(() => { setMounted(true) }, [])
-
-    const handleScrollToLearning = () => scrollToElement('coming-soon-learning')
+    const handleScrollToLearning = () => {
+        trackHeroUpcomingCourseClick()
+        scrollToElement('coming-soon-learning')
+    }
 
     return (
         <>
-            {/* Keyframe definitions */}
+            {/* Keyframes for star/nebula animations — kept inline so they survive CSS build tree-shaking */}
             <style>{`
                 @keyframes twinkle {
                     0%, 100% { opacity: var(--tw-opacity, 0.4); transform: scale(1); }
                     50%       { opacity: 1;                     transform: scale(1.3); }
                 }
                 @keyframes shoot {
-                    0%   { transform: var(--shoot-rotate, rotate(20deg)) translateX(0);   opacity: 0; }
+                    0%   { transform: var(--shoot-rotate, rotate(20deg)) translateX(0);      opacity: 0; }
                     5%   { opacity: 1; }
                     80%  { opacity: 1; }
-                    100% { transform: var(--shoot-rotate, rotate(20deg)) translateX(110vw); opacity: 0; }
+                    100% { transform: var(--shoot-rotate, rotate(20deg)) translateX(110vw);  opacity: 0; }
                 }
                 @keyframes nebulaPulse {
                     0%, 100% { opacity: 0.18; transform: scale(1); }
@@ -197,27 +152,24 @@ export default function HeroSection() {
                         />
 
                         {/* ── Small twinkling stars (client-only to avoid hydration mismatch from PRNG) ── */}
-                        {mounted && STARS.map((s, i) => (
+                        {mounted && HERO_STARS.map((s, i) => (
                             <Star key={i} {...s} />
                         ))}
 
                         {/* ── Glow cross-stars (client-only) ── */}
-                        {mounted && GLOW_STARS.map((s, i) => (
+                        {mounted && HERO_GLOW_STARS.map((s, i) => (
                             <GlowStar key={i} {...s} />
                         ))}
 
                         {/* ── Shooting stars ── */}
-                        {SHOOTING_STARS.map((s, i) => (
+                        {HERO_SHOOTING_STARS.map((s, i) => (
                             <ShootingStar
                                 key={i}
                                 style={{
                                     top: s.top,
                                     left: s.left,
                                     width: s.width,
-                                    transform: s.transform,
-                                    animationDuration: s.animationDuration,
-                                    animationDelay: s.animationDelay,
-                                    // pass rotate to keyframe via custom prop
+                                    animation: `shoot ${s.animationDuration} linear ${s.animationDelay} infinite`,
                                     ['--shoot-rotate' as string]: s.transform,
                                 }}
                             />
@@ -271,16 +223,19 @@ export default function HeroSection() {
 
                             {/* Buttons */}
                             <div className="flex sm:flex-row gap-3 justify-center items-center sm:gap-4 lg:gap-4">
-                                <Link href={ROUTES.KONTAK}>
-                                    <Button
-                                        size="sm"
-                                        shape="solid"
-                                        color="accent-600"
-                                        className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
-                                    >
-                                        Contact Us
-                                    </Button>
-                                </Link>
+                                {/* onClick dipasang di span karena <Link> tidak menerima onClick langsung untuk tracking */}
+                                <span onClick={() => trackHeroContactClick()}>
+                                    <Link href={ROUTES.KONTAK}>
+                                        <Button
+                                            size="sm"
+                                            shape="solid"
+                                            color="accent-600"
+                                            className="sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
+                                        >
+                                            Contact Us
+                                        </Button>
+                                    </Link>
+                                </span>
                                 <Button
                                     size="sm"
                                     shape="outline"

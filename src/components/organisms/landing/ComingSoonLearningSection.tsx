@@ -7,6 +7,7 @@ import { useCourseSelection } from '@/hooks/useCourseSelection'
 import { PosterModal } from '@/components'
 import { ROUTES } from '@/constants/routes'
 import Link from 'next/link'
+import { trackCourseCategoryClick, trackCourseDetailClick } from '@/lib/analytics'
 
 export default function ComingSoonLearningSection() {
     const [showPosterModal, setShowPosterModal] = useState(false)
@@ -109,6 +110,7 @@ export default function ComingSoonLearningSection() {
                                                     <button
                                                         key={category}
                                                         onClick={() => {
+                                                            trackCourseCategoryClick(category)
                                                             setSelectedIndex(index);
                                                             setIsDropdownOpen(false);
                                                         }}
@@ -137,7 +139,10 @@ export default function ComingSoonLearningSection() {
                                                 ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] hover:bg-[var(--color-accent-700)]'
                                                 : 'bg-transparent text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]'
                                                 }`}
-                                            onClick={() => setSelectedIndex(index)}
+                                            onClick={() => {
+                                                trackCourseCategoryClick(category)
+                                                setSelectedIndex(index)
+                                            }}
                                         >
                                             {category}
                                         </Button>
@@ -259,6 +264,7 @@ export default function ComingSoonLearningSection() {
                                 <div className="">
                                     <Link
                                         href={`${ROUTES.COURSES}/${generateCourseSlug(currentCourse.course_title)}`}
+                                        onClick={() => trackCourseDetailClick(currentCourse.course_title, selectedCategory)}
                                         className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer lg:mb-4 2xl:mb-0"
                                     >
                                         <Typography
