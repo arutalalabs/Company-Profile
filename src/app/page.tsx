@@ -10,6 +10,7 @@ import {
     MitrasSection,
     ArticlesSection
 } from '@/components'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('home')
@@ -28,6 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Landing() {
     return (
         <>
+            <ScrollTracker />
             <HeroSection />
             <ServicesSection />
             <WhyArutalaLabSection />

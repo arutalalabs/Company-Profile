@@ -44,6 +44,16 @@ export function trackArticleViewAllClick(): void {
     trackEvent('article_view_all_click')
 }
 
+// CTA Events
+export function trackCTAClick(): void {
+    trackEvent('cta_click')
+}
+
+// Scroll Depth Events
+export function trackScrollDepth(percent: number): void {
+    trackEvent('percent_scrolled', { percent })
+}
+
 // Contact Form Events
 export function trackContactFormSubmit(subjects: string[]): void {
     trackEvent('contact_form_submit', {

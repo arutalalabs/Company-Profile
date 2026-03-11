@@ -2,6 +2,7 @@
 
 import { Typography, Button, Image } from '../../index'
 import Link from 'next/link'
+import { trackCTAClick } from '@/lib/analytics'
 
 interface CTAProps {
     title?: string
@@ -53,12 +54,15 @@ export function CTA({
                                         shape="outline"
                                         color="accent-600"
                                         className="border-2 sm:text-xs sm:px-4 py-3 sm:min-h-[1rem] sm:rounded-[20px] lg:text-sm lg:px-6 py-3 lg:min-h-[2.5rem] lg:gap-3 lg:rounded-[20px]"
-                                        onClick={onButtonClick}
+                                        onClick={() => {
+                                            trackCTAClick()
+                                            onButtonClick()
+                                        }}
                                     >
                                         {buttonText}
                                     </Button>
                                 ) : (
-                                    <Link href={contactPath}>
+                                    <Link href={contactPath} onClick={() => trackCTAClick()}>
                                         <Button
                                             size="sm"
                                             shape="outline"
