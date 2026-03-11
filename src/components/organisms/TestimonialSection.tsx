@@ -3,10 +3,12 @@ import { Typography, Button, Icon, Image } from '@/components'
 import { useTestimonials } from '@/hooks/useTestimonials'
 import { useCarousel } from '@/hooks/useCarousel'
 import type { TestimonialSectionProps } from '@/types/testimonial'
+import { trackTestimonialClick } from '@/lib/analytics'
 
 export default function TestimonialSection({
     category,
     title,
+    source,
     sectionId,
     className = 'bg-white',
 }: TestimonialSectionProps) {
@@ -65,7 +67,10 @@ export default function TestimonialSection({
                             size="sm"
                             shape="outline"
                             color="accent-600"
-                            onClick={prevTestimonial}
+                            onClick={() => {
+                                trackTestimonialClick(source, category, 'previous')
+                                prevTestimonial()
+                            }}
                             className="w-10 h-10 sm:w-12 sm:h-12 lg:w-10 lg:h-10 2xl:w-10 2xl:h-10 p-0 rounded-full border-2 transition-all duration-200 !bg-transparent hover:scale-105"
                         >
                             <Icon
@@ -82,7 +87,10 @@ export default function TestimonialSection({
                             size="sm"
                             shape="outline"
                             color="accent-600"
-                            onClick={nextTestimonial}
+                            onClick={() => {
+                                trackTestimonialClick(source, category, 'next')
+                                nextTestimonial()
+                            }}
                             className="w-10 h-10 sm:w-12 sm:h-12 lg:w-10 lg:h-10 2xl:w-10 2xl:h-10 p-0 rounded-full border-2 transition-all duration-200 !bg-transparent hover:scale-105"
                         >
                             <Icon
@@ -219,7 +227,10 @@ export default function TestimonialSection({
                         size="sm"
                         shape="outline"
                         color="accent-600"
-                        onClick={prevTestimonial}
+                        onClick={() => {
+                            trackTestimonialClick(source, category, 'previous')
+                            prevTestimonial()
+                        }}
                         className="w-10 h-10 p-0 rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
                     >
                         <Icon
@@ -236,7 +247,10 @@ export default function TestimonialSection({
                         size="sm"
                         shape="outline"
                         color="accent-600"
-                        onClick={nextTestimonial}
+                        onClick={() => {
+                            trackTestimonialClick(source, category, 'next')
+                            nextTestimonial()
+                        }}
                         className="w-10 h-10 p-0 rounded-full border-2 hover:bg-[var(--color-accent-50)] transition-all duration-200"
                     >
                         <Icon

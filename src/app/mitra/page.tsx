@@ -8,7 +8,7 @@ export const revalidate = 3600
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('mitra')
     return buildMetadata(seo, {
-        fallbackTitle: 'Mitra | ArutalaLab',
+        fallbackTitle: 'Mitra',
         fallbackDescription: 'Bergabunglah sebagai mitra ArutalaLab dan wujudkan transformasi digital bersama.',
         pageUrl: `${SITE_URL}/mitra`,
     })

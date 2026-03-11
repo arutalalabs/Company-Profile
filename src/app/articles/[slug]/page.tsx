@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: ArticleDetailPageProps): Prom
     const article = await getArticleBySlugWithContent(slug)
     const seo = article ? await getSeoData(article.article_id) : null
     return buildMetadata(seo, {
-        fallbackTitle: article?.article_title ?? 'Artikel | ArutalaLab',
+        fallbackTitle: article?.article_title ?? 'Artikel',
         fallbackDescription:
             article?.article_cover_description ??
             article?.article_content_text?.slice(0, 160) ??

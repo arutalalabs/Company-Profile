@@ -12,6 +12,7 @@ export interface Testimonial {
 export interface TestimonialSectionProps {
     category: string
     title: string
+    source: string
     sectionId?: string
     className?: string
 }

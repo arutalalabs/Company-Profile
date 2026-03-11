@@ -22,11 +22,9 @@ export interface SeoApiResponse {
 }
 
 export interface BuildMetadataConfig {
-    /** True for root layout: generates title.default + title.template */
     isLayout?: boolean
     fallbackTitle: string
     fallbackDescription: string
-    /** Absolute URL for this page, used in OpenGraph */
     pageUrl: string
 }
 

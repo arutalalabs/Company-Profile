@@ -4,17 +4,12 @@ import { Header } from '@/components'
 import { Footer } from '@/components'
 import type { Metadata } from 'next'
 import { GoogleAnalytics } from '@next/third-parties/google'
-import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 
-export async function generateMetadata(): Promise<Metadata> {
-    const seo = await getSeoData('home')
-    return buildMetadata(seo, {
-        isLayout: true,
-        fallbackTitle: 'ArutalaLab',
-        fallbackDescription:
-            'ArutalaLab merupakan platform untuk IT Education, Resources, dan Software Services yang mendukung pertumbuhan individu dan perusahaan.',
-        pageUrl: SITE_URL,
-    })
+export const metadata: Metadata = {
+    title: {
+        default: 'ArutalaLab',
+        template: '%s | ArutalaLab',
+    },
 }
 
 // export const metadata: Metadata = {
@@ -83,9 +78,7 @@ export default function RootLayout({
             </head>
             
             <body className="font-sans">
-                {/* <GoogleTagManager gtmId="G-GDEN7QC20C" /> */}
-                {/* <GoogleAnalytics gaId="G-GDEN7QC20C" /> */}
-                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
+                <GoogleAnalytics gaId="G-GDEN7QC20C" />
 
                 <Header
                     logo={{

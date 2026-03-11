@@ -5,7 +5,7 @@ import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('profile')
     return buildMetadata(seo, {
-        fallbackTitle: 'Profile | ArutalaLab',
+        fallbackTitle: 'Profile',
         fallbackDescription: 'Kenali lebih dalam tentang visi, misi, dan tim ArutalaLab dalam mendukung transformasi digital Indonesia.',
         pageUrl: `${SITE_URL}/profile`,
     })

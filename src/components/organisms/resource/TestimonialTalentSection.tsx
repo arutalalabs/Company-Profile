@@ -5,6 +5,7 @@ export default function TestimonialTalentSection() {
         <TestimonialSection
             category="talent"
             title="Testimoni Talent"
+            source="resources_page"
             sectionId="testimonial"
             className="bg-[#ffffff]"
         />

@@ -13,12 +13,16 @@ import {
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('home')
-    return buildMetadata(seo, {
+    const base = buildMetadata(seo, {
         fallbackTitle: 'ArutalaLab',
         fallbackDescription:
-            'ArutalaLab merupakan platform untuk IT Education, Resources, dan Software Services yang mendukung pertumbuhan individu dan perusahaan.',
+            'Penyedia Layanan IT Education, Resources, dan Software Services yang mendukung pertumbuhan individu dan perusahaan.',
         pageUrl: SITE_URL,
     })
+    return {
+        ...base,
+        title: { absolute: seo?.meta_title || 'ArutalaLab' },
+    }
 }
 
 export default function Landing() {

@@ -3,6 +3,7 @@ import { Typography, Button, Icon, Image, formatDateIndonesia } from '@/componen
 import { useArticles } from '@/hooks/useArticles'
 import { ROUTES } from '@/constants/routes'
 import Link from 'next/link'
+import { trackArticleReadMoreClick, trackArticleViewAllClick } from '@/lib/analytics'
 
 export default function ArticlesSection() {
     const { articles: latestArticles, loading: isLoading } = useArticles(3)
@@ -104,6 +105,7 @@ export default function ArticlesSection() {
                                         <div>
                                             <Link
                                                 href={`${ROUTES.ARTICLES}/${article.slug}`}
+                                                onClick={trackArticleReadMoreClick}
                                                 className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
                                             >
                                                 <Typography
@@ -150,7 +152,7 @@ export default function ArticlesSection() {
 
                 {/* View All Articles Button */}
                 <div className="flex justify-center mt-12 lg:mt-16">
-                    <Link href={ROUTES.ARTICLES}>
+                    <Link href={ROUTES.ARTICLES} onClick={trackArticleViewAllClick}>
                         <Button
                             size="sm"
                             shape="outline"
