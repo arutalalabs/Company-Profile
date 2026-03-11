@@ -13,7 +13,7 @@ import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('it-education')
     return buildMetadata(seo, {
-        fallbackTitle: 'IT Education | ArutalaLab',
+        fallbackTitle: 'IT Education',
         fallbackDescription: 'Program pendidikan IT berkualitas tinggi untuk mempersiapkan Anda menghadapi tantangan industri teknologi.',
         pageUrl: `${SITE_URL}/it-education`,
     })

@@ -11,7 +11,7 @@ import ContactFlowSection from '@/components/organisms/software-services/Contact
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('software-services')
     return buildMetadata(seo, {
-        fallbackTitle: 'Software Services | ArutalaLab',
+        fallbackTitle: 'Software Services',
         fallbackDescription: 'Layanan pengembangan software profesional dari ArutalaLab untuk akselerasi transformasi digital bisnis Anda.',
         pageUrl: `${SITE_URL}/software-services`,
     })
