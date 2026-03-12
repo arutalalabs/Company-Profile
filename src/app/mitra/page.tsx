@@ -3,7 +3,7 @@ import { MitraHero, MitraSection, CTA } from '@/components'
 import { mitrasApi } from '@/lib/api/mitras'
 import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 
-export const revalidate = 3600
+export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('mitra')
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function MitraPage() {
 
     const mitras = await mitrasApi.getAll({
-        revalidate: 3600,
+        revalidate: 60,
         tags: ['mitra-data']
     })
 
