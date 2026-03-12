@@ -2,6 +2,7 @@
 import { Typography, Tag, Button, Image } from '@/components'
 import { ROUTES } from '@/constants/routes'
 import { IT_EDUCATION_TAGS } from '@/constants/it-education'
+import { trackHeroContactClick } from '@/lib/analytics'
 import Link from 'next/link'
 
 export default function ITEducationHero() {
@@ -51,7 +52,7 @@ export default function ITEducationHero() {
                     {/* Buttons */}
                     <div className="mt-4 lg:mt-0">
                         
-                        <Link href={ROUTES.KONTAK}>
+                        <Link href={ROUTES.KONTAK} onClick={trackHeroContactClick}>
                             <Button
                                 shape="solid"
                                 color="accent-600"

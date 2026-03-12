@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { CTA } from '@/components'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 import { 
     ITEducationHero,
     WhyITEducation,
@@ -22,6 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function ITEducationPage() {
     return (
         <main className="min-h-screen bg-white">
+            <ScrollTracker />
             <ITEducationHero />
             <WhyITEducation />
             <LearningMethods />

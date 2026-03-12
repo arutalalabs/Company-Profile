@@ -30,6 +30,6 @@ export const INITIAL_FORM_DATA: MessageFormData = {
 // ============================================
 
 export const CONTACT_DETAILS = {
-    email: 'admin@arutalab.com',
+    email: 'admin@arutalalab.com',
     whatsapp: '0851-8316-6005',
 } as const

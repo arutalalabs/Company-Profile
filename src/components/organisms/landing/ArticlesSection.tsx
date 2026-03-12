@@ -105,7 +105,7 @@ export default function ArticlesSection() {
                                         <div>
                                             <Link
                                                 href={`${ROUTES.ARTICLES}/${article.slug}`}
-                                                onClick={trackArticleReadMoreClick}
+                                                onClick={() => trackArticleReadMoreClick(article.title)}
                                                 className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer"
                                             >
                                                 <Typography

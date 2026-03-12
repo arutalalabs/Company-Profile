@@ -2,6 +2,7 @@
 import { Image, Icon, Button, Typography } from "@/components"
 import { useState } from "react"
 import { IT_EDUCATION_CATEGORY_DATA as categoryData } from '@/constants/it-education'
+import { trackLearningMethodCategoryClick } from '@/lib/analytics'
 
 export default function LearningMethods() {
     const [selectedIndex, setSelectedIndex] = useState(0)
@@ -60,6 +61,7 @@ export default function LearningMethods() {
                                             onClick={() => {
                                                 setSelectedIndex(index);
                                                 setIsDropdownOpen(false);
+                                                trackLearningMethodCategoryClick(category);
                                             }}
                                             className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${selectedIndex === index
                                                     ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)]'
@@ -86,7 +88,7 @@ export default function LearningMethods() {
                                         ? 'bg-[var(--color-accent-600)] text-[var(--color-neutral-950)] hover:bg-[var(--color-accent-700)]'
                                         : 'bg-transparent text-[var(--color-neutral-50)] hover:bg-[var(--color-accent-600)] hover:text-[var(--color-neutral-950)]'
                                     }`}
-                                onClick={() => setSelectedIndex(index)}
+                                onClick={() => { setSelectedIndex(index); trackLearningMethodCategoryClick(category); }}
                             >
                                 {category}
                             </Button>
