@@ -6,6 +6,10 @@ import { clsx } from 'clsx'
 import { forwardRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import {
+    trackHeaderNavClick,
+    trackHeaderMobileMenuToggle,
+} from '@/lib/analytics'
 
 export interface MenuItem {
     label: string
@@ -48,7 +52,11 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
         const isMobileMenuOpen = mobileMenuOpen || internalMobileMenu
         const handleMobileMenuToggle =
             onMobileMenuToggle ||
-            (() => setInternalMobileMenu(!internalMobileMenu))
+            (() => {
+                const willOpen = !internalMobileMenu
+                trackHeaderMobileMenuToggle(willOpen ? 'open' : 'close')
+                setInternalMobileMenu(willOpen)
+            })
 
         // Function to check if menu item is active
         const isMenuActive = (item: MenuItem) => {
@@ -70,7 +78,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                         {/* Logo */}
                         <div className="">
                             {logo.href ? (
-                                <a href={logo.href} className="">
+                                <a href={logo.href} onClick={() => trackHeaderNavClick('Home')} className="">
                                     <Image
                                         src={logo.src}
                                         alt={logo.alt}
@@ -98,7 +106,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                             style={{ gap: '1px' }}
                         >
                             {menuItems.map((item, index) => (
-                                <Link key={index} href={item.href || '#'}>
+                                <Link key={index} href={item.href || '#'} onClick={() => trackHeaderNavClick(item.label)}>
                                     <Button
                                         size="sm"
                                         shape="solid"
@@ -120,7 +128,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                         <div className="hidden lg:flex items-center">
                             {contactButton &&
                                 (contactButton.href ? (
-                                    <a href={contactButton.href}>
+                                    <a href={contactButton.href} onClick={() => trackHeaderNavClick('Kontak')}>
                                         <Button
                                             size="sm"
                                             shape="solid"
@@ -203,7 +211,10 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                                 <nav className="space-y-1">
                                     {menuItems.map((item, index) => (
                                         <div key={index}>
-                                            <Link href={item.href || '#'} onClick={() => setInternalMobileMenu(false)}>
+                                            <Link href={item.href || '#'} onClick={() => {
+                                                trackHeaderNavClick(item.label)
+                                                setInternalMobileMenu(false)
+                                            }}>
                                                 <Button
                                                     size="lg"
                                                     shape="link"
@@ -243,7 +254,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
                             {contactButton && (
                                 <div className="p-6 border-t border-white/10 bg-black/10">
                                     {contactButton.href ? (
-                                        <a href={contactButton.href} className="block w-full">
+                                        <a href={contactButton.href} onClick={() => trackHeaderNavClick('Kontak')} className="block w-full">
                                             <Button
                                                 size="lg"
                                                 shape="solid"

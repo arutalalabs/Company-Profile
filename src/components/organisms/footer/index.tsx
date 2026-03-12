@@ -7,6 +7,10 @@ import { Image } from '../../atoms/image'
 import { clsx } from 'clsx'
 import { forwardRef } from 'react'
 import Link from 'next/link'
+import {
+    trackFooterNavClick,
+    trackFooterSocialClick,
+} from '@/lib/analytics'
 
 export interface FooterNavItem {
     label: string
@@ -58,26 +62,16 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                     <div className="flex items-center justify-between mb-2 mt-6">
                         {/* Logo */}
                         <div className="flex-shrink-0">
-                            {logo.href ? (
-                                <a href={logo.href} className="">
-                                    <Image
-                                        src={logo.src}
-                                        alt={logo.alt}
-                                        size="sm"
-                                        shape="square"
-                                        fit="cover"
-                                        className="cursor-pointer"
-                                    />
-                                </a>
-                            ) : (
+                            <Link href="/" onClick={() => trackFooterNavClick('Home')}>
                                 <Image
                                     src={logo.src}
                                     alt={logo.alt}
                                     size="sm"
                                     shape="square"
                                     fit="cover"
+                                    className="cursor-pointer hover:scale-110 transition-transform duration-200"
                                 />
-                            )}
+                            </Link>
                         </div>
 
                         {/* Social Icons */}
@@ -87,6 +81,7 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                                     {social.href ? (
                                         <a
                                             href={social.href}
+                                            onClick={() => trackFooterSocialClick(social.alt?.toLowerCase() ?? 'unknown')}
                                             className="text-[var(--color-neutral-50)] hover:text-[var(--color-accent-600)] transition-colors duration-200"
                                         >
                                             <Icon
@@ -133,7 +128,7 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                             </Typography>
                             <div className="flex flex-col">
                                 {layananItems.map((item, index) => (
-                                    <Link key={index} href={item.href || '#'}>
+                                    <Link key={index} href={item.href || '#'} onClick={() => trackFooterNavClick(item.label)}>
                                         <Button
                                             shape="link"
                                             color="neutral-50"
@@ -160,7 +155,7 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(
                             </Typography>
                             <div className="flex flex-col">
                                 {lainnyaItems.map((item, index) => (
-                                    <Link key={index} href={item.href || '#'}>
+                                    <Link key={index} href={item.href || '#'} onClick={() => trackFooterNavClick(item.label)}>
                                         <Button
                                             shape="link"
                                             color="neutral-50"

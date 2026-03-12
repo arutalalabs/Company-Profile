@@ -6,6 +6,7 @@ import { formatDateIndonesia } from '@/utils/date';
 import { formatPriceIDR } from '@/utils/format';
 import { useAvailableCourses } from '@/hooks/useAvailableCourses';
 import { useBreakpointCount } from '@/hooks/useBreakpointCount';
+import { trackAvailableCourseClick, trackCourseDetailClick } from '@/lib/analytics';
 import Link from 'next/link';
 
 
@@ -223,7 +224,7 @@ export default function AvailableCourseSection() {
                                     </div>
 
                                     {/* Action Button */}
-                                    <Link href={`${ROUTES.COURSES}/${generateCourseSlug(course.course_title)}`}>
+                                    <Link href={`${ROUTES.COURSES}/${generateCourseSlug(course.course_title)}`} onClick={() => trackCourseDetailClick(course.course_title, course.course_category_name)}>
                                         <Button 
                                             size="sm" 
                                             shape="solid"
@@ -241,7 +242,7 @@ export default function AvailableCourseSection() {
 
                 {/* View All Button */}
                 <div className="flex justify-end">
-                        <Link href={ROUTES.COURSES}>
+                        <Link href={ROUTES.COURSES} onClick={() => trackAvailableCourseClick()}>
                             <Button 
                                 size="sm" 
                                 shape="outline"

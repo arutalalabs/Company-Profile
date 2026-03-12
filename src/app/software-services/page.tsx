@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { CTA } from '@/components'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
 import HeroSoftwareServices from '@/components/organisms/software-services/HeroSoftwareServices'
 import AboutSection from '@/components/organisms/software-services/AboutSection'
@@ -20,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function SoftwareServicesPage() {
     return (
         <main className="min-h-screen bg-white">
+            <ScrollTracker />
             <HeroSoftwareServices />
             <AboutSection />
             <ProcessSection />

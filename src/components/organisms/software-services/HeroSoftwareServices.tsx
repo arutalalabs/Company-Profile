@@ -1,5 +1,6 @@
 'use client'
 import { Typography, Button, Image } from '@/components'
+import { trackHeroContactClick } from '@/lib/analytics'
 import Link from 'next/link'
 
 export default function HeroSoftwareServices() {
@@ -46,7 +47,7 @@ export default function HeroSoftwareServices() {
 
                         {/* Button */}
                         <div className="flex flex-col sm:flex-row gap-4 mt-2">
-                            <Link href="/kontak">
+                            <Link href="/kontak" onClick={trackHeroContactClick}>
                                 <Button
                                     shape="solid"
                                     color="accent-600"
