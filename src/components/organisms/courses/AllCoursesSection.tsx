@@ -7,6 +7,7 @@ import { useAllCourses } from '@/hooks/useAllCourses';
 import { formatPriceIDR } from '@/utils/format';
 import { formatDateIndonesia } from '@/utils/date';
 import Link from 'next/link';
+import { trackCourseCategoryClick, trackCourseDetailClick } from '@/lib/analytics';
 
 export default function AllCoursesSection() {
     const { loading, error, filter, setFilter, categories, filteredCourses } = useAllCourses();
@@ -93,7 +94,7 @@ export default function AllCoursesSection() {
                     {/* Category Filter Pills */}
                     <div className="flex flex-wrap gap-2 lg:gap-3">
                         <button
-                            onClick={() => setFilter('all')}
+                            onClick={() => { setFilter('all'); trackCourseCategoryClick('Semua'); }}
                             className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
                                 filter === 'all'
                                     ? 'bg-[var(--color-primary-900)] text-white'
@@ -105,7 +106,7 @@ export default function AllCoursesSection() {
                         {categories.map((category) => (
                             <button
                                 key={category}
-                                onClick={() => setFilter(category)}
+                                onClick={() => { setFilter(category); trackCourseCategoryClick(category); }}
                                 className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
                                     filter === category
                                         ? 'bg-[var(--color-primary-900)] text-white'
@@ -253,7 +254,7 @@ export default function AllCoursesSection() {
                                     </div>
 
                                     {/* Action Button */}
-                                    <Link href={`/courses/${generateCourseSlug(course.course_title)}`}>
+                                    <Link href={`/courses/${generateCourseSlug(course.course_title)}`} onClick={() => trackCourseDetailClick(course.course_title, course.course_category_name)}>
                                         <Button 
                                             size="sm" 
                                             shape="solid"

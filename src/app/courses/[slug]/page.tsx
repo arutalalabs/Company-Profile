@@ -10,6 +10,7 @@ import {
 } from '@/components/organisms/course-detail'
 import { getCourseBySlug, getAllCourse, generateCourseSlug } from '@/lib/api/courses'
 import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 
 interface CourseDetailPageProps {
     params: Promise<{
@@ -71,6 +72,7 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
 
     return (
         <main className="min-h-screen bg-white">
+            <ScrollTracker />
             {/* Hero Section */}
             <CourseDetailHero
                 title={course.course_title}
@@ -102,6 +104,7 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
             {batches.length > 0 && (
                 <CourseSchedule 
                     batches={batches}
+                    courseTitle={course.course_title}
                 />
             )}
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ArticlePageContent } from '@/components/organisms/article'
 import { CTA } from '@/components/molecules/cta'
 import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('articles')
@@ -120,6 +121,7 @@ export default function ArticlePage() {
 
     return (
         <main className="min-h-screen">
+            <ScrollTracker />
             {/* Article Content - fetches from API with loading/error states */}
             <ArticlePageContent
                 fallbackArticles={sortedArticles}

@@ -4,6 +4,7 @@ import ITField from '@/components/organisms/resource/ITField';
 import ProfitSection from '@/components/organisms/resource/ProfitSection';
 import TestimonialSection from '@/components/organisms/resource/TestimonialTalentSection';
 import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('resources')
@@ -17,6 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function ResourcePage() {
     return (
         <main className="min-h-screen bg-white">
+            <ScrollTracker />
             <HeroResource />
             <ITField />
             <ProfitSection />

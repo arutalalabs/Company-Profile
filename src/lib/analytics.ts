@@ -54,7 +54,7 @@ export function trackCourseDetailClick(courseTitle: string, category: string): v
     trackEvent('course_detail_click', { course_title: courseTitle, category })
 }
 
-export function trackTestimonialClick(source: string, category:string, buttonType: string): void {
+export function trackTestimonialClick(source: string, category: string, buttonType: string): void {
     trackEvent('testimonial_click', { source, category, button_type: buttonType })
 }
 
@@ -82,6 +82,50 @@ export function trackAvailableCourseClick(): void {
     trackEvent('available_course_click')
 }
 
+// Course Detail Page Events
+export function trackCourseDaftarClick(courseTitle: string, source: 'hero' | 'schedule_table'): void {
+    trackEvent('course_daftar_click', { course_title: courseTitle, source })
+}
+
+export function trackCourseLihatDetailClick(courseTitle: string): void {
+    trackEvent('course_lihat_detail_click', { course_title: courseTitle })
+}
+
+export function trackCourseExpandToggle(action: 'expand' | 'collapse'): void {
+    trackEvent('course_expand_toggle', { action })
+}
+
+export function trackCourseFAQToggle(question: string, action: 'expand' | 'collapse'): void {
+    trackEvent('course_faq_toggle', { question, action })
+}
+
+
+// Resource Page Events
+export function trackITFieldHover(fieldTitle: string): void {
+    trackEvent('it_field_hover', { field_title: fieldTitle })
+}
+
+
+// Software Services Page Events
+export function trackProcessPhaseClick(phaseTitle: string): void {
+    trackEvent('process_phase_click', { phase_title: phaseTitle })
+}
+
+
+// Profile Page Events
+export function trackIndustrySolutionTabClick(tabLabel: string): void {
+    trackEvent('industry_solution_tab_click', { tab_label: tabLabel })
+}
+
+
+// Article Pagination Events
+export function trackArticlePaginationClick(page: number): void {
+    trackEvent('article_pagination_click', { page })
+}
+
+export function trackArticleHeroPaginationClick(direction: 'prev' | 'next' | 'dot', slideIndex: number): void {
+    trackEvent('article_hero_pagination_click', { direction, slide_index: slideIndex })
+}
 
 
 // Contact Form Events
@@ -103,4 +147,3 @@ export function trackContactFormError(subjects: string[], reason: string): void 
         reason,
     })
 }
-

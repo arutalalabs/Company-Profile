@@ -24,6 +24,8 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
     variant?: 'default' | 'bordered' | 'separated'
     /** Size variant */
     size?: 'sm' | 'md' | 'lg'
+    /** Callback fired when an item is toggled — receives id, title, and new expanded state */
+    onItemToggle?: (id: string, title: string, isExpanded: boolean) => void
 }
 
 /**
@@ -145,7 +147,7 @@ AccordionItem.displayName = 'AccordionItem'
  * ```
  */
 export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
-    ({ items, allowMultiple = false, variant = 'default', size = 'md', className, ...props }, ref) => {
+    ({ items, allowMultiple = false, variant = 'default', size = 'md', className, onItemToggle, ...props }, ref) => {
         const [expandedItems, setExpandedItems] = useState<Set<string>>(() => {
             const defaultExpanded = new Set<string>()
             items.forEach(item => {
@@ -168,6 +170,10 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
                     }
                     newSet.add(id)
                 }
+
+                const willBeExpanded = newSet.has(id)
+                const item = items.find(i => i.id === id)
+                if (item) onItemToggle?.(id, item.title, willBeExpanded)
                 
                 return newSet
             })

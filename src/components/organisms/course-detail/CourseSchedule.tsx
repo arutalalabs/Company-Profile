@@ -2,9 +2,11 @@
 import { Typography, Button } from '@/components'
 import { ScheduleTable, type ScheduleRowData } from '@/components/molecules/schedule-table'
 import type { CourseDetailBatch, Prices } from '@/types/course'
+import { trackCourseDaftarClick } from '@/lib/analytics'
 
 interface CourseScheduleProps {
     batches: CourseDetailBatch[]
+    courseTitle?: string
     onRegisterClick?: (batchName: string) => void
 }
 
@@ -39,7 +41,7 @@ const formatTime = (timeString: string): string => {
 /**
  * CourseSchedule - Section showing available batches with schedule and pricing
  */
-export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps) {
+export function CourseSchedule({ batches, courseTitle, onRegisterClick }: CourseScheduleProps) {
     // Helper function to extract batch number from batch name
     const extractBatchNumber = (batchName: string): number => {
         const match = batchName.match(/\d+/)
@@ -216,9 +218,10 @@ export function CourseSchedule({ batches, onRegisterClick }: CourseScheduleProps
             status: getBatchStatus(batch),
             registrationUrl: batch.registration_url,
             onRegisterClick: () => {
-                if (batch.registration_url) {
-                    window.open(batch.registration_url, '_blank', 'noopener,noreferrer')
-                } else {
+                if (courseTitle) trackCourseDaftarClick(courseTitle, 'schedule_table')
+                // Navigation is handled by the <a> tag in ScheduleTable
+                // Only call manual handler if there's no registrationUrl
+                if (!batch.registration_url) {
                     onRegisterClick?.(batch.name)
                 }
             }

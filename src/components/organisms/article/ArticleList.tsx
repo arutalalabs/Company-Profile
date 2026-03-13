@@ -2,6 +2,7 @@
 import { Typography, Button, Icon, Image } from '@/components'
 import { useState } from 'react'
 import Link from 'next/link'
+import { trackArticleReadMoreClick, trackArticlePaginationClick } from '@/lib/analytics'
 
 interface Article {
     id: string | number
@@ -150,6 +151,7 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                                     <Link
                                         href={`/articles/${article.slug}`}
                                         className="group flex items-center gap-2 text-[var(--color-accent-600)] hover:text-[var(--color-accent-700)] transition-colors duration-200 cursor-pointer self-start"
+                                        onClick={() => trackArticleReadMoreClick(article.title)}
                                     >
                                         <Typography
                                             as="span"
@@ -181,7 +183,7 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                     <div className="flex justify-center items-center gap-2 sm:gap-3 mt-10 lg:mt-12">
                         {/* Previous Button */}
                         <button
-                            onClick={goToPrevPage}
+                            onClick={() => { trackArticlePaginationClick(currentPage - 1); goToPrevPage(); }}
                             disabled={currentPage === 1}
                             className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-sm sm:text-base font-medium transition-all ${currentPage === 1
                                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
@@ -196,7 +198,7 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                             {getPageNumbers().map((pageNum) => (
                                 <button
                                     key={pageNum}
-                                    onClick={() => goToPage(pageNum)}
+                                    onClick={() => { trackArticlePaginationClick(pageNum); goToPage(pageNum); }}
                                     className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg text-sm sm:text-base font-medium transition-all ${currentPage === pageNum
                                         ? 'bg-[var(--color-accent-600)] text-gray-900 shadow-lg scale-110'
                                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -209,7 +211,7 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
 
                         {/* Next Button */}
                         <button
-                            onClick={goToNextPage}
+                            onClick={() => { trackArticlePaginationClick(currentPage + 1); goToNextPage(); }}
                             disabled={currentPage === totalPages}
                             className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-sm sm:text-base font-medium transition-all ${currentPage === totalPages
                                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'

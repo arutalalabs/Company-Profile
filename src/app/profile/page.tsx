@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { HeroProfile, VisiMision, TalentBuilding, IndustrySolutions, CTA } from '@/components';
 import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('profile')
@@ -14,6 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function ProfilePage() {
   return (
     <main className="min-h-screen bg-white">
+      <ScrollTracker />
       <HeroProfile 
         title="ArutalaLab"
         subtitle="Transformasi Karir dan Solusi Digital Berkualitas"

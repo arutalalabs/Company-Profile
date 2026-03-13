@@ -6,6 +6,7 @@ import { Image } from '@/components/atoms/image';
 import SectionWrapper, { SectionTitle } from '@/components/atoms/SectionWrapper';
 import type { IndustrySolutionsProps } from '@/types/profile';
 import { useIndustrySolutions } from '@/hooks/useIndustrySolutions';
+import { trackIndustrySolutionTabClick } from '@/lib/analytics';
 
 export default function IndustrySolutions({
   mainTitle = "Solusi untuk semua Industri",
@@ -75,6 +76,7 @@ export default function IndustrySolutions({
                                 onClick={() => {
                                     setActiveTab(tab.id);
                                     setIsDropdownOpen(false);
+                                    trackIndustrySolutionTabClick(tab.label);
                                 }}
                                 className={`w-full text-center px-4 py-3 text-sm font-medium transition-colors border-b border-[var(--color-primary-800)] last:border-0 ${
                                     activeTab === tab.id
@@ -95,7 +97,7 @@ export default function IndustrySolutions({
           {tabs.map((tab) => (
             <Button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => { setActiveTab(tab.id); trackIndustrySolutionTabClick(tab.label); }}
               size="md"
               shape="solid"
               color="neutral-50"

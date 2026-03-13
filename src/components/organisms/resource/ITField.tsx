@@ -2,6 +2,7 @@
 import { Typography, Image } from '@/components'
 import { useITField } from '@/hooks/useITField'
 import { IT_FIELDS } from '@/constants/resource'
+import { trackITFieldHover } from '@/lib/analytics'
 
 export default function ITField() {
     const { activeField, toggleField, handleMouseEnter, handleMouseLeave } = useITField()
@@ -30,7 +31,7 @@ export default function ITField() {
                             <div
                                 key={field.id}
                                 className="flex flex-col"
-                                onMouseEnter={() => handleMouseEnter(field.id)}
+                                onMouseEnter={() => { handleMouseEnter(field.id); trackITFieldHover(field.title); }}
                                 onMouseLeave={handleMouseLeave}
                             >
                                 {/* Card Container - Border meliputi keseluruhan */}
