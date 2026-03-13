@@ -2,6 +2,7 @@
 import { Typography, Button, Image } from '@/components'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { trackArticleReadMoreClick, trackArticleHeroPaginationClick } from '@/lib/analytics'
 
 interface Article {
     id?: string | number
@@ -122,7 +123,7 @@ export function ArticleHero({ articles }: ArticleHeroProps) {
 
                                     {/* CTA Button */}
                                     <div className="lg:ml-8">
-                                        <Link href={`/articles/${currentArticle.slug}`}>
+                                        <Link href={`/articles/${currentArticle.slug}`} onClick={() => trackArticleReadMoreClick(currentArticle.title)}>
                                             <Button
                                                 size="md"
                                                 shape="solid"
@@ -160,7 +161,7 @@ export function ArticleHero({ articles }: ArticleHeroProps) {
                 <div className="flex items-center justify-center mt-6">
                     {/* Previous Button */}
                     <button
-                        onClick={goToPrevious}
+                        onClick={() => { trackArticleHeroPaginationClick('prev', currentIndex); goToPrevious(); }}
                         disabled={isAnimating}
                         className="bg-transparent hover:opacity-80 p-2 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         aria-label="Previous slide"
@@ -175,7 +176,7 @@ export function ArticleHero({ articles }: ArticleHeroProps) {
                         {displayArticles.map((_, index) => (
                             <button
                                 key={index}
-                                onClick={() => goToSlide(index)}
+                                onClick={() => { trackArticleHeroPaginationClick('dot', index); goToSlide(index); }}
                                 disabled={isAnimating}
                                 className={`transition-all duration-300 rounded-full ${index === currentIndex
                                     ? 'w-8 h-2 bg-[var(--color-accent-600)]'
@@ -188,7 +189,7 @@ export function ArticleHero({ articles }: ArticleHeroProps) {
 
                     {/* Next Button */}
                     <button
-                        onClick={goToNext}
+                        onClick={() => { trackArticleHeroPaginationClick('next', currentIndex); goToNext(); }}
                         disabled={isAnimating}
                         className="bg-transparent hover:opacity-80 p-2 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         aria-label="Next slide"

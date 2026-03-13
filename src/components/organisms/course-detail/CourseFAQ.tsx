@@ -1,6 +1,7 @@
 'use client'
 import { Typography } from '@/components'
 import { Accordion, type AccordionItemProps } from '@/components/atoms/accordion'
+import { trackCourseFAQToggle } from '@/lib/analytics'
 
 interface CourseFAQProps {
     /** Course title for generating FAQ questions */
@@ -83,6 +84,9 @@ export function CourseFAQ({ courseTitle, categoryName, customFAQs }: CourseFAQPr
                     variant="bordered"
                     size="md"
                     allowMultiple={false}
+                    onItemToggle={(_id, title, isExpanded) =>
+                        trackCourseFAQToggle(title, isExpanded ? 'expand' : 'collapse')
+                    }
                 />
             </div>
         </section>

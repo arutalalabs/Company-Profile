@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { Button } from '@/components'
+import { trackCourseExpandToggle } from '@/lib/analytics'
 import { CourseLearning } from './CourseLearning'
 import { CourseRequirements } from './CourseRequirements'
 import type { CourseMaterial, Instructor, CourseBenefit } from '@/types/course'
@@ -44,7 +45,7 @@ export function CourseDetailExpand({
                     color="accent-600"
                     size="sm"
                     className="gap-2"
-                    onClick={() => setIsExpanded((prev) => !prev)}
+                    onClick={() => { trackCourseExpandToggle(isExpanded ? 'collapse' : 'expand'); setIsExpanded((prev) => !prev); }}
                     rightIcon={
                         <img
                             src="/src/common/rightarrow.svg"

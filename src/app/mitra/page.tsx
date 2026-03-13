@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { MitraHero, MitraSection, CTA } from '@/components'
 import { mitrasApi } from '@/lib/api/mitras'
 import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 
 export const revalidate = 3600
 
@@ -23,6 +24,7 @@ export default async function MitraPage() {
 
     return (
         <main>
+            <ScrollTracker />
             {/* Hero Section */}
             <MitraHero />
 

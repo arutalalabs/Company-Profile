@@ -255,6 +255,7 @@ export const ScheduleTable = forwardRef<HTMLDivElement, ScheduleTableProps>(
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="block w-full"
+                                        onClick={row.onRegisterClick}
                                     >
                                         <Button
                                             size="md"

@@ -2,6 +2,7 @@
 import { Typography, Image } from '@/components'
 import { useProcessSection } from '@/hooks/useProcessSection'
 import { PROCESS_PHASES } from '@/constants/software-services'
+import { trackProcessPhaseClick } from '@/lib/analytics'
 
 export default function ProcessSection() {
     const { activePhase, togglePhase } = useProcessSection()
@@ -64,7 +65,7 @@ export default function ProcessSection() {
                                 >
                                     {/* Header Button */}
                                     <button
-                                        onClick={() => togglePhase(phase.id)}
+                                        onClick={() => { togglePhase(phase.id); trackProcessPhaseClick(phase.title); }}
                                         className="w-full flex items-center justify-between px-5 py-4 lg:px-6 lg:py-5"
                                     >
                                         <Typography

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { ArticleDetailContent } from '@/components/organisms/article-detail'
 import { getArticleBySlugWithContent, getAllArticles, generateArticleSlug } from '@/lib/api/articles'
 import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 
 interface ArticleDetailPageProps {
     params: Promise<{
@@ -49,5 +50,10 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
         notFound()
     }
 
-    return <ArticleDetailContent article={article} />
+    return (
+        <>
+            <ScrollTracker />
+            <ArticleDetailContent article={article} />
+        </>
+    )
 }

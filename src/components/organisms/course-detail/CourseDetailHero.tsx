@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Typography, Button, Tag, PosterModal } from '@/components'
+import { trackCourseDaftarClick, trackCourseLihatDetailClick } from '@/lib/analytics'
 
 interface CourseDetailHeroProps {
     title: string
@@ -171,6 +172,7 @@ export function CourseDetailHero({
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="w-full sm:flex-1"
+                                        onClick={() => trackCourseDaftarClick(title, 'hero')}
                                     >
                                         <Button
                                             size="xs"
@@ -186,7 +188,7 @@ export function CourseDetailHero({
                                         size="xs"
                                         shape='solid'
                                         color='accent-600'
-                                        onClick={isRegistrationClosed ? undefined : onRegisterClick}
+                                        onClick={isRegistrationClosed ? undefined : () => { trackCourseDaftarClick(title, 'hero'); onRegisterClick?.(); }}
                                         disabled={isRegistrationClosed}
                                         className="w-full sm:flex-1 text-gray-900 border-0 px-5 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
@@ -197,7 +199,7 @@ export function CourseDetailHero({
                                     size="xs"
                                     shape='outline'
                                     color='accent-600'
-                                    onClick={onDemoClick || scrollToContent}
+                                    onClick={() => { trackCourseLihatDetailClick(title); (onDemoClick || scrollToContent)(); }}
                                     className="w-full sm:flex-1 text-gray-900 bg-white border-2 px-5 py-3 rounded-full text-sm font-semibold shadow-md hover:shadow-lg hover:bg-gray-50 transition-all"
                                 >
                                     Lihat Detail
@@ -229,6 +231,7 @@ export function CourseDetailHero({
                                             href={registrationUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            onClick={() => trackCourseDaftarClick(title, 'hero')}
                                         >
                                             <Button
                                                 size="sm"
@@ -244,7 +247,7 @@ export function CourseDetailHero({
                                             size="sm"
                                             shape='solid'
                                             color='accent-600'
-                                            onClick={isRegistrationClosed ? undefined : onRegisterClick}
+                                            onClick={isRegistrationClosed ? undefined : () => { trackCourseDaftarClick(title, 'hero'); onRegisterClick?.(); }}
                                             disabled={isRegistrationClosed}
                                             className="text-gray-900 border-0 px-4 py-3 rounded-[20px] text-sm font-medium shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
@@ -255,7 +258,7 @@ export function CourseDetailHero({
                                         size="sm"
                                         shape='outline'
                                         color='accent-600'
-                                        onClick={onDemoClick || scrollToContent}
+                                        onClick={() => { trackCourseLihatDetailClick(title); (onDemoClick || scrollToContent)(); }}
                                         className="text-gray-900 border-2 px-4 py-3 rounded-[20px] text-sm font-medium shadow-none"
                                     >
                                         Lihat Detail

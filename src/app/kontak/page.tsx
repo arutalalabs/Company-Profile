@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { ContactInfo, ContactForm } from '@/components'
 import { getSeoData, buildMetadata, SITE_URL } from '@/lib/api/seo'
+import ScrollTracker from '@/components/atoms/ScrollTracker'
 
 export async function generateMetadata(): Promise<Metadata> {
     const seo = await getSeoData('kontak')
@@ -14,6 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function KontakPage() {
     return (
         <div className="min-h-screen bg-white py-10 lg:py-24 px-4 sm:px-6 lg:px-8">
+            <ScrollTracker />
             {/* Container dengan max width */}
             <div className="max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl mx-auto">
                 {/* Grid Layout 2 Kolom - Responsive */}
