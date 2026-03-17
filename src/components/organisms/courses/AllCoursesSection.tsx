@@ -11,14 +11,39 @@ import { trackCourseCategoryClick, trackCourseDetailClick } from '@/lib/analytic
 
 export default function AllCoursesSection() {
     const { loading, error, filter, setFilter, categories, filteredCourses } = useAllCourses();
+    const ITEMS_PER_PAGE = 9
+    const [currentPage, setCurrentPage] = React.useState(1)
+
+    const totalPages = Math.max(1, Math.ceil(filteredCourses.length / ITEMS_PER_PAGE))
+
+    React.useEffect(() => {
+        setCurrentPage(1)
+    }, [filter])
+
+    const paginatedCourses = React.useMemo(() => {
+        const start = (currentPage - 1) * ITEMS_PER_PAGE
+        return filteredCourses.slice(start, start + ITEMS_PER_PAGE)
+    }, [currentPage, filteredCourses])
 
     if (loading) {
         return (
             <section className="py-12 lg:py-20 bg-white">
                 <div className="mx-auto max-w-xs sm:max-w-md md:max-w-xl lg:max-w-5xl 2xl:max-w-7xl px-4">
-                    <div className="text-center py-12">
-                        <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary-600 border-t-transparent"></div>
-                        <p className="text-gray-500 mt-4">Memuat data pelatihan...</p>
+                    <div className="mb-8 lg:mb-12">
+                        <div className="h-8 w-56 bg-gray-200 rounded-md animate-pulse" />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 min-h-[820px]">
+                        {Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
+                            <div key={index} className="rounded-3xl border border-gray-200 overflow-hidden">
+                                <div className="h-24 bg-gray-200 animate-pulse" />
+                                <div className="p-6 space-y-3">
+                                    <div className="h-5 bg-gray-200 rounded animate-pulse" />
+                                    <div className="h-4 bg-gray-100 rounded animate-pulse" />
+                                    <div className="h-4 bg-gray-100 rounded w-3/4 animate-pulse" />
+                                    <div className="h-10 bg-gray-200 rounded-xl mt-6 animate-pulse" />
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
@@ -127,8 +152,9 @@ export default function AllCoursesSection() {
                         </Typography>
                     </div>
                 ) : (
+                    <>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                        {filteredCourses.map((course) => {
+                        {paginatedCourses.map((course) => {
                             // Handle course_batch - might be array or single object
                             const batchData = course.course_batch as any;
                             const batch = Array.isArray(batchData) ? batchData[0] : batchData;
@@ -150,27 +176,16 @@ export default function AllCoursesSection() {
                             >
                                 {/* Course Image Header */}
                                 <div className="h-24 bg-gradient-to-r from-cyan-500 to-blue-600 relative overflow-hidden">
-                                    {batch?.posterUrl ? (
-                                        <img 
-                                        //     src={batch.posterUrl} 
-                                        //     alt={course.course_title}
-                                        //     className="w-full h-full object-cover"
-                                        />
-                                    ) : (
-                                        <>
-                                            {/* Tech pattern overlay */}
-                                            <div className="absolute inset-0 opacity-30">
-                                                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                                    <path d="M0 0 L100 0 L100 100 L0 100 Z" fill="url(#grid-pattern)" />
-                                                    <defs>
-                                                        <pattern id="grid-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
-                                                            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
-                                                        </pattern>
-                                                    </defs>
-                                                </svg>
-                                            </div>
-                                        </>
-                                    )}
+                                    <div className="absolute inset-0 opacity-30">
+                                        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                            <path d="M0 0 L100 0 L100 100 L0 100 Z" fill="url(#grid-pattern)" />
+                                            <defs>
+                                                <pattern id="grid-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+                                                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
+                                                </pattern>
+                                            </defs>
+                                        </svg>
+                                    </div>
                                 </div>
 
                                 {/* Content */}
@@ -221,6 +236,8 @@ export default function AllCoursesSection() {
                                                     <img 
                                                         src={instructor.profileUrl} 
                                                         alt={instructor.name}
+                                                        loading="lazy"
+                                                        decoding="async"
                                                         className="w-full h-auto object-cover"
                                                     />
                                                 ) : (
@@ -269,6 +286,28 @@ export default function AllCoursesSection() {
                         );
                         })}
                     </div>
+                    {totalPages > 1 && (
+                        <div className="mt-10 flex items-center justify-center gap-2">
+                            <button
+                                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                                disabled={currentPage === 1}
+                                className="px-3 py-2 text-xs font-medium rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Sebelumnya
+                            </button>
+                            <span className="px-3 py-2 text-xs font-medium text-gray-600">
+                                Halaman {currentPage} dari {totalPages}
+                            </span>
+                            <button
+                                onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                                disabled={currentPage === totalPages}
+                                className="px-3 py-2 text-xs font-medium rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Berikutnya
+                            </button>
+                        </div>
+                    )}
+                    </>
                 )}
 
                 {/* Back to IT Education Link */}

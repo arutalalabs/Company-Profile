@@ -27,6 +27,8 @@ export default function CoursesPage() {
             <CTA 
                 title='Mulai Perjalanan Anda!'
                 description='Pelajari skill IT yang relevan dan aplikatif untuk mendukung kesiapan karier di dunia profesional.'
+                imageLoading='eager'
+                imageFetchPriority='high'
             />
         </main>
     )

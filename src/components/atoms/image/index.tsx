@@ -1,5 +1,4 @@
 'use client'
-import '@/styles/global.css'
 import { clsx } from 'clsx'
 import { forwardRef, useState } from 'react'
 
@@ -45,14 +44,12 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
         const [isLoading, setIsLoading] = useState(true)
 
         const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-            console.error('Image failed to load:', src, e)
             setHasError(true)
             setIsLoading(false)
             onError?.(e)
         }
 
         const handleLoad = () => {
-            console.log('Image loaded successfully:', src)
             setIsLoading(false)
         }
 
@@ -149,6 +146,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
                     src={src}
                     alt={alt}
                     loading={loading}
+                    decoding="async"
                     onError={handleError}
                     className={clsx(
                         'w-full h-full transition-opacity duration-200',
