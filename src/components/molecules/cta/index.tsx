@@ -10,6 +10,9 @@ interface CTAProps {
     buttonText?: string
     onButtonClick?: () => void
     contactPath?: string
+    imageLoading?: 'eager' | 'lazy'
+    imageFetchPriority?: 'high' | 'low' | 'auto'
+
 }
 
 export function CTA({
@@ -18,6 +21,8 @@ export function CTA({
     buttonText = 'Hubungi Kami',
     onButtonClick,
     contactPath = '/kontak',
+    imageLoading = 'lazy',
+    imageFetchPriority = 'auto'
 }: CTAProps) {
 
     return (
@@ -84,6 +89,8 @@ export function CTA({
                                     size="xl"
                                     alt="Call to Action"
                                     fit="contain"
+                                    loading={imageLoading}
+                                    fetchPriority={imageFetchPriority}
                                     className="mb-10 sm:mb-0 w-[280px] md:w-[320px] lg:w-[420px] h-[280px] md:h-[370px] lg:h-[460px]"
                                 />
                             </div>
