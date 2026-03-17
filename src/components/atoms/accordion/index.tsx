@@ -1,5 +1,4 @@
 'use client'
-import '@/styles/global.css'
 import { clsx } from 'clsx'
 import { forwardRef, useState } from 'react'
 import { Typography } from '@/components'

@@ -1,7 +1,8 @@
 'use client'
-import { Typography, Button, Icon, Image } from '@/components'
+import { Typography, Button, Icon } from '@/components'
 import { useState } from 'react'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import { trackArticleReadMoreClick, trackArticlePaginationClick } from '@/lib/analytics'
 
 interface Article {
@@ -102,15 +103,15 @@ export function ArticleList({ articles, itemsPerPage = 6 }: ArticleListProps) {
                                 {/* Image - Top on mobile/tablet, Right on desktop */}
                                 <div className="w-full lg:w-[240px] 2xl:w-[280px] h-48 sm:h-56 lg:h-[180px] 2xl:h-[180px] flex-shrink-0 order-1 lg:order-2">
                                     <Link href={`/articles/${article.slug}`}>
-                                        <Image
+                                        <div className="relative w-full h-full rounded-2xl overflow-hidden">
+                                        <NextImage
                                             src={article.image}
                                             alt={article.title}
-                                            fullWidth={true}
-                                            aspectRatio="auto"
-                                            shape="rounded"
-                                            fit="cover"
+                                            fill
+                                            sizes="(min-width: 1536px) 280px, (min-width: 1024px) 240px, (min-width: 640px) 50vw, 100vw"
                                             className="w-full h-full rounded-2xl cursor-pointer hover:opacity-90 transition-opacity"
                                         />
+                                        </div>
                                     </Link>
                                 </div>
 

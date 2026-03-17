@@ -146,6 +146,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
                     src={src}
                     alt={alt}
                     loading={loading}
+                    decoding="async"
                     onError={handleError}
                     className={clsx(
                         'w-full h-full transition-opacity duration-200',

@@ -1,5 +1,4 @@
 'use client'
-import '@/styles/global.css'
 import { Button } from '../../atoms/button'
 import { Image } from '../../atoms/image'
 import { clsx } from 'clsx'

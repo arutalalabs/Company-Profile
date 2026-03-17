@@ -1,4 +1,3 @@
-import '@/styles/global.css'
 import { clsx } from 'clsx'
 import { forwardRef } from 'react'
 export interface ButtonProps
