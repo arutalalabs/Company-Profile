@@ -14,7 +14,7 @@ export interface SeoData {
     meta_description: string
     reference_image?: string
     keyword?: string[]
-    type?: 'ARTICLE' | 'PAGE' | 'WEBSITE' | string
+    type?: 'ARTICLE' | 'PROFILE' | 'PAGE' | 'WEBSITE' | string
 }
 
 export interface SeoApiResponse {
@@ -66,7 +66,19 @@ export function buildMetadata(
     const keywords = seo?.keyword?.length
         ? seo.keyword
         : ['IT Education', 'Resources', 'Software Services']
-    const openGraphType = seo?.type === 'ARTICLE' ? 'article' : 'website'
+    const seoType = seo?.type?.toUpperCase()
+    const pagePathname = new URL(config.pageUrl, SITE_URL).pathname.toLowerCase()
+    const isProfileRoute =
+        pagePathname === '/profile' ||
+        pagePathname.startsWith('/profile/') ||
+        pagePathname === '/mentor' ||
+        pagePathname.startsWith('/mentor/')
+    const openGraphType =
+        seoType === 'ARTICLE'
+            ? 'article'
+            : seoType === 'PROFILE' && isProfileRoute
+                ? 'profile'
+                : 'website'
 
     return {
         metadataBase: new URL('/', config.pageUrl),
