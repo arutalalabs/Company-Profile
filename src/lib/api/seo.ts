@@ -12,13 +12,17 @@ export interface SeoData {
     seo_id: string
     meta_title: string
     meta_description: string
-    is_active: boolean
 }
 
 export interface SeoApiResponse {
     success: boolean
     message: string
-    data: SeoData[]
+    data: {
+        page_id: string
+        page_title: string
+        page_slug: string
+        seos: SeoData  // object, bukan array
+    }
 }
 
 export interface BuildMetadataConfig {
@@ -32,14 +36,14 @@ export interface BuildMetadataConfig {
 // API Function
 // ============================================
 
-export async function getSeoData(pageId: string): Promise<SeoData | null> {
+export async function getSeoData(pagePath: string): Promise<SeoData | null> {
     try {
         const response = await apiFetch<SeoApiResponse>(
-            `/v2/pages/public/seo-active/${pageId}/`,
+            `/v2/pages/public/seo-active/${pagePath}`,
             { revalidate: 60 }
         )
-        if (!response.success || !Array.isArray(response.data)) return null
-        return response.data.find((item) => item.is_active) ?? null
+        if (!response.success || !response.data?.seos) return null
+        return response.data.seos
     } catch {
         return null
     }

@@ -17,7 +17,7 @@ export const revalidate = 3600
 export async function generateMetadata({ params }: ArticleDetailPageProps): Promise<Metadata> {
     const { slug } = await params
     const article = await getArticleBySlugWithContent(slug)
-    const seo = article ? await getSeoData(article.article_id) : null
+    const seo = await getSeoData(`articles/${slug}`)
     return buildMetadata(seo, {
         fallbackTitle: article?.article_title ?? 'Artikel',
         fallbackDescription:

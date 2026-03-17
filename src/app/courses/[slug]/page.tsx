@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: CourseDetailPageProps): Promi
     const { slug } = await params
     const response = await getCourseBySlug(slug)
     const course = response.success && response.data.length > 0 ? response.data[0] : null
-    const seo = course ? await getSeoData(course.course_id) : null
+    const seo = await getSeoData(`courses/${slug}`)
     return buildMetadata(seo, {
         fallbackTitle: course?.course_title ?? 'Courses',
         fallbackDescription:
