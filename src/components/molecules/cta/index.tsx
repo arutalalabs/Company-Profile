@@ -82,7 +82,7 @@ export function CTA({
                         </div>
 
                         {/* Ilustrasi - 40% dengan overflow */}
-                        <div className="w-full md:w-auto md:min-w-[320px] lg:min-w-[400px] relative h-[300px] md:h-auto flex items-end md:items-center justify-center md:justify-end">
+                        <div className="w-full md:w-auto md:min-w-[320px] lg:min-w-[400px] relative h-[300px] md:h-[370px] lg:h-[460px] flex items-end md:items-center justify-center md:justify-end">
                             <div className="relative md:absolute md:bottom-0 md:right-8 lg:right-4">
                                 <Image
                                     src="/src/common/cta.svg"
