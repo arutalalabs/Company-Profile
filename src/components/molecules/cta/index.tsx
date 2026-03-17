@@ -10,8 +10,9 @@ interface CTAProps {
     buttonText?: string
     onButtonClick?: () => void
     contactPath?: string
-    imageLoading?: 'lazy' | 'eager'
-    imageFetchPriority?: 'auto' | 'high' | 'low'
+    imageLoading?: 'eager' | 'lazy'
+    imageFetchPriority?: 'high' | 'low' | 'auto'
+
 }
 
 export function CTA({
@@ -21,7 +22,7 @@ export function CTA({
     onButtonClick,
     contactPath = '/kontak',
     imageLoading = 'lazy',
-    imageFetchPriority = 'auto',
+    imageFetchPriority = 'auto'
 }: CTAProps) {
 
     return (
