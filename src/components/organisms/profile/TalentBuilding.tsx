@@ -9,7 +9,7 @@ export default function TalentBuilding({
   description = "ArutalaLab menyelenggarakan pelatihan IT yang berkualitas melalui bootcamp, kelas online/offline, workshop, dan webinar untuk meningkatkan kompetensi digital individu maupun kalangan industri.",
   images = []
 }: TalentBuildingProps) {
-  const displayImages = [...images, ...images, ...images, ...images]; // Duplicate for seamless loop
+  const displayImages = [...images, ...images]; // Duplicate once for seamless loop with lower render cost
 
   return (
     <section 

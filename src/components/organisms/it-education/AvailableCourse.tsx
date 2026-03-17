@@ -127,27 +127,16 @@ export default function AvailableCourseSection() {
                             <div key={course.course_id} className="bg-white rounded-3xl border border-[var(--color-primary-900)] overflow-hidden hover:scale-105 transition-all duration-300 flex flex-col h-full">
                                 {/* Course Image Header */}
                                 <div className="h-24 bg-gradient-to-r from-cyan-500 to-blue-600 relative overflow-hidden">
-                                    {batch?.posterUrl ? (
-                                        <img 
-                                        //     src={batch.posterUrl} 
-                                        //     alt={course.course_title}
-                                        //     className="w-full h-full object-cover"
-                                        />
-                                    ) : (
-                                        <>
-                                            {/* Tech pattern overlay */}
-                                            <div className="absolute inset-0 opacity-30">
-                                                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                                    <path d="M0 0 L100 0 L100 100 L0 100 Z" fill="url(#grid-pattern)" />
-                                                    <defs>
-                                                        <pattern id="grid-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
-                                                            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
-                                                        </pattern>
-                                                    </defs>
-                                                </svg>
-                                            </div>
-                                        </>
-                                    )}
+                                    <div className="absolute inset-0 opacity-30">
+                                        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                            <path d="M0 0 L100 0 L100 100 L0 100 Z" fill="url(#grid-pattern)" />
+                                            <defs>
+                                                <pattern id="grid-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+                                                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
+                                                </pattern>
+                                            </defs>
+                                        </svg>
+                                    </div>
                                 </div>
 
                                 {/* Content */}
@@ -191,6 +180,8 @@ export default function AvailableCourseSection() {
                                                     <img 
                                                         src={instructor.profileUrl} 
                                                         alt={instructor.name}
+                                                        loading="lazy"
+                                                        decoding="async"
                                                         className="w-full h-auto object-cover"
                                                     />
                                                 ) : (

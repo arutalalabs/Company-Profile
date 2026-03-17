@@ -10,6 +10,8 @@ interface CTAProps {
     buttonText?: string
     onButtonClick?: () => void
     contactPath?: string
+    imageLoading?: 'lazy' | 'eager'
+    imageFetchPriority?: 'auto' | 'high' | 'low'
 }
 
 export function CTA({
@@ -18,6 +20,8 @@ export function CTA({
     buttonText = 'Hubungi Kami',
     onButtonClick,
     contactPath = '/kontak',
+    imageLoading = 'lazy',
+    imageFetchPriority = 'auto',
 }: CTAProps) {
 
     return (
@@ -77,13 +81,15 @@ export function CTA({
                         </div>
 
                         {/* Ilustrasi - 40% dengan overflow */}
-                        <div className="w-full md:w-auto md:min-w-[320px] lg:min-w-[400px] relative h-[300px] md:h-auto flex items-end md:items-center justify-center md:justify-end">
+                        <div className="w-full md:w-auto md:min-w-[320px] lg:min-w-[400px] relative h-[300px] md:h-[370px] lg:h-[460px] flex items-end md:items-center justify-center md:justify-end">
                             <div className="relative md:absolute md:bottom-0 md:right-8 lg:right-4">
                                 <Image
                                     src="/src/common/cta.svg"
                                     size="xl"
                                     alt="Call to Action"
                                     fit="contain"
+                                    loading={imageLoading}
+                                    fetchPriority={imageFetchPriority}
                                     className="mb-10 sm:mb-0 w-[280px] md:w-[320px] lg:w-[420px] h-[280px] md:h-[370px] lg:h-[460px]"
                                 />
                             </div>
