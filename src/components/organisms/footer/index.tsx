@@ -1,5 +1,4 @@
 'use client'
-import '@/styles/global.css'
 import { Typography } from '../../atoms/typography'
 import { Button } from '../../atoms/button'
 import { Icon } from '../../atoms/icon'

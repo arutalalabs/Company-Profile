@@ -1,6 +1,5 @@
 import React from 'react'
 import { clsx } from 'clsx'
-import '@/styles/global.css'
 
 /**
  * Typography component props interface

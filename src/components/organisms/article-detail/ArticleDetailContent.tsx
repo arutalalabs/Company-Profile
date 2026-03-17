@@ -4,7 +4,7 @@ import { Article, ContentBlock } from '@/types/article'
 import { ArticleDetailHero } from './ArticleDetailHero'
 import { BlockRenderer } from './BlockRenderer'
 import { TableOfContents } from './TableOfContents'
-import { Image } from '@/components'
+import NextImage from 'next/image'
 import { CTA } from '@/components/molecules/cta'
 
 interface ArticleDetailContentProps {
@@ -85,14 +85,15 @@ export function ArticleDetailContent({ article }: ArticleDetailContentProps) {
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 lg:gap-12 items-start">
                         <article className="order-2 lg:order-1">
                             {article.article_cover_url && (
-                                <div className="mb-8 w-full max-h-[440px] mx-auto">
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <Image
+                                <div className="mb-8 w-full h-[220px] sm:h-[280px] lg:h-[360px] 2xl:h-[440px] mx-auto relative rounded-2xl overflow-hidden">
+                                    <NextImage
                                         src={article.article_cover_url}
                                         alt={article.article_title}
-                                        shape="rounded"
-                                        className="block w-full h-[220px] sm:h-[280px] lg:h-[360px] 2xl:h-[440px] rounded-2xl object-cover"
-                                        loading="lazy"
+                                        fill
+                                        priority
+                                        fetchPriority="high"
+                                        sizes="(min-width: 1536px) 980px, (min-width: 1024px) 760px, (min-width: 768px) 720px, 100vw"
+                                        className="block w-full h-full object-cover"
                                     />
                                 </div>
                             )}

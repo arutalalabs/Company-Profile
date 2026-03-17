@@ -1,7 +1,8 @@
 'use client'
-import { Typography, Button, Image } from '@/components'
+import { Typography, Button } from '@/components'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import { trackArticleReadMoreClick, trackArticleHeroPaginationClick } from '@/lib/analytics'
 
 interface Article {
@@ -16,10 +17,6 @@ interface ArticleHeroProps {
     articles: Article[]
 }
 
-/**
- * ArticleHero - Hero carousel section for article page with featured articles
- * Shows max 5 latest articles with slide animation and dot pagination
- */
 export function ArticleHero({ articles }: ArticleHeroProps) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
@@ -138,15 +135,15 @@ export function ArticleHero({ articles }: ArticleHeroProps) {
 
                                 {/* Right Image */}
                                 <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-                                    <div className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[300px] 2xl:max-w-[360px] rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                                    <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[300px] 2xl:max-w-[360px] aspect-[4/3] rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
                                         <Link href={`/articles/${currentArticle.slug}`}>
-                                            <Image
+                                            <NextImage
                                                 src={currentArticle.image}
                                                 alt={currentArticle.title}
-                                                fullWidth={true}
-                                                aspectRatio="landscape"
-                                                shape="rounded"
-                                                fit="cover"
+                                                fill
+                                                priority
+                                                fetchPriority="high"
+                                                sizes="(min-width: 1536px) 360px, (min-width: 1024px) 300px, (min-width: 768px) 360px, (min-width: 640px) 320px, 280px"
                                                 className="w-full h-full rounded-2xl cursor-pointer scale-105 hover:scale-107 transition-transform duration-500"
                                             />
                                         </Link>
