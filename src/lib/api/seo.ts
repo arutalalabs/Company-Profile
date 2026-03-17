@@ -12,6 +12,9 @@ export interface SeoData {
     seo_id: string
     meta_title: string
     meta_description: string
+    reference_image?: string
+    keyword?: string[]
+    type?: 'ARTICLE' | 'PAGE' | 'WEBSITE' | string
 }
 
 export interface SeoApiResponse {
@@ -59,6 +62,11 @@ export function buildMetadata(
 ): Metadata {
     const title = seo?.meta_title || config.fallbackTitle
     const description = seo?.meta_description || config.fallbackDescription
+    const image = seo?.reference_image || '/src/common/logo.png'
+    const keywords = seo?.keyword?.length
+        ? seo.keyword
+        : ['IT Education', 'Resources', 'Software Services']
+    const openGraphType = seo?.type === 'ARTICLE' ? 'article' : 'website'
 
     return {
         metadataBase: new URL('/', config.pageUrl),
@@ -66,26 +74,26 @@ export function buildMetadata(
             ? { default: title, template: '%s | ArutalaLab' }
             : title,
         description,
-        keywords: ['IT Education', 'Resources', 'Software Services'],
+        keywords,
         authors: [{ name: 'ArutalaLab' }],
         creator: 'ArutalaLab',
         alternates: {
             canonical: config.pageUrl,
         },
         openGraph: {
-            type: 'website',
+            type: openGraphType,
             locale: 'id_ID',
             url: config.pageUrl,
             title,
             description,
             siteName: 'ArutalaLab',
-            images: [{ url: '/src/common/logo.png', width: 1200, height: 630 }],
+            images: [{ url: image, width: 1200, height: 630 }],
         },
         twitter: {
             card: 'summary_large_image',
             title,
             description,
-            images: ['/src/common/logo.png'],
+            images: [image],
             creator: '@arutalalab',
             site: '@arutalalab',
         },
