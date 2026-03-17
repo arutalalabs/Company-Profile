@@ -57,8 +57,14 @@ export function buildMetadata(
     seo: SeoData | null,
     config: BuildMetadataConfig
 ): Metadata {
-    const title = seo?.meta_title || config.fallbackTitle
-    const description = seo?.meta_description || config.fallbackDescription
+    const title =
+        typeof seo?.meta_title === 'string' && seo.meta_title.trim().length > 0
+            ? seo.meta_title.trim()
+            : config.fallbackTitle
+    const description =
+        typeof seo?.meta_description === 'string' && seo.meta_description.trim().length > 0
+            ? seo.meta_description.trim()
+            : config.fallbackDescription
 
     return {
         metadataBase: new URL('/', config.pageUrl),
