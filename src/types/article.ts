@@ -42,6 +42,17 @@ export interface QuoteBlockData {
     alignment?: 'left' | 'center' | 'right'
 }
 
+export interface LinkBlockData {
+    link?: string
+    meta?: {
+        title?: string
+        description?: string
+        image?: {
+            url?: string
+        }
+    }
+}
+
 // Union type for content blocks
 export type ContentBlock =
     | { id: string; type: 'paragraph'; data: ParagraphBlockData }
@@ -50,6 +61,8 @@ export type ContentBlock =
     | { id: string; type: 'list'; data: ListBlockData }
     | { id: string; type: 'code'; data: CodeBlockData }
     | { id: string; type: 'quote'; data: QuoteBlockData }
+    | { id: string; type: 'linkTool'; data: LinkBlockData }
+    | { id: string; type: 'link'; data: LinkBlockData }
 
 // ============================================
 // Article Types

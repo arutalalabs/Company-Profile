@@ -27,7 +27,10 @@ function RenderItems({ items, style }: { items: (string | ListItem)[], style: 'o
                     key={index}
                     className="text-base sm:text-lg text-[var(--color-neutral-700)] leading-relaxed pl-2"
                 >
-                    <span dangerouslySetInnerHTML={{ __html: getItemContent(item) }} />
+                    <span
+                        className="[&_a]:font-medium [&_a]:text-[var(--color-accent-700)] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[var(--color-accent-500)] [&_a]:transition-colors [&_a:hover]:text-[var(--color-accent-800)] [&_a:focus-visible]:text-[var(--color-accent-800)]"
+                        dangerouslySetInnerHTML={{ __html: getItemContent(item) }}
+                    />
                     {getItemChildren(item).length > 0 && (
                         <RenderItems items={getItemChildren(item)} style={style} />
                     )}
