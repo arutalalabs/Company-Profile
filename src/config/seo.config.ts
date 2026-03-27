@@ -1,5 +1,5 @@
 const SITE_URL =
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://www.arutalalab.com/'
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://www.arutalalab.com'
 
 interface SEOConfig {
     titleTemplate?: string
