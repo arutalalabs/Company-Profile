@@ -27,7 +27,7 @@ export function QuoteBlock({ data }: QuoteBlockProps) {
             `}
         >
             <p
-                className="text-lg sm:text-xl text-[var(--color-neutral-800)] italic leading-relaxed"
+                className="text-lg sm:text-xl text-[var(--color-neutral-800)] italic leading-relaxed [&_a]:font-medium [&_a]:text-[var(--color-accent-700)] [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-[var(--color-accent-500)] [&_a]:transition-colors [&_a:hover]:text-[var(--color-accent-800)] [&_a:focus-visible]:text-[var(--color-accent-800)]"
                 dangerouslySetInnerHTML={{ __html: text }}
             />
             {caption && (

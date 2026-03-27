@@ -7,7 +7,8 @@ import {
     ImageBlock,
     ListBlock,
     CodeBlock,
-    QuoteBlock
+    QuoteBlock,
+    LinkBlock
 } from './blocks'
 
 interface BlockRendererProps {
@@ -31,6 +32,10 @@ export function BlockRenderer({ block }: BlockRendererProps) {
             return <CodeBlock data={block.data} />
         case 'quote':
             return <QuoteBlock data={block.data} />
+        case 'linkTool':
+            return <LinkBlock data={block.data} />
+        case 'link':
+            return <LinkBlock data={block.data} />
         default:
             // Unknown block type - render nothing
             console.warn('Unknown block type:', (block as { type: string }).type)
