@@ -15,49 +15,49 @@ const staticRoutes: MetadataRoute.Sitemap = [
         priority: 1,
     },
     {
-        url: `${SITE_URL}/articles`,
+        url: `${SITE_URL}articles`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.8,
     },
     {
-        url: `${SITE_URL}/courses`,
+        url: `${SITE_URL}courses`,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.8,
     },
     {
-        url: `${SITE_URL}/it-education`,
+        url: `${SITE_URL}it-education`,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.7,
     },
     {
-        url: `${SITE_URL}/resources`,
+        url: `${SITE_URL}resources`,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.7,
     },
     {
-        url: `${SITE_URL}/software-services`,
+        url: `${SITE_URL}software-services`,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.7,
     },
     {
-        url: `${SITE_URL}/profile`,
+        url: `${SITE_URL}profile`,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.6,
     },
     {
-        url: `${SITE_URL}/mitra`,
+        url: `${SITE_URL}mitra`,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.6,
     },
     {
-        url: `${SITE_URL}/kontak`,
+        url: `${SITE_URL}kontak`,
         lastModified: new Date(),
         changeFrequency: 'yearly',
         priority: 0.5,
@@ -72,7 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             (article) => article.article_status === 'PUBLISHED'
         )
         articleRoutes = publishedArticles.map((article) => ({
-            url: `${SITE_URL}/articles/${article.article_slug || generateArticleSlug(article.article_title)}`,
+            url: `${SITE_URL}articles/${article.article_slug || generateArticleSlug(article.article_title)}`,
             lastModified: article.updated_at ?? article.created_at ?? new Date(),
             changeFrequency: 'weekly' as const,
             priority: 0.7,
@@ -85,7 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     try {
         const coursesResponse = await getAllCourse()
         courseRoutes = coursesResponse.data.map((course) => ({
-            url: `${SITE_URL}/courses/${generateCourseSlug(course.course_title)}`,
+            url: `${SITE_URL}courses/${generateCourseSlug(course.course_title)}`,
             lastModified: new Date(),
             changeFrequency: 'weekly' as const,
             priority: 0.7,
