@@ -6,9 +6,56 @@ interface QuoteBlockProps {
     data: QuoteBlockData
 }
 
-/**
- * QuoteBlock - Renders blockquotes with optional caption
- */
+function sanitizeHtml(input: string) {
+    if (!input) return ''
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(input, 'text/html')
+
+    const allowedTags = new Set(['A', 'STRONG', 'EM', 'B', 'I', 'U', 'SPAN'])
+
+    function isValidHref(href: string | null) {
+        if (!href) return false
+        try {
+            new URL(href, location.href)
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    function sanitizeNode(node: Node) {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+            const el = node as HTMLElement
+            if (!allowedTags.has(el.tagName)) {
+                const parent = el.parentNode
+                while (el.firstChild) parent?.insertBefore(el.firstChild, el)
+                parent?.removeChild(el)
+                return
+            }
+
+            if (el.tagName === 'A') {
+                const href = el.getAttribute('href')
+                if (!isValidHref(href)) {
+                    el.removeAttribute('href')
+                } else {
+                    el.setAttribute('target', '_blank')
+                    el.setAttribute('rel', 'noopener noreferrer')
+                }
+                Array.from(el.attributes).forEach(attr => {
+                    if (!['href', 'target', 'rel'].includes(attr.name)) el.removeAttribute(attr.name)
+                })
+            } else {
+                Array.from(el.attributes).forEach(attr => el.removeAttribute(attr.name))
+            }
+        }
+
+        Array.from(node.childNodes).forEach(sanitizeNode)
+    }
+
+    Array.from(doc.body.childNodes).forEach(sanitizeNode)
+    return doc.body.innerHTML
+}
+
 export function QuoteBlock({ data }: QuoteBlockProps) {
     const { text, caption, alignment = 'left' } = data
 
@@ -31,9 +78,10 @@ export function QuoteBlock({ data }: QuoteBlockProps) {
                 dangerouslySetInnerHTML={{ __html: text }}
             />
             {caption && (
-                <footer className="mt-4 text-sm text-[var(--color-neutral-600)] font-medium">
-                    — {caption}
-                </footer>
+                <footer
+                    className="mt-4 text-sm text-[var(--color-neutral-600)] font-medium"
+                    dangerouslySetInnerHTML={{ __html: `— ${sanitizeHtml(caption)}` }}
+                />
             )}
         </blockquote>
     )
